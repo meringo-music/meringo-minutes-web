@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="/assets/css/site.css">
   <script src="/assets/js/theme-init.js"></script>
   <script type="module" src="/assets/js/site.js"></script>
+  <script type="module" src="/assets/js/demo.js"></script>
 </head>
 <body data-cta-state="prelaunch">
   <!-- sync:header -->
@@ -61,7 +62,7 @@
         <div>
           <p class="eyebrow">A meeting recorder for the Mac</p>
           <h1 id="hero-title">Meeting notes you can check against the recording.</h1>
-          <p class="lead">Meringo Minutes records your meetings, transcribes them and writes the summary, by default all on your own Mac. Click a timestamp in the summary and the transcript opens at that line, ready to play.</p>
+          <p class="lead">Meringo Minutes records your meetings, transcribes them and writes the summary, by default all on your own Mac. Click a timestamp in the summary and the transcript opens at that line, ready to play. Further down is its <a href="#demo">real output for a made-up meeting</a>, with the mistakes marked.</p>
           <div class="actions">
             <a class="button button-primary" href="mailto:support@meringo.app?subject=Tell%20me%20when%20Meringo%20Minutes%20is%20ready">Tell me when it's ready</a>
           </div>
@@ -86,6 +87,169 @@
           </div>
           <figcaption>Illustrative example: a fictional meeting read by synthetic voices. The question and the answer are copied word for word from Meringo Minutes <span data-fact="app-version">1.1.0 (3)</span> on <time datetime="2026-09-23">23 September 2026</time>. The window is re-set in HTML.</figcaption>
           <p class="note">The meeting did include <q>Eight weeks at that day rate is somewhere around <span data-fact="demo-locum-total">22,000</span>.</q> One division turns that into a day rate nobody quoted. It didn't do the division. Of the <span data-fact="ask-unanswerable">8</span> questions the meeting doesn't answer, or answers only in part, it refused all <span data-fact="ask-unanswerable-refused">8</span>.</p>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section demo" id="demo" aria-labelledby="demo-title" data-audit="off">
+      <div class="wrap">
+        <div class="prose">
+          <h2 id="demo-title">What Meringo Minutes made of one meeting</h2>
+          <p>Weekly partners meeting is made up. Three synthetic voices read a written script, <span data-fact="demo-duration">3 minutes 53 seconds</span> of it, and the recording was imported into Meringo Minutes <span data-fact="app-version-number">1.1.0</span> on <time datetime="2026-09-23">23 September 2026</time>. Everything inside the window is what the app wrote, copied from its own files, and none of it has been tidied.</p>
+          <p class="fine">Illustrative example: a fictional meeting read by synthetic voices.</p>
+          <p class="fine">Re-set in HTML from the app's exported files. Meringo Minutes <span data-fact="app-version-build">1.1.0 (build 3)</span>, captured <time datetime="2026-09-23">23 September 2026</time> on an <span data-fact="test-mac-chip">M4</span> Mac with <span data-fact="test-mac-memory">24 GB</span> of memory.</p>
+        </div>
+
+        <div class="demo-score" data-demo aria-labelledby="score-title" role="group">
+          <h3 id="score-title">Where it went wrong, counted</h3>
+          <!-- sync:demo-score -->
+          <ul class="score-list">
+            <li><b data-tally="lineNo">4</b> of <b data-tally="anchored">11</b> timestamps land on a line that doesn't say the claim</li>
+            <li>the other <b data-tally="linePartly">7</b> land on a line that says only part of it</li>
+            <li><b data-tally="keptPartly">4</b> of <b data-tally="kept">12</b> kept sentences are only partly supported by the transcript</li>
+            <li><b data-tally="trapsRefused">8</b> of <b data-tally="traps">8</b> questions the meeting doesn't answer, or answers only in part: refused</li>
+            <li><b data-tally="answerableRefused">1</b> of <b data-tally="answerable">8</b> answerable questions: refused anyway</li>
+            <li><b data-tally="invented">1</b> answer adds a word nobody said</li>
+          </ul>
+          <!-- /sync:demo-score -->
+          <p class="fine">The page counts these from the audit notes each time it loads. Turn on Show the audit to see each one.</p>
+        </div>
+
+        <div class="demo-controls">
+          <div class="demo-toggle" data-demo-js hidden>
+            <label class="switch"><input type="checkbox" role="switch" aria-describedby="audit-help" data-audit-toggle> Show the audit</label>
+            <p id="audit-help" class="fine">Off, you see what the app shows and nothing more. On, each summary sentence and each answer is marked yes, partly or no against the transcript, with where the supporting line actually is. A flagged sentence shows its note either way.</p>
+          </div>
+          <div class="demo-audio">
+            <audio controls preload="none" src="/assets/demo/weekly-partners-meeting.m4a" aria-label="The recording of Weekly partners meeting"></audio>
+            <p class="fine">The recording is <span data-fact="demo-audio-size">3.5 MB</span> and loads the first time you press play.</p>
+          </div>
+        </div>
+
+        <div class="demo-mount" data-demo-mount></div>
+
+        <div class="demo-tray" data-demo data-demo-js data-demo-tray hidden>
+          <h3>The 16 questions it was asked</h3>
+          <p class="fine">Pick one to see the app's answer word for word, with the lines it cites.</p>
+        </div>
+
+        <details class="demo-static" data-demo data-demo-static>
+          <summary>The summary and the answers, as plain text</summary>
+          <!-- sync:demo -->
+          <div class="demo-text">
+            <h3 data-lint="app">Meeting Summary</h3>
+            <p data-lint="app">The key decision was to bring in a locum to manage the commercial backlog, with Dana tasked to arrange this by the end of Q3.</p>
+            <h4 data-lint="app">Key Decisions</h4>
+            <ul>
+              <li><p data-lint="app"><strong>Intake Backlog</strong>: The team decided to bring in a locum for eight weeks to address the commercial backlog, with Dana responsible for arranging this by the end of Q3. <span class="ts">1:33</span></p></li>
+              <li><p data-lint="app"><strong>Pemberton File</strong>: Marcus was instructed to write again to the opposing side regarding the added documents, with a deadline for a response. <span class="ts">2:34</span></p></li>
+              <li><p data-lint="app"><strong>Software Renewal</strong>: The team agreed to query the software provider about the 60% increase in renewal costs and to shop around if necessary. <span class="ts">3:05</span></p><p class="audit-static"><strong>Line: no · Transcript: yes.</strong> Right claim, wrong line. 3:05 is Priya asking whether everyone's read the budget draft. The 60% is at 3:13, and the decision to query it and shop around runs from 3:35 to 3:44.</p></li>
+            </ul>
+            <h4 data-lint="app">Action Items</h4>
+            <ul>
+              <li><p data-lint="app"><strong>Dana</strong>: Arrange for a locum to manage the commercial backlog by the end of Q3. <span class="ts">1:33</span></p></li>
+              <li><p data-lint="app"><strong>Dana</strong>: Query the software provider about the 60% increase in renewal costs and ask for itemization before the renewal date. <span class="ts">3:32</span></p><p class="audit-static"><strong>Line: no · Transcript: yes.</strong> One line early. 3:32 is Dana saying the firm never asked for the AI features; Priya hands her the job at 3:35.</p></li>
+            </ul>
+            <h4 data-lint="app">Discussion Notes</h4>
+            <ul>
+              <li><p data-lint="app"><strong>Intake Backlog</strong>: The backlog is currently 14 days, up from 9 days in June. <span class="ts">0:11</span> The commercial backlog increased due to Aisha's absence, leaving 31 new inquiries sitting since August 18. <span class="ts">0:37</span> Marcus took over some of Aisha's work but noted that the backlog is still problematic.</p><p class="audit-static"><strong>“The backlog is currently 14…” Line: no · Transcript: partly.</strong> Two problems. 0:11 is the agenda (the figures are at 0:20 and 0:25), and 14 and 9 days are the commercial numbers: Dana puts private client at about 5 days, at 0:31 to 0:37.</p><p class="audit-static"><strong>“The commercial backlog increased due…” Line: partly · Transcript: partly.</strong> Two facts merged, and the check kept it. There are 31 inquiries (0:57) and only the oldest dates from 18 August (0:59). Nobody says Aisha leaving caused them.</p><p class="audit-static"><strong>“Marcus took over some of…” Line: no · Transcript: partly.</strong> Half right, on the wrong line. Marcus says he picked up about a third of it at 0:44. Nobody says he called the backlog still a problem.</p></li>
+              <li><p data-lint="app"><strong>Pemberton File</strong>: The disclosure deadline was extended, but the bundle needs to be agreed by mid-October due to the opposing side adding 42 documents after the deadline. <span class="ts">2:13</span></p><p class="audit-static"><strong>Line: partly · Transcript: partly.</strong> Wrong cause. Mid-October comes from the hearing on 4 November and the three weeks before it (2:25 to 2:31). The 42 extra documents at 2:34 are a risk to that date.</p></li>
+              <li><p data-lint="app"><strong>Budget</strong>: The budget draft was reviewed, with a significant increase in the software renewal cost noted. <span class="ts">3:02</span> The team agreed to query the software provider and consider alternatives if necessary. <span class="ts">3:08</span></p></li>
+            </ul>
+            <h4 data-lint="app">Open Questions &amp; Next Steps</h4>
+            <h4 data-lint="app">4 unverified sentences</h4>
+            <p data-lint="app">Written by the AI, but the check model found that the transcript lines it worked from don't say this. Read it as a lead, not a finding.</p>
+            <ul>
+              <li><p data-lint="app">The meeting, attended by Priya, Marcus, and Dana, focused on addressing the intake backlog, the Pemberton file, and the budget.</p></li>
+              <li><p data-lint="app"><strong>Marcus</strong>: Write to the opposing side regarding the added documents and set a deadline for a response by the end of the week.</p></li>
+              <li><p data-lint="app"><strong>Intake Backlog</strong>: How will the locum's work be integrated with the existing team?</p><p class="audit-static"><strong>Transcript: no.</strong> Nobody in the meeting asks this. Set aside is the right place for it.</p></li>
+              <li><p data-lint="app"><strong>Software Renewal</strong>: What are the specific features causing the 60% increase, and are they necessary for the firm's operations?</p></li>
+            </ul>
+            <h3>The 16 questions it was asked</h3>
+            <ol class="exchanges">
+              <li><p class="q" data-lint="app"><strong>Why did the commercial backlog get worse?</strong></p><div data-lint="app"><p>The commercial backlog got worse because Aisha's queue was not picked up after she left.</p><p class="ask-cite"><span class="ts">0:37</span> Dana: Commercial went from 9 to 14 because we lost Aisha and nobody picked up her queue.</p></div></li>
+              <li><p class="q" data-lint="app"><strong>How many new enquiries are waiting, and how old is the oldest?</strong></p><div data-lint="app"><p>There are 31 new enquiries waiting.</p><p class="ask-cite"><span class="ts">0:57</span> Dana: 31 as of this morning.</p><p>The oldest enquiry is from August 18th.</p><p class="ask-cite"><span class="ts">0:59</span> Dana: Oldest is from the 18th of August.</p></div></li>
+              <li><p class="q" data-lint="app"><strong>What did we decide about the backlog?</strong></p><div data-lint="app"><p>I found nothing in this meeting that says that.</p></div><p class="audit-static"><strong>Verdict: no · Refused, wrongly.</strong> The answer is in the meeting: Priya rules out closing intake at 1:30, and the locum is agreed at 1:33. Of the two ways to be wrong, it's the one I'd rather it made.</p></li>
+              <li><p class="q" data-lint="app"><strong>When does the Pemberton bundle need to be agreed?</strong></p><div data-lint="app"><p>Marcus: “The hearing is the 4th of November, so realistically we want it agreed three weeks before.”</p><p class="ask-cite"><span class="ts">2:25</span> Marcus: The hearing is the 4th of November, so realistically we want it agreed three weeks before.</p><p>Marcus is concerned that the other side keeps adding documents, complicating the agreement process.</p><p class="ask-cite"><span class="ts">2:34</span> Marcus: Only if their side keeps adding documents, they've added 42 since we last agreed a version.</p><p class="ask-foot">1 shown in the transcript's own words: the check model would not support the wording.</p></div></li>
+              <li><p class="q" data-lint="app"><strong>How many documents has the other side added since the last agreed version?</strong></p><div data-lint="app"><p>The other side has added 42 documents since the last agreed version.</p><p class="ask-cite"><span class="ts">2:34</span> Marcus: Only if their side keeps adding documents, they've added 42 since we last agreed a version.</p></div></li>
+              <li><p class="q" data-lint="app"><strong>How much has the software renewal gone up?</strong></p><div data-lint="app"><p>The software renewal has gone up sixty percent.</p><p class="ask-cite"><span class="ts">3:13</span> Dana: It's gone up sixty percent and nobody can tell me why.</p><p>This means it has increased from four thousand two hundred to just under seven thousand dollars.</p><p class="ask-cite"><span class="ts">3:18</span> Dana: Sixty percent? From four thousand two hundred to just under seven thousand.</p></div><p class="audit-static"><strong>Verdict: partly · Answered, with an invented word.</strong> Nobody in the meeting names a currency. "Dollars" is the app's own addition, the check let it through with no footnote, and asking again produced the same sentence word for word.</p></li>
+              <li><p class="q" data-lint="app"><strong>Who is writing to the other side about the bundle, and when?</strong></p><div data-lint="app"><p>Marcus is writing to the other side about the bundle.</p><p class="ask-cite"><span class="ts">2:34</span> Marcus: Only if their side keeps adding documents, they've added 42 since we last agreed a version.</p><p>Priya instructs Marcus to write again, copying their supervising partner.</p><p class="ask-cite"><span class="ts">2:50</span> Priya: Write again, copy their supervising partner and give them a date.</p><p>Priya asks Marcus to do it by next Friday at the latest.</p><p class="ask-cite"><span class="ts">2:54</span> Priya: Marcus, can you do that next Friday at the latest?</p><p>Marcus says he can do it sooner than later.</p><p class="ask-cite"><span class="ts">2:58</span> Marcus: I can do it sooner than later.</p></div><p class="audit-static"><strong>Verdict: partly · Answered, two slips.</strong> The first sentence cites 2:34, which doesn't say Marcus is writing (that's 2:50 to 2:54). And the answer leaves out Marcus's own when: "I'll get it out this week," at 3:00.</p></li>
+              <li><p class="q" data-lint="app"><strong>Did anyone disagree with closing intake?</strong></p><div data-lint="app"><p>Marcus disagreed with closing intake.</p><p class="ask-cite"><span class="ts">1:21</span> Marcus: We're not closing the door.</p><p>Marcus explained that closing intake would lose referrals.</p><p class="ask-cite"><span class="ts">1:23</span> Marcus: Half our referrals come from two accountants, and they'll just send the next one somewhere else.</p><p>Priya: “I agree with Marcus. We don't close in 8.”</p><p class="ask-cite"><span class="ts">1:30</span> Priya: I agree with Marcus. We don't close in 8.</p><p class="ask-foot">1 shown in the transcript's own words: the check model would not support the wording.</p></div></li>
+              <li><p class="q" data-lint="app"><strong>What day rate did the agency quote for the locum?</strong></p><div data-lint="app"><p>I found nothing in this meeting that says that.</p></div></li>
+              <li><p class="q" data-lint="app"><strong>What currency is the locum budget in?</strong></p><div data-lint="app"><p>I found nothing in this meeting that says that.</p></div></li>
+              <li><p class="q" data-lint="app"><strong>What date is "next Friday"?</strong></p><div data-lint="app"><p>I found nothing in this meeting that says that.</p></div></li>
+              <li><p class="q" data-lint="app"><strong>Which agency are we using?</strong></p><div data-lint="app"><p>I found nothing in this meeting that says that.</p></div></li>
+              <li><p class="q" data-lint="app"><strong>Why did the software renewal go up?</strong></p><div data-lint="app"><p>I found nothing in this meeting that says that.</p></div></li>
+              <li><p class="q" data-lint="app"><strong>Who is Tom?</strong></p><div data-lint="app"><p>I found nothing in this meeting that says that.</p></div></li>
+              <li><p class="q" data-lint="app"><strong>What's the weather in London today?</strong></p><div data-lint="app"><p>I found nothing in this meeting that says that.</p></div></li>
+              <li><p class="q" data-lint="app"><strong>Summarise our last three meetings.</strong></p><div data-lint="app"><p>I found nothing in this meeting that says that.</p></div></li>
+            </ol>
+          </div>
+          <!-- /sync:demo -->
+        </details>
+
+        <details class="demo-script" data-demo>
+          <summary>What was actually said</summary>
+          <p class="fine">The script the voices read. Where the transcript differs from it, the transcript misheard.</p>
+          <!-- sync:demo-script -->
+          <ol class="script" data-lint="reference">
+            <li><strong>Priya:</strong> Right, that's everyone. Thanks for moving this — I know Thursday is bad for half the room.</li>
+            <li><strong>Marcus:</strong> It's fine. I've got a hard stop at twenty past, though.</li>
+            <li><strong>Priya:</strong> Noted. Three things: the intake backlog, the Pemberton file, and then budget. Backlog first.</li>
+            <li><strong>Dana:</strong> So the number is worse than last month. We're at fourteen days from first contact to opened matter. It was nine in June.</li>
+            <li><strong>Priya:</strong> Fourteen. Across everything, or just the commercial side?</li>
+            <li><strong>Dana:</strong> Commercial is the problem. Private client is holding at about five days. Commercial went from nine to fourteen because we lost Aisha and nobody picked up her queue.</li>
+            <li><strong>Marcus:</strong> That's not quite fair — I picked up about a third of it.</li>
+            <li><strong>Dana:</strong> A third of the active ones. The new enquiries have been sitting.</li>
+            <li><strong>Priya:</strong> How many are sitting?</li>
+            <li><strong>Dana:</strong> Thirty-one as of this morning. Oldest is from the eighteenth of August.</li>
+            <li><strong>Marcus:</strong> That's six weeks. That's a complaint waiting to happen.</li>
+            <li><strong>Priya:</strong> Agreed. So what do we actually do this week, not in principle.</li>
+            <li><strong>Dana:</strong> Two options. We either bring in a locum for eight weeks, or we stop taking new commercial enquiries until the queue is clear.</li>
+            <li><strong>Marcus:</strong> We're not closing the door. Half our referrals come from two accountants and they'll just send the next one somewhere else.</li>
+            <li><strong>Priya:</strong> I agree with Marcus. We don't close intake. Let's do the locum.</li>
+            <li><strong>Dana:</strong> Then I need a budget number before I can ring the agency.</li>
+            <li><strong>Priya:</strong> What's it likely to be?</li>
+            <li><strong>Dana:</strong> Eight weeks at their day rate is somewhere around twenty-two thousand. Call it twenty-five with the agency fee.</li>
+            <li><strong>Priya:</strong> That's more than I expected but it's less than the cost of losing the referrers. Approved up to twenty-five. Dana, can you get that agreed with the agency and have someone starting by the end of the quarter?</li>
+            <li><strong>Dana:</strong> I'll ring them tomorrow. End of Q3 is realistic if they've got anyone on the bench.</li>
+            <li><strong>Priya:</strong> Good. Second thing — the Pemberton file.</li>
+            <li><strong>Marcus:</strong> I've been through it. The disclosure deadline was extended, so we're not in breach, but the bundle is still not agreed with the other side.</li>
+            <li><strong>Priya:</strong> When does it need to be agreed by?</li>
+            <li><strong>Marcus:</strong> The hearing is the fourth of November, so realistically we want it agreed three weeks before.</li>
+            <li><strong>Priya:</strong> So mid-October. Is that a problem?</li>
+            <li><strong>Marcus:</strong> Only if their side keeps adding documents. They've added forty-two since we last agreed a version.</li>
+            <li><strong>Dana:</strong> Forty-two? After the deadline?</li>
+            <li><strong>Marcus:</strong> After the deadline. I've written to them about it and had nothing back.</li>
+            <li><strong>Priya:</strong> Write again, copy their supervising partner, and give them a date. Marcus, can you do that next Friday at the latest?</li>
+            <li><strong>Marcus:</strong> I can do it sooner than that. I'll get it out this week.</li>
+            <li><strong>Priya:</strong> Even better. Last thing, budget. Tom sent round the draft — has everyone read it?</li>
+            <li><strong>Dana:</strong> I've read it. The only line I'd query is the software renewal. It's gone up sixty per cent and nobody can tell me why.</li>
+            <li><strong>Priya:</strong> Sixty per cent?</li>
+            <li><strong>Dana:</strong> From four thousand two hundred to just under seven thousand. Same number of seats.</li>
+            <li><strong>Marcus:</strong> That'll be the AI features they added. Everyone's doing it.</li>
+            <li><strong>Dana:</strong> We didn't ask for the AI features.</li>
+            <li><strong>Priya:</strong> Then we query it. Dana, put that in writing to them before the renewal date and ask them to itemise it. If they can't, we shop around.</li>
+            <li><strong>Dana:</strong> Happy to.</li>
+            <li><strong>Priya:</strong> Anything else? No? Then we're done four minutes early, which never happens. Thanks everyone.</li>
+          </ol>
+          <!-- /sync:demo-script -->
+        </details>
+
+        <figure class="demo-frames">
+          <picture>
+            <source media="(prefers-color-scheme: dark)" srcset="/assets/img/frames/summary-top-dark.webp" type="image/webp">
+            <source media="(prefers-color-scheme: dark)" srcset="/assets/img/frames/summary-top-dark.png">
+            <source srcset="/assets/img/frames/summary-top-light.webp" type="image/webp">
+            <img src="/assets/img/frames/summary-top-light.png" width="1280" height="712" loading="lazy" decoding="async" alt="The same meeting in the Meringo Minutes window: the Summary tab, with a timestamp beside each point, All 11 claims traced to the recording, and Checked at the top right.">
+          </picture>
+          <picture>
+            <source media="(prefers-color-scheme: dark)" srcset="/assets/img/frames/ask-refusal-dark.webp" type="image/webp">
+            <source media="(prefers-color-scheme: dark)" srcset="/assets/img/frames/ask-refusal-dark.png">
+            <source srcset="/assets/img/frames/ask-refusal-light.webp" type="image/webp">
+            <img src="/assets/img/frames/ask-refusal-light.png" width="1280" height="280" loading="lazy" decoding="async" alt="The Ask tab in the Meringo Minutes window. The question: What day rate did the agency quote for the locum? The answer: I found nothing in this meeting that says that.">
+          </picture>
+          <figcaption>The app itself, from the same capture: the top of the summary, and Ask refusing the day-rate question. Cropped from full-window screenshots; nothing in them is retouched.</figcaption>
         </figure>
       </div>
     </section>

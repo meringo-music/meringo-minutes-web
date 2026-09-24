@@ -1,0 +1,18 @@
+{
+  "_about": "Frames from the Meringo Minutes capture that the site shows, and how each is cropped. tools/crop_frames.py reads this. box is [left, top, right, bottom] in the 2560 x 1600 original's pixels; the output is scaled to width 1280, and nothing else is done to it. A frame NOT-FOR-PUBLICATION.md lists is refused unless its entry says, in clears, what the crop removes; frames 15a, 15b and 15c are refused whatever the entry says.",
+  "width": 1280,
+  "crops": [
+    {
+      "name": "summary-top",
+      "frames": { "light": "01b-summary-top-light.png", "dark": "01b-summary-top-dark.png" },
+      "box": [0, 0, 2560, 1424],
+      "why": "The top of the summary: the Checked mark, All 11 claims traced, and the timestamps beside each point. Cut above the waveform and player. NOT-FOR-PUBLICATION.md lists 01a to 01d under use-with-care only: Discussion Notes shows the sentence at 0:37 that merges two facts and the one at 2:13 that gives the wrong cause, and the demo beside it marks both."
+    },
+    {
+      "name": "ask-refusal",
+      "frames": { "light": "06-ask-refusal-dayrate-light.png", "dark": "06-ask-refusal-dayrate-dark.png" },
+      "box": [0, 0, 2560, 560],
+      "why": "The Ask tab refusing the day-rate question, the one the hero quotes. Cut below the answer; the rest of the frame is empty."
+    }
+  ]
+}
