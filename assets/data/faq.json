@@ -1248,7 +1248,7 @@
         "terms",
         "company terms"
       ],
-      "answer": "Yes. Add a word to the vocabulary list, and the app changes it wherever it also hears it in the audio. On three bench meetings full of uncommon names, read by synthesised voices, lists halved the error rate, from 10.9% to 5.4%. In the demo, “Pemberton” was fixed both times, and “locum”, heard as “locker”, stayed wrong.",
+      "answer": "Yes, in English meetings. Add names and terms to the vocabulary list, and a word that looks like one of them is changed to it. A single everyday word, spelled right, is left alone. When a name keeps coming out wrong, add how it comes out after a colon, and the app writes the name wherever that spelling appears. On three bench meetings full of uncommon names, read by synthesised voices, lists halved the error rate, from 10.9% to 5.4%. In the demo, “Pemberton” was fixed both times, and “locum”, heard as “locker”, stayed wrong.",
       "facts": [
         "vocab-wer-before",
         "vocab-wer-after"
@@ -1258,11 +1258,11 @@
       ],
       "group": "people-vocabulary",
       "sources": [
-        "capture README §5: the Settings caption",
+        "app Settings caption, SettingsView.swift at 7d18e95 (2026-09-24)",
         "claims.csv: Vocabulary lists halved WER; S2 §1g",
         "capture README §5"
       ],
-      "asOf": "2026-09-23"
+      "asOf": "2026-09-24"
     },
     {
       "id": "f52",
