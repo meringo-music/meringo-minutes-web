@@ -1,0 +1,980 @@
+{
+  "_about": "The FAQ assistant's evaluation set, run by tests/ask-core.test.js. No bucket may contain a wrong answer. `expect` is an entry id from assets/data/faq.json (or a list of ids that would each be a right answer), or null for a refusal. `gates` is the share each bucket must answer (or, for out-of-scope, refuse); null means report only. exact is every entry's own question. paraphrase was written for this file, not copied from the entries' alt phrasings, and the keywords in faq.json were tuned against it, so it overstates recall. The holdout buckets were written after tuning to measure that honestly: holdout (tuned on afterwards), holdout-2 (tuned on once afterwards), holdout-3 (run once; the one change made after it removed a wrong answer, by keeping negations and \"know\" as meaningful words).",
+  "gates": {
+    "exact": 1.0,
+    "paraphrase": 0.8,
+    "out-of-scope": 1.0,
+    "real-no": 1.0,
+    "paraphrase-holdout": null,
+    "paraphrase-holdout-2": null,
+    "out-of-scope-holdout": 1.0,
+    "paraphrase-holdout-3": null
+  },
+  "buckets": {
+    "exact": [
+      {
+        "q": "Does it work offline?",
+        "expect": "f01"
+      },
+      {
+        "q": "Is my data encrypted?",
+        "expect": "f02"
+      },
+      {
+        "q": "Does anything about my meetings get sent anywhere?",
+        "expect": "f03"
+      },
+      {
+        "q": "Does it check for updates?",
+        "expect": "f06"
+      },
+      {
+        "q": "Where are my recordings kept?",
+        "expect": "f07"
+      },
+      {
+        "q": "Does it need Screen Recording permission?",
+        "expect": "f08"
+      },
+      {
+        "q": "Can I run the summariser on another computer?",
+        "expect": "f09"
+      },
+      {
+        "q": "What does it read on my Mac?",
+        "expect": "f10"
+      },
+      {
+        "q": "Does this website track me?",
+        "expect": "f11"
+      },
+      {
+        "q": "How accurate is the transcription?",
+        "expect": "f12"
+      },
+      {
+        "q": "Can I trust the summary?",
+        "expect": "f13"
+      },
+      {
+        "q": "Do the timestamps point to the right place?",
+        "expect": "f15"
+      },
+      {
+        "q": "How well does it tell speakers apart?",
+        "expect": "f16"
+      },
+      {
+        "q": "How long does it take to process a meeting?",
+        "expect": "f17"
+      },
+      {
+        "q": "Does it find action items?",
+        "expect": "f18"
+      },
+      {
+        "q": "What is Ask?",
+        "expect": "f19"
+      },
+      {
+        "q": "What happens when the meeting doesn't answer my question?",
+        "expect": "f20"
+      },
+      {
+        "q": "Does Ask ever get it wrong?",
+        "expect": "f21"
+      },
+      {
+        "q": "What does “Checked” mean?",
+        "expect": "f23"
+      },
+      {
+        "q": "What's the difference between traced and checked?",
+        "expect": "f24"
+      },
+      {
+        "q": "Will the check find all the mistakes?",
+        "expect": "f25"
+      },
+      {
+        "q": "What happens to the sentences it sets aside?",
+        "expect": "f26"
+      },
+      {
+        "q": "Why does my summary say Not checked?",
+        "expect": "f27"
+      },
+      {
+        "q": "What do I need to run it?",
+        "expect": "f29"
+      },
+      {
+        "q": "Does it run on an Intel Mac?",
+        "expect": "f30"
+      },
+      {
+        "q": "Is there a Windows, iPhone or iPad version?",
+        "expect": "f31"
+      },
+      {
+        "q": "How much does it download?",
+        "expect": "f34"
+      },
+      {
+        "q": "How much memory does it need?",
+        "expect": "f35"
+      },
+      {
+        "q": "What is Ollama, and why do I need it?",
+        "expect": "f36"
+      },
+      {
+        "q": "Can I import a recording I already have?",
+        "expect": "f37"
+      },
+      {
+        "q": "How much does it cost?",
+        "expect": "f39"
+      },
+      {
+        "q": "When can I buy it?",
+        "expect": "f40"
+      },
+      {
+        "q": "Is there a free trial?",
+        "expect": "f41"
+      },
+      {
+        "q": "Is it on the Mac App Store?",
+        "expect": "f43"
+      },
+      {
+        "q": "Is it open source?",
+        "expect": "f44"
+      },
+      {
+        "q": "Will the other people in the meeting know?",
+        "expect": "f45"
+      },
+      {
+        "q": "Does it join my calls as a bot?",
+        "expect": "f46"
+      },
+      {
+        "q": "Does it know which recording law applies to me?",
+        "expect": "f47"
+      },
+      {
+        "q": "Can it start recording by itself?",
+        "expect": "f48"
+      },
+      {
+        "q": "What languages does it understand?",
+        "expect": "f49"
+      },
+      {
+        "q": "What can I export?",
+        "expect": "f50"
+      },
+      {
+        "q": "Can I teach it names and jargon?",
+        "expect": "f51"
+      },
+      {
+        "q": "Does it suggest corrections by itself?",
+        "expect": "f52"
+      },
+      {
+        "q": "Does it work with Zoom, Teams or Google Meet?",
+        "expect": "f54"
+      },
+      {
+        "q": "Can I share meetings with my team?",
+        "expect": "f55"
+      },
+      {
+        "q": "Why pay for this if I only need a transcript?",
+        "expect": "f56"
+      },
+      {
+        "q": "Who makes Meringo Minutes?",
+        "expect": "f57"
+      }
+    ],
+    "paraphrase": [
+      {
+        "q": "Can I use Meringo Minutes on a plane with no wifi?",
+        "expect": "f01"
+      },
+      {
+        "q": "Will it keep working if my internet drops?",
+        "expect": "f01"
+      },
+      {
+        "q": "Do my recordings get stored encrypted?",
+        "expect": "f02"
+      },
+      {
+        "q": "Will my meeting audio be uploaded to a cloud server?",
+        "expect": "f03"
+      },
+      {
+        "q": "Does the app send usage data or crash logs back to you?",
+        "expect": "f03"
+      },
+      {
+        "q": "Does it go online to look for a new version?",
+        "expect": "f06"
+      },
+      {
+        "q": "Which folder on my Mac holds the recordings?",
+        "expect": "f07"
+      },
+      {
+        "q": "Why doesn't it ask for screen recording access?",
+        "expect": "f08"
+      },
+      {
+        "q": "Can I point it at an Ollama server on a different machine?",
+        "expect": "f09"
+      },
+      {
+        "q": "Which macOS permissions will it request?",
+        "expect": "f10"
+      },
+      {
+        "q": "Are there cookies on this website?",
+        "expect": "f11"
+      },
+      {
+        "q": "How many transcription mistakes does it make?",
+        "expect": "f12"
+      },
+      {
+        "q": "Does the summary invent things nobody said?",
+        "expect": "f13"
+      },
+      {
+        "q": "Are the summary timestamps exact?",
+        "expect": "f15"
+      },
+      {
+        "q": "Can it work out who is speaking?",
+        "expect": "f16"
+      },
+      {
+        "q": "How long do I wait before my notes are done?",
+        "expect": "f17"
+      },
+      {
+        "q": "Will it pull the to-do items out of a meeting?",
+        "expect": "f18"
+      },
+      {
+        "q": "Can I type a question to a meeting in plain English?",
+        "expect": "f19"
+      },
+      {
+        "q": "What does Ask say if the answer isn't in the recording?",
+        "expect": "f20"
+      },
+      {
+        "q": "Does Ask make mistakes?",
+        "expect": "f21"
+      },
+      {
+        "q": "What does the Checked badge on a summary mean?",
+        "expect": "f23"
+      },
+      {
+        "q": "What is the difference between a traced sentence and a checked one?",
+        "expect": "f24"
+      },
+      {
+        "q": "Does the second model catch every error?",
+        "expect": "f25"
+      },
+      {
+        "q": "Where do the unverified sentences end up?",
+        "expect": "f26"
+      },
+      {
+        "q": "My summary shows Not checked, why?",
+        "expect": "f27"
+      },
+      {
+        "q": "What are the minimum requirements to install it?",
+        "expect": "f29"
+      },
+      {
+        "q": "Will it run on my 2019 Intel MacBook Pro?",
+        "expect": "f30"
+      },
+      {
+        "q": "How much disk space will the whole setup take?",
+        "expect": "f34"
+      },
+      {
+        "q": "How much RAM do I need?",
+        "expect": "f35"
+      },
+      {
+        "q": "Why is Ollama required?",
+        "expect": "f36"
+      },
+      {
+        "q": "Can I drop in an old mp3 of a meeting?",
+        "expect": "f37"
+      },
+      {
+        "q": "What's the price of Meringo Minutes?",
+        "expect": "f39"
+      },
+      {
+        "q": "When will it go on sale?",
+        "expect": "f40"
+      },
+      {
+        "q": "Can I try it for free before I pay?",
+        "expect": "f41"
+      },
+      {
+        "q": "Will the other participants hear that they're being recorded?",
+        "expect": "f45"
+      },
+      {
+        "q": "Does a recording bot join my Zoom meeting?",
+        "expect": "f46"
+      },
+      {
+        "q": "Is recording a call legal where I live?",
+        "expect": "f47"
+      },
+      {
+        "q": "Will it start recording on its own when a meeting begins?",
+        "expect": "f48"
+      },
+      {
+        "q": "Does it transcribe German meetings?",
+        "expect": "f49"
+      },
+      {
+        "q": "Can I save the notes as a PDF?",
+        "expect": "f50"
+      },
+      {
+        "q": "How do I add company jargon so it spells it right?",
+        "expect": "f51"
+      },
+      {
+        "q": "Will it offer to fix a misheard name?",
+        "expect": "f52"
+      },
+      {
+        "q": "Does it integrate with Microsoft Teams?",
+        "expect": "f54"
+      },
+      {
+        "q": "Can my colleagues see my meetings?",
+        "expect": "f55"
+      },
+      {
+        "q": "Why would I pay for this when free transcription apps exist?",
+        "expect": "f56"
+      },
+      {
+        "q": "Who is the developer?",
+        "expect": "f57"
+      }
+    ],
+    "out-of-scope": [
+      {
+        "q": "Does it work on Windows 11 laptops with Copilot",
+        "expect": null
+      },
+      {
+        "q": "What's the weather",
+        "expect": null
+      },
+      {
+        "q": "Can it transcribe my phone calls on Android",
+        "expect": null
+      },
+      {
+        "q": "What's your favourite colour",
+        "expect": null
+      },
+      {
+        "q": "Is Granola better",
+        "expect": null
+      },
+      {
+        "q": "How do I cancel my subscription",
+        "expect": null
+      },
+      {
+        "q": "Who won the World Series?",
+        "expect": null
+      },
+      {
+        "q": "Write me a poem about meetings",
+        "expect": null
+      },
+      {
+        "q": "What is the capital of France?",
+        "expect": null
+      },
+      {
+        "q": "Can you book a meeting room for tomorrow?",
+        "expect": null
+      },
+      {
+        "q": "How do I reset my Apple ID password?",
+        "expect": null
+      },
+      {
+        "q": "Is Otter cheaper?",
+        "expect": null
+      },
+      {
+        "q": "Does it work with my Tesla?",
+        "expect": null
+      },
+      {
+        "q": "Can you summarise this article for me?",
+        "expect": null
+      },
+      {
+        "q": "What time is it in Tokyo?",
+        "expect": null
+      },
+      {
+        "q": "Tell me a joke",
+        "expect": null
+      },
+      {
+        "q": "Are you a real person?",
+        "expect": null
+      },
+      {
+        "q": "How do I get a refund?",
+        "expect": null
+      },
+      {
+        "q": "Can I pay with PayPal?",
+        "expect": null
+      },
+      {
+        "q": "Does it have a dark mode?",
+        "expect": null
+      },
+      {
+        "q": "Can I record video?",
+        "expect": null
+      },
+      {
+        "q": "What's the best microphone to buy?",
+        "expect": null
+      },
+      {
+        "q": "How do I export my Zoom cloud recordings?",
+        "expect": null
+      },
+      {
+        "q": "Is the stock market going up?",
+        "expect": null
+      },
+      {
+        "q": "Can it translate my meeting into Spanish?",
+        "expect": null
+      },
+      {
+        "q": "How many employees does Meringo Labs have?",
+        "expect": null
+      },
+      {
+        "q": "What's the meaning of life?",
+        "expect": null
+      },
+      {
+        "q": "Recommend a good podcast app",
+        "expect": null
+      },
+      {
+        "q": "Can you email my notes to my boss?",
+        "expect": null
+      },
+      {
+        "q": "Is it better than Otter or Fireflies?",
+        "expect": null
+      }
+    ],
+    "real-no": [
+      {
+        "q": "Is there a Windows version?",
+        "expect": "f31"
+      },
+      {
+        "q": "Can I use it on Windows 10?",
+        "expect": "f31"
+      },
+      {
+        "q": "Is there an iPhone app?",
+        "expect": "f31"
+      },
+      {
+        "q": "Can I use it on my iPad?",
+        "expect": "f31"
+      },
+      {
+        "q": "Does it work on an Intel MacBook?",
+        "expect": "f30"
+      },
+      {
+        "q": "Will it run on an Intel iMac?",
+        "expect": "f30"
+      },
+      {
+        "q": "Does it send a bot into the call?",
+        "expect": "f46"
+      },
+      {
+        "q": "Is it a monthly subscription?",
+        "expect": "f39"
+      },
+      {
+        "q": "Is it subscription based?",
+        "expect": "f39"
+      },
+      {
+        "q": "Do I have to create an account?",
+        "expect": "f55"
+      },
+      {
+        "q": "Does it sync with iCloud?",
+        "expect": "f55"
+      },
+      {
+        "q": "Does it encrypt my recordings?",
+        "expect": "f02"
+      },
+      {
+        "q": "Is it sold on the App Store?",
+        "expect": "f43"
+      },
+      {
+        "q": "Is the source code public?",
+        "expect": "f44"
+      },
+      {
+        "q": "Will it ask me for Screen Recording access?",
+        "expect": "f08"
+      },
+      {
+        "q": "Does it upload my recordings?",
+        "expect": "f03"
+      },
+      {
+        "q": "Does it store my voiceprint?",
+        "expect": "f16"
+      },
+      {
+        "q": "Does it phone home for updates?",
+        "expect": "f06"
+      }
+    ],
+    "paraphrase-holdout": [
+      {
+        "q": "Is anything sent to the cloud when I record?",
+        "expect": "f03"
+      },
+      {
+        "q": "Where does it save my files?",
+        "expect": "f07"
+      },
+      {
+        "q": "Can it run without an internet connection?",
+        "expect": "f01"
+      },
+      {
+        "q": "How good is the speech to text?",
+        "expect": "f12"
+      },
+      {
+        "q": "Does it make up stuff in the summary?",
+        "expect": "f13"
+      },
+      {
+        "q": "Can it tell the difference between voices?",
+        "expect": "f16"
+      },
+      {
+        "q": "How quickly are notes ready after a meeting?",
+        "expect": "f17"
+      },
+      {
+        "q": "Does it list tasks and who owns them?",
+        "expect": "f18"
+      },
+      {
+        "q": "What happens if I ask something the meeting never covered?",
+        "expect": "f20"
+      },
+      {
+        "q": "What's a traced sentence?",
+        "expect": "f24"
+      },
+      {
+        "q": "Will it run on macOS Sonoma?",
+        "expect": "f29"
+      },
+      {
+        "q": "How many gigabytes do the models take?",
+        "expect": "f34"
+      },
+      {
+        "q": "Is 16GB of memory enough?",
+        "expect": "f35"
+      },
+      {
+        "q": "Do I have to install Ollama?",
+        "expect": "f36"
+      },
+      {
+        "q": "Can I load a wav file I recorded earlier?",
+        "expect": "f37"
+      },
+      {
+        "q": "Is it a one-off payment?",
+        "expect": "f39"
+      },
+      {
+        "q": "Is there a free version I can test?",
+        "expect": "f41"
+      },
+      {
+        "q": "Does it tell people it's recording?",
+        "expect": "f45"
+      },
+      {
+        "q": "Does it need to join the Zoom call?",
+        "expect": "f46"
+      },
+      {
+        "q": "Can I use it for Spanish meetings?",
+        "expect": "f49"
+      },
+      {
+        "q": "Can I export the transcript to Markdown?",
+        "expect": "f50"
+      },
+      {
+        "q": "Can I share a recording with a coworker?",
+        "expect": "f55"
+      },
+      {
+        "q": "Who built this app?",
+        "expect": "f57"
+      },
+      {
+        "q": "How do I get it to spell a client's name correctly?",
+        "expect": "f51"
+      },
+      {
+        "q": "Does it work with FaceTime calls?",
+        "expect": "f54"
+      }
+    ],
+    "paraphrase-holdout-2": [
+      {
+        "q": "Do you store my recordings on your servers?",
+        "expect": "f03"
+      },
+      {
+        "q": "Can I delete a meeting?",
+        "expect": "f07"
+      },
+      {
+        "q": "What microphone access does it need?",
+        "expect": "f10"
+      },
+      {
+        "q": "Does this page track my visit?",
+        "expect": "f11"
+      },
+      {
+        "q": "What's the error rate on transcripts?",
+        "expect": "f12"
+      },
+      {
+        "q": "Can I rely on the summaries?",
+        "expect": "f13"
+      },
+      {
+        "q": "Why are some timestamps off?",
+        "expect": "f15"
+      },
+      {
+        "q": "Does it remember voices between meetings?",
+        "expect": "f16"
+      },
+      {
+        "q": "Can I question all my meetings at once?",
+        "expect": "f19"
+      },
+      {
+        "q": "Does the checker find every mistake?",
+        "expect": "f25"
+      },
+      {
+        "q": "What is the unverified card?",
+        "expect": "f26"
+      },
+      {
+        "q": "Is Apple Silicon required?",
+        "expect": "f29"
+      },
+      {
+        "q": "How big is the download?",
+        "expect": "f34"
+      },
+      {
+        "q": "What's Ollama?",
+        "expect": "f36"
+      },
+      {
+        "q": "How much will Meringo Minutes cost me?",
+        "expect": "f39"
+      },
+      {
+        "q": "Is there a launch date?",
+        "expect": "f40"
+      },
+      {
+        "q": "Can I try before buying?",
+        "expect": "f41"
+      },
+      {
+        "q": "Does it warn people they're being recorded?",
+        "expect": "f45"
+      },
+      {
+        "q": "Can it record automatically?",
+        "expect": "f48"
+      },
+      {
+        "q": "Which export formats are there?",
+        "expect": "f50"
+      },
+      {
+        "q": "Can I add custom words?",
+        "expect": "f51"
+      },
+      {
+        "q": "Does it work with Webex?",
+        "expect": "f54"
+      },
+      {
+        "q": "Who's the person behind Meringo Minutes?",
+        "expect": "f57"
+      }
+    ],
+    "out-of-scope-holdout": [
+      {
+        "q": "Does it integrate with Notion?",
+        "expect": null
+      },
+      {
+        "q": "Is it GDPR compliant?",
+        "expect": null
+      },
+      {
+        "q": "How do I uninstall it?",
+        "expect": null
+      },
+      {
+        "q": "Can I get a student discount?",
+        "expect": null
+      },
+      {
+        "q": "Does it support Bluetooth headsets?",
+        "expect": null
+      },
+      {
+        "q": "Does it work on Chromebook?",
+        "expect": null
+      },
+      {
+        "q": "Can it transcribe YouTube videos?",
+        "expect": null
+      },
+      {
+        "q": "What's the refund window?",
+        "expect": null
+      },
+      {
+        "q": "Is there a Slack bot?",
+        "expect": null
+      },
+      {
+        "q": "How do I become a beta tester?",
+        "expect": null
+      },
+      {
+        "q": "What's the company's revenue?",
+        "expect": null
+      },
+      {
+        "q": "Does it summarise emails?",
+        "expect": null
+      },
+      {
+        "q": "Can I cancel anytime?",
+        "expect": null
+      },
+      {
+        "q": "Do you offer an affiliate program?",
+        "expect": null
+      },
+      {
+        "q": "Will it make me coffee?",
+        "expect": null
+      }
+    ],
+    "paraphrase-holdout-3": [
+      {
+        "q": "Does any of my audio leave the computer?",
+        "expect": "f03"
+      },
+      {
+        "q": "Is the recording library stored as plain files?",
+        "expect": [
+          "f02",
+          "f07"
+        ]
+      },
+      {
+        "q": "Can it hear both sides of a Zoom call?",
+        "expect": [
+          "f08",
+          "f54"
+        ]
+      },
+      {
+        "q": "Can I use a beefier Mac on my network for the summaries?",
+        "expect": "f09"
+      },
+      {
+        "q": "Does the site set cookies?",
+        "expect": "f11"
+      },
+      {
+        "q": "How often does it mishear words?",
+        "expect": "f12"
+      },
+      {
+        "q": "Could the summary contain made-up facts?",
+        "expect": "f13"
+      },
+      {
+        "q": "Do the timestamps land on the right sentence?",
+        "expect": "f15"
+      },
+      {
+        "q": "Will it mix up who said what?",
+        "expect": "f16"
+      },
+      {
+        "q": "How long does processing take for an hour-long call?",
+        "expect": "f17"
+      },
+      {
+        "q": "Does it pull out who's responsible for what?",
+        "expect": "f18"
+      },
+      {
+        "q": "What does Ask do when it doesn't know?",
+        "expect": "f20"
+      },
+      {
+        "q": "Is Ask always right?",
+        "expect": "f21"
+      },
+      {
+        "q": "What's the second model for?",
+        "expect": [
+          "f23",
+          "f24",
+          "f25"
+        ]
+      },
+      {
+        "q": "Why was my summary not verified?",
+        "expect": "f27"
+      },
+      {
+        "q": "Does it need the newest macOS?",
+        "expect": "f29"
+      },
+      {
+        "q": "Will it work on an M1 MacBook Air?",
+        "expect": "f29"
+      },
+      {
+        "q": "How much storage do the models use?",
+        "expect": "f34"
+      },
+      {
+        "q": "Is 8 GB of RAM enough?",
+        "expect": "f35"
+      },
+      {
+        "q": "Can I run it without Ollama?",
+        "expect": "f36"
+      },
+      {
+        "q": "Does it accept MP4 files?",
+        "expect": "f37"
+      },
+      {
+        "q": "Is it a one-time purchase?",
+        "expect": "f39"
+      },
+      {
+        "q": "Can I buy it today?",
+        "expect": "f40"
+      },
+      {
+        "q": "Does it say it's recording out loud?",
+        "expect": "f45"
+      },
+      {
+        "q": "Can I turn off the spoken announcement?",
+        "expect": "f45"
+      },
+      {
+        "q": "Can I get the summary as plain text?",
+        "expect": "f50"
+      },
+      {
+        "q": "Can I fix how it spells people's names?",
+        "expect": "f51"
+      },
+      {
+        "q": "Does it plug into Google Meet?",
+        "expect": "f54"
+      },
+      {
+        "q": "Is there a way to sync meetings to my iPad?",
+        "expect": [
+          "f55",
+          "f31"
+        ]
+      },
+      {
+        "q": "Where can I reach the developer?",
+        "expect": "f57"
+      }
+    ]
+  }
+}

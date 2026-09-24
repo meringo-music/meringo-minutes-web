@@ -1,0 +1,1409 @@
+{
+  "_about": "The FAQ for meringominutes.app. tools/sync.py writes /faq/ (the <details> list and its FAQPage JSON-LD) from this file, and assets/js/ask-ui.js answers from it in the browser. Answers are plain text; a link is written [text](/path/). Every number in an answer is listed, in reading order, in `facts` by its data/facts.json id; `app` lists quotations of the app's own words. The assistant indexes q, alt and keywords only, never the answer.",
+  "disclosure": "Automated answers from this site's FAQ — not a person.",
+  "refusal": "I found nothing on this site that says that.",
+  "contact": "support@meringo.app",
+  "_gate": "An answer needs all three: score >= minScore, coverage >= minCoverage (the share of the question's meaningful words that matched the entry) and best/runner-up >= minMargin. minCoverage is 0.6 rather than 0.5 so that one matched word out of two is not enough: at 0.5, \"How do I cancel my subscription\" and \"Can I pay with PayPal?\" get a price answer. minScore is a floor set just under the lowest correct answer in tests/faq-eval.json (4.8); on this corpus scores do not separate in-scope from out-of-scope questions, coverage does.",
+  "gate": {
+    "minScore": 4,
+    "minCoverage": 0.6,
+    "minMargin": 1.15
+  },
+  "groups": [
+    {
+      "id": "privacy",
+      "label": "Privacy"
+    },
+    {
+      "id": "accuracy",
+      "label": "Accuracy"
+    },
+    {
+      "id": "ask",
+      "label": "Ask"
+    },
+    {
+      "id": "check",
+      "label": "The check"
+    },
+    {
+      "id": "setup",
+      "label": "Setup and requirements"
+    },
+    {
+      "id": "price",
+      "label": "Price and trial"
+    },
+    {
+      "id": "consent",
+      "label": "Consent and the announcement"
+    },
+    {
+      "id": "languages",
+      "label": "Languages"
+    },
+    {
+      "id": "export",
+      "label": "Export"
+    },
+    {
+      "id": "people-vocabulary",
+      "label": "People and vocabulary"
+    },
+    {
+      "id": "doesnt-do",
+      "label": "What it doesn't do"
+    }
+  ],
+  "entries": [
+    {
+      "id": "f01",
+      "q": "Does it work offline?",
+      "alt": [
+        "Can I use it without internet?",
+        "Does it need a connection?"
+      ],
+      "keywords": [
+        "offline",
+        "internet",
+        "wifi",
+        "wi-fi",
+        "network",
+        "airplane",
+        "plane",
+        "flight",
+        "online",
+        "connection",
+        "internet drops",
+        "connection drops"
+      ],
+      "answer": "Yes, once the models are downloaded. By default, recording, transcription and the summary all run on your Mac. The internet is needed only to download each model the first time.",
+      "facts": [],
+      "app": [],
+      "group": "privacy",
+      "sources": [
+        "COPY-BLOCKS: FAQ, offline; privacy panel green",
+        "claims.csv: The only non-localhost endpoints the app itself contacts are model downloads"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f02",
+      "q": "Is my data encrypted?",
+      "alt": [
+        "Are my recordings protected on disk?",
+        "Is the library password protected?"
+      ],
+      "keywords": [
+        "encryption",
+        "encrypted",
+        "protected",
+        "secure",
+        "security",
+        "filevault",
+        "password",
+        "safe"
+      ],
+      "answer": "No, and I'd rather say so plainly. Recordings and meeting files are ordinary files in a folder in your Library, and the app adds no encryption of its own. macOS file permissions protect them, and FileVault does too if it's on. By default nothing is uploaded, so there's no server copy to protect.",
+      "facts": [],
+      "app": [],
+      "group": "privacy",
+      "sources": [
+        "claims.csv: Nothing is encrypted at rest; COPY-BLOCKS: FAQ, encrypted; S2 §1c",
+        "claims.csv; COPY-BLOCKS: FAQ, encrypted"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f03",
+      "q": "Does anything about my meetings get sent anywhere?",
+      "alt": [
+        "Is anything uploaded?",
+        "Where does my meeting go?",
+        "Does it collect analytics or crash reports?",
+        "Is there telemetry?"
+      ],
+      "keywords": [
+        "uploaded",
+        "upload recordings",
+        "your servers",
+        "stored on a server",
+        "sent",
+        "send",
+        "cloud",
+        "server",
+        "analytics",
+        "telemetry",
+        "tracking",
+        "usage data",
+        "crash logs",
+        "data"
+      ],
+      "answer": "By default, no. The only traffic is models coming in the first time they're needed, and there's no analytics, telemetry or crash-reporting code in the app. If you point the summariser at Ollama on another machine, each transcript goes there, and the privacy panel turns orange and names it.",
+      "facts": [],
+      "app": [],
+      "group": "privacy",
+      "sources": [
+        "claims.csv: The only non-localhost endpoints the app itself contacts are model downloads; No analytics, telemetry or crash-reporting SDK is present; COPY-BLOCKS: privacy panel green",
+        "claims.csv: The app warns, in orange and by name; COPY-BLOCKS: privacy panel orange"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f06",
+      "q": "Does it check for updates?",
+      "alt": [
+        "Does it phone home?",
+        "Will it contact your server?"
+      ],
+      "keywords": [
+        "updates",
+        "update",
+        "phone home",
+        "version",
+        "new version",
+        "online",
+        "check for updates"
+      ],
+      "answer": "Not in the current build, which never contacts an update server. When I add an update check, the privacy page will say what it sends, in the same release.",
+      "facts": [],
+      "app": [],
+      "group": "privacy",
+      "sources": [
+        "claims.csv: The shipped build never contacts an update server",
+        "S4 §4.4; plan: /privacy/"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f07",
+      "q": "Where are my recordings kept?",
+      "alt": [
+        "Where is the library?",
+        "Which folder does it use?"
+      ],
+      "keywords": [
+        "folder",
+        "stored",
+        "location",
+        "library",
+        "files",
+        "delete",
+        "trash",
+        "saved"
+      ],
+      "answer": "In ~/Library/Application Support/Meringo Minutes/, one folder for everything. Deleting a meeting moves it to the Trash, so you can get it back until you empty it.",
+      "facts": [],
+      "app": [],
+      "group": "privacy",
+      "sources": [
+        "S2 §1c",
+        "S2 §3: Storage & Privacy panel strings"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f08",
+      "q": "Does it need Screen Recording permission?",
+      "alt": [
+        "How does it hear the other side of a call?",
+        "Why would it want screen recording?"
+      ],
+      "keywords": [
+        "screen recording",
+        "screen recording access",
+        "access",
+        "permission",
+        "core audio",
+        "tap",
+        "system audio"
+      ],
+      "answer": "No. It hears the other side of a call through a Core Audio tap, so it never asks for Screen Recording.",
+      "facts": [],
+      "app": [],
+      "group": "privacy",
+      "sources": [
+        "claims.csv: System audio is captured via a Core Audio process tap"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f09",
+      "q": "Can I run the summariser on another computer?",
+      "alt": [
+        "Can I use a remote Ollama server?",
+        "Can I use a more powerful machine on my network?"
+      ],
+      "keywords": [
+        "remote",
+        "another machine",
+        "different computer",
+        "server",
+        "network",
+        "ollama server"
+      ],
+      "answer": "Yes: point the server URL in Settings at another machine running Ollama. Each transcript is then sent there, and the privacy panel turns orange and names the machine. The audio and the transcript stay stored on your Mac.",
+      "facts": [],
+      "app": [],
+      "group": "privacy",
+      "sources": [
+        "capture README §4, frame 15",
+        "COPY-BLOCKS: privacy panel orange; claims.csv: The app warns, in orange and by name"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f10",
+      "q": "What does it read on my Mac?",
+      "alt": [
+        "What permissions does it ask for?",
+        "Does it read my contacts?"
+      ],
+      "keywords": [
+        "permissions",
+        "request",
+        "access",
+        "microphone",
+        "calendar",
+        "contacts",
+        "reminders",
+        "entitlements",
+        "privacy prompts",
+        "macos permissions"
+      ],
+      "answer": "Your microphone, the audio your Mac plays during a call, and your calendar, to name meetings. Reminders when you send a commitment there, and your own Contacts card only when you ask. The signature holds exactly three entitlements: audio input, address book and calendars.",
+      "facts": [],
+      "app": [],
+      "group": "privacy",
+      "sources": [
+        "S2 §1c: permissions; app CHANGELOG 1.1.0: Recording and transcription",
+        "S2 §1c; COPY-BLOCKS: Contacts permission prompt",
+        "claims.csv: The app requests exactly three entitlements"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f11",
+      "q": "Does this website track me?",
+      "alt": [
+        "Does this site use cookies?",
+        "Does this site have analytics?"
+      ],
+      "keywords": [
+        "website",
+        "site",
+        "cookies",
+        "tracking",
+        "analytics",
+        "visit",
+        "this site"
+      ],
+      "answer": "No cookies and no analytics. It keeps your theme choice in your browser. GitHub, which hosts the site, logs IP addresses for security. [The privacy page](/privacy/) has the details.",
+      "facts": [],
+      "app": [],
+      "group": "privacy",
+      "sources": [
+        "plan: Principles 3",
+        "SITE-FACTS-2026-09-23: verified verbatim"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f12",
+      "q": "How accurate is the transcription?",
+      "alt": [
+        "What's the word error rate?",
+        "How many words does it get wrong?"
+      ],
+      "keywords": [
+        "transcription",
+        "transcript",
+        "speech to text",
+        "dictation",
+        "accurate",
+        "accuracy",
+        "word error rate",
+        "wer",
+        "mistakes",
+        "mishears",
+        "errors",
+        "transcription errors"
+      ],
+      "answer": "It gets about one word in five wrong: an 18.4% median word error rate across 66 bench recordings. In the demo it heard “locum” as “locker” and “agreed” as “gag read”.",
+      "facts": [
+        "bench-wer",
+        "bench-recordings"
+      ],
+      "app": [
+        "locker",
+        "gag read"
+      ],
+      "group": "accuracy",
+      "sources": [
+        "claims.csv: 18.4 % median WER on 66 bench recordings",
+        "capture README §5"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f13",
+      "q": "Can I trust the summary?",
+      "alt": [
+        "Is the summary accurate?",
+        "Does it make things up?"
+      ],
+      "keywords": [
+        "trust",
+        "rely",
+        "dependable",
+        "summary",
+        "reliable",
+        "hallucinate",
+        "hallucination",
+        "invent",
+        "made up",
+        "invented"
+      ],
+      "answer": "As far as you can check it. Most summary sentences carry a timestamp, and with Ollama a second model sets aside what it can't support. Neither is perfect. In the demo, 4 of 11 timestamps point at a line that doesn't state the claim, and the check kept a sentence that merged two facts.",
+      "facts": [
+        "demo-anchor-miss",
+        "demo-anchored"
+      ],
+      "app": [],
+      "group": "accuracy",
+      "sources": [
+        "DECISIONS 2026-09-21; AUDIT: app's own state",
+        "AUDIT counts; AUDIT row 8"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f15",
+      "q": "Do the timestamps point to the right place?",
+      "alt": [
+        "How accurate are the timestamps?",
+        "Is each summary sentence timestamped?",
+        "Why doesn't the first paragraph have a timestamp?"
+      ],
+      "keywords": [
+        "timestamps",
+        "timestamp",
+        "points",
+        "place",
+        "line",
+        "exact",
+        "precise"
+      ],
+      "answer": "Near it. In the demo, none of the 11 landed on a line that states the whole claim: 4 point at a line that doesn't state it, and the other 7 at a line that states only part of it. The 4 misses land early, and the supporting line follows within about 30 seconds. The overview at the top never gets a timestamp, by design, and a sentence the app can't place gets none rather than a guess.",
+      "facts": [
+        "demo-anchored",
+        "demo-anchor-miss",
+        "demo-anchor-partial",
+        "demo-anchor-miss",
+        "demo-miss-lag"
+      ],
+      "app": [],
+      "group": "accuracy",
+      "sources": [
+        "AUDIT counts",
+        "AUDIT: Against the 09-21 traps",
+        "AUDIT row 1; S2 §1d"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f16",
+      "q": "How well does it tell speakers apart?",
+      "alt": [
+        "Does it know who said what?",
+        "Does it get speakers mixed up?",
+        "Does it recognise my voice across meetings?",
+        "Does it store voiceprints?"
+      ],
+      "keywords": [
+        "speakers",
+        "speaker",
+        "remember voices",
+        "recognise",
+        "tell voices apart",
+        "different voices",
+        "speaking",
+        "speak",
+        "voices",
+        "voice",
+        "who spoke",
+        "diarization",
+        "voiceprint",
+        "identify",
+        "talking"
+      ],
+      "answer": "It found all three voices in the demo and gave 5 of the 56 lines to the wrong one. No voice is stored or matched from one meeting to the next, so you name the voices once per meeting.",
+      "facts": [
+        "demo-speaker-errors",
+        "demo-lines"
+      ],
+      "app": [],
+      "group": "accuracy",
+      "sources": [
+        "capture README §5",
+        "claims.csv: No voice is stored or matched across meetings; capture README §5"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f17",
+      "q": "How long does it take to process a meeting?",
+      "alt": [
+        "How fast is it?",
+        "How long until my notes are ready?",
+        "Can it handle a two-hour meeting?"
+      ],
+      "keywords": [
+        "long",
+        "fast",
+        "quick",
+        "quickly",
+        "speed",
+        "time",
+        "process",
+        "processing",
+        "wait",
+        "hour",
+        "done",
+        "ready"
+      ],
+      "answer": "One meeting has been timed on the current build: 3 minutes 53 seconds of audio took about 6½ to 7 minutes, on an M4 with 24 GB, with the speech models already downloaded. The app sets no length limit, but I haven't timed a long meeting on this build, so I won't give you a per-hour figure yet.",
+      "facts": [
+        "demo-duration",
+        "demo-processing",
+        "test-mac-chip",
+        "test-mac-memory"
+      ],
+      "app": [],
+      "group": "accuracy",
+      "sources": [
+        "capture README §4",
+        "S2 §1g"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f18",
+      "q": "Does it find action items?",
+      "alt": [
+        "Does it list who committed to what?",
+        "Does it track commitments?"
+      ],
+      "keywords": [
+        "action items",
+        "tasks",
+        "todo",
+        "todos",
+        "commitments",
+        "follow ups",
+        "owners",
+        "deadlines",
+        "extract",
+        "pull out"
+      ],
+      "answer": "Yes. Each one has an owner, and it gets a date only when the meeting gave one certain day. It's the part I'd check hardest. In the demo it listed 8 items for 5 commitments, with Dana's locum task in three wordings.",
+      "facts": [
+        "demo-action-items",
+        "demo-commitments"
+      ],
+      "app": [],
+      "group": "accuracy",
+      "sources": [
+        "app CHANGELOG 1.1.0: Commitments",
+        "capture README §9, item 8"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f19",
+      "q": "What is Ask?",
+      "alt": [
+        "Can I ask questions about a meeting?",
+        "Can I search a meeting by asking?"
+      ],
+      "keywords": [
+        "ask",
+        "ask tab",
+        "ask feature",
+        "question",
+        "across meetings",
+        "question every meeting",
+        "type a question",
+        "plain english",
+        "chat",
+        "search",
+        "natural language",
+        "query"
+      ],
+      "answer": "A tab where you put a question to a meeting in plain words. Each sentence of the answer comes with the transcript lines it cites. You can ask one meeting, or all of them at once.",
+      "facts": [],
+      "app": [],
+      "group": "ask",
+      "sources": [
+        "ASK-BANK: How to read this; app CHANGELOG 1.1.0: Ask",
+        "app CHANGELOG 1.1.0: Ask; ASK-BANK Q16"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f20",
+      "q": "What happens when the meeting doesn't answer my question?",
+      "alt": [
+        "Will it make something up?",
+        "What if the answer isn't in the meeting?"
+      ],
+      "keywords": [
+        "ask answer",
+        "not covered",
+        "refuse",
+        "refusal",
+        "doesnt know",
+        "not in the recording",
+        "not in the transcript",
+        "unanswerable",
+        "invent",
+        "answer"
+      ],
+      "answer": "It says “I found nothing in this meeting that says that.” and stops there. In the demo it did that for all 8 questions the meeting doesn't answer, or answers only in part, including one where a plausible day rate was one division away.",
+      "facts": [
+        "ask-unanswerable"
+      ],
+      "app": [
+        "I found nothing in this meeting that says that."
+      ],
+      "group": "ask",
+      "sources": [
+        "ASK-BANK Q9–16",
+        "ASK-BANK tally; ASK-BANK Q9"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f21",
+      "q": "Does Ask ever get it wrong?",
+      "alt": [
+        "Can Ask be wrong?",
+        "Does Ask refuse things it shouldn't?"
+      ],
+      "keywords": [
+        "mistake",
+        "mistakes",
+        "error",
+        "wrong answer",
+        "incorrect"
+      ],
+      "answer": "Yes. In the demo it refused one question the meeting did answer, and it added “dollars” to another answer when nobody named a currency. Asked again, it gave the same answer word for word, mistake included.",
+      "facts": [],
+      "app": [],
+      "group": "ask",
+      "sources": [
+        "ASK-BANK Q3, Q6",
+        "ASK-BANK: Repeats"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f23",
+      "q": "What does “Checked” mean?",
+      "alt": [
+        "What is the check?",
+        "What does the Checked label mean?"
+      ],
+      "keywords": [
+        "checked",
+        "check",
+        "verified",
+        "label",
+        "badge",
+        "mark",
+        "checked badge"
+      ],
+      "answer": "A second, different model has read the summary against the transcript and moved what it couldn't support into a separate card. This build shows one Checked mark for the whole summary. It doesn't mark sentences one by one.",
+      "facts": [],
+      "app": [],
+      "group": "check",
+      "sources": [
+        "AUDIT: What \"the app's own state\" means; DECISIONS 2026-09-21",
+        "capture README §6, frame 03"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f24",
+      "q": "What's the difference between traced and checked?",
+      "alt": [
+        "Is a timestamp the same as a check?",
+        "What does traced mean?"
+      ],
+      "keywords": [
+        "traced",
+        "trace",
+        "traced sentence",
+        "difference",
+        "versus"
+      ],
+      "answer": "Traced means a sentence carries a timestamp, placed by plain code with no model involved, on every setup. Checked means a second model read the summary and set aside what it couldn't support, and that needs Ollama. A timestamp can still point at the wrong line, and a checked summary can still hold a mistake.",
+      "facts": [],
+      "app": [],
+      "group": "check",
+      "sources": [
+        "DECISIONS 2026-09-21",
+        "DECISIONS 2026-09-21; app CHANGELOG 1.1.0: audit-t1",
+        "AUDIT counts; AUDIT row 8"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f25",
+      "q": "Will the check find all the mistakes?",
+      "alt": [
+        "Can a wrong sentence get past the check?",
+        "How reliable is the check?"
+      ],
+      "keywords": [
+        "mistakes",
+        "miss",
+        "catch",
+        "catch errors",
+        "errors",
+        "second model",
+        "reliable",
+        "find all"
+      ],
+      "answer": "No. In the demo it kept a sentence that merged two facts, and it passed an Ask answer that added “dollars”. It also sets aside sentences that are nearly right. It catches some mistakes, and reading the transcript catches more.",
+      "facts": [],
+      "app": [],
+      "group": "check",
+      "sources": [
+        "AUDIT row 8; ASK-BANK Q6",
+        "AUDIT row 14"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f26",
+      "q": "What happens to the sentences it sets aside?",
+      "alt": [
+        "What is the unverified sentences card?",
+        "Where do set-aside sentences go?"
+      ],
+      "keywords": [
+        "set aside",
+        "unverified",
+        "card",
+        "sentences",
+        "folded",
+        "set-aside"
+      ],
+      "answer": "They go in a folded card under the summary, headed with a count, such as “4 unverified sentences”. The card's own line is “Read it as a lead, not a finding.” In this build they carry no timestamp.",
+      "facts": [
+        "demo-setaside"
+      ],
+      "app": [
+        "Read it as a lead, not a finding."
+      ],
+      "group": "check",
+      "sources": [
+        "AUDIT: What \"the app's own state\" means",
+        "COPY-BLOCKS: set-aside card",
+        "AUDIT: Set-aside sentences"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f27",
+      "q": "Why does my summary say Not checked?",
+      "alt": [
+        "What if the summary wasn't checked?",
+        "What does Check Now do?"
+      ],
+      "keywords": [
+        "unchecked",
+        "reasons"
+      ],
+      "answer": "It tells you why: the check model isn't downloaded, Ollama wasn't running, the check is off, or it stopped part-way. Check Now checks the summary without writing it again.",
+      "facts": [],
+      "app": [],
+      "group": "check",
+      "sources": [
+        "app CHANGELOG 1.1.0: audit-t1",
+        "app CHANGELOG 1.1.0: audit-t1; capture README §6, frame 03"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f29",
+      "q": "What do I need to run it?",
+      "alt": [
+        "What are the system requirements?",
+        "Will it run on my Mac?",
+        "Does it work on macOS 26?",
+        "Why does it need macOS 27?"
+      ],
+      "keywords": [
+        "requirements",
+        "required",
+        "system requirements",
+        "minimum requirements",
+        "install",
+        "installation",
+        "macos",
+        "apple silicon",
+        "compatible",
+        "supported",
+        "older"
+      ],
+      "answer": "A Mac with Apple Silicon, running macOS 27 or later, plus Ollama. Ollama is a free app, and the setup assistant finds it or installs it for you. Older versions of macOS won't run it, and I haven't settled whether they ever could.",
+      "facts": [
+        "requires-macos"
+      ],
+      "app": [],
+      "group": "setup",
+      "sources": [
+        "claims.csv: Apple Silicon only; Requires macOS 27.0; app README: Getting started",
+        "S4 §7, item 7"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f30",
+      "q": "Does it run on an Intel Mac?",
+      "alt": [
+        "Does it support Intel?",
+        "Will it work on an older MacBook?"
+      ],
+      "keywords": [
+        "intel",
+        "older mac",
+        "x86",
+        "intel mac"
+      ],
+      "answer": "No. It's built for Apple Silicon only.",
+      "facts": [],
+      "app": [],
+      "group": "setup",
+      "sources": [
+        "claims.csv: Apple Silicon only (arm64)"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f31",
+      "q": "Is there a Windows, iPhone or iPad version?",
+      "alt": [
+        "Does it run on Windows?",
+        "Does it run on iOS?",
+        "Can I record on my phone?"
+      ],
+      "keywords": [
+        "windows",
+        "pc",
+        "iphone",
+        "ipad",
+        "ios",
+        "mobile",
+        "phone"
+      ],
+      "answer": "No. Meringo Minutes runs on the Mac only.",
+      "facts": [],
+      "app": [],
+      "group": "setup",
+      "sources": [
+        "claims.csv: Requires macOS 27.0; Apple Silicon only"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f34",
+      "q": "How much does it download?",
+      "alt": [
+        "How big is it?",
+        "How much disk space does it need?"
+      ],
+      "keywords": [
+        "download",
+        "size",
+        "disk space",
+        "storage",
+        "gigabytes",
+        "gb",
+        "space",
+        "setup",
+        "total size",
+        "install size",
+        "model size",
+        "models"
+      ],
+      "answer": "The app is 84 MB, with no models inside it. The default setup adds about 710 MB of speech models, Ollama, and two language models of 9.0 GB and 4.7 GB, so plan on about 15 GB of disk.",
+      "facts": [
+        "size-app",
+        "size-speech-models",
+        "size-summary-model",
+        "size-check-model",
+        "size-default-install"
+      ],
+      "app": [],
+      "group": "setup",
+      "sources": [
+        "SITE-FACTS-2026-09-23; claims.csv: No model weights are bundled",
+        "SITE-FACTS-2026-09-23"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f35",
+      "q": "How much memory does it need?",
+      "alt": [
+        "What are the RAM requirements?",
+        "Will it run on 8 GB or 16 GB?"
+      ],
+      "keywords": [
+        "memory",
+        "ram",
+        "gb",
+        "minimum memory"
+      ],
+      "answer": "I don't know the minimum yet. I've measured it only on an M4 with 24 GB.",
+      "facts": [
+        "test-mac-chip",
+        "test-mac-memory"
+      ],
+      "app": [],
+      "group": "setup",
+      "sources": [
+        "capture README §2"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f36",
+      "q": "What is Ollama, and why do I need it?",
+      "alt": [
+        "Can I use it without Ollama?",
+        "What about Apple Intelligence?"
+      ],
+      "keywords": [
+        "ollama",
+        "install ollama",
+        "apple intelligence",
+        "language model",
+        "llm",
+        "without ollama",
+        "ollama required"
+      ],
+      "answer": "Ollama is a free app that runs language models, by default on your own Mac. Meringo Minutes uses it for the summary, the check and Ask. Without it, a meeting is still transcribed and its summary waits for Ollama. Apple Intelligence is listed in Settings as experimental.",
+      "facts": [],
+      "app": [],
+      "group": "setup",
+      "sources": [
+        "app README: Getting started; SYNTH addendum; DECISIONS 2026-09-21",
+        "app CHANGELOG 1.1.0: audit-t1"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f37",
+      "q": "Can I import a recording I already have?",
+      "alt": [
+        "Can I summarise an audio file?",
+        "Does it work on old recordings?"
+      ],
+      "keywords": [
+        "import",
+        "existing recording",
+        "audio file",
+        "file",
+        "m4a",
+        "mp3",
+        "wav",
+        "old recording"
+      ],
+      "answer": "Yes. Import Audio takes a file, and the demo on this site was made that way. It accepts m4a, wav, mp3, aiff and mp4.",
+      "facts": [],
+      "app": [],
+      "group": "setup",
+      "sources": [
+        "capture README §4",
+        "S2 §1g"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f39",
+      "q": "How much does it cost?",
+      "alt": [
+        "What's the price?",
+        "Is it a subscription?"
+      ],
+      "keywords": [
+        "price",
+        "cost",
+        "subscription",
+        "one time",
+        "one-off",
+        "pay once",
+        "payment",
+        "purchase",
+        "monthly",
+        "how much"
+      ],
+      "answer": "$79 during the first month after launch, then $99. You pay once, and there's no subscription.",
+      "facts": [
+        "price-launch",
+        "price"
+      ],
+      "app": [],
+      "group": "price",
+      "sources": [
+        "DECISIONS 2026-09-23: price; S2 §1n"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f40",
+      "q": "When can I buy it?",
+      "alt": [
+        "Is it available yet?",
+        "When does it launch?"
+      ],
+      "keywords": [
+        "buy",
+        "launch",
+        "release",
+        "available",
+        "release date",
+        "sale",
+        "on sale",
+        "for sale"
+      ],
+      "answer": "Not yet, and I don't have a date to give you. Email support@meringo.app and I'll send one note when it's ready.",
+      "facts": [],
+      "app": [],
+      "group": "price",
+      "sources": [
+        "DECISIONS 2026-09-23"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f41",
+      "q": "Is there a free trial?",
+      "alt": [
+        "Can I try it first?",
+        "Is there a free version?"
+      ],
+      "keywords": [
+        "trial",
+        "free",
+        "try",
+        "free version",
+        "try before buying",
+        "test"
+      ],
+      "answer": "One is planned, not built. The free version will process the first 30 minutes of each meeting, and buying processes the rest from the audio it already kept. There's no clock on it.",
+      "facts": [
+        "trial-minutes"
+      ],
+      "app": [],
+      "group": "price",
+      "sources": [
+        "DECISIONS 2026-09-23: trial"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f43",
+      "q": "Is it on the Mac App Store?",
+      "alt": [
+        "Can I get it from the App Store?"
+      ],
+      "keywords": [
+        "app store",
+        "mac app store",
+        "store",
+        "sold",
+        "where to buy"
+      ],
+      "answer": "No. It'll be sold directly, through a link on this site.",
+      "facts": [],
+      "app": [],
+      "group": "price",
+      "sources": [
+        "S2 §1a; claims.csv: docs/SELLING.md rules the Mac App Store out for this build"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f44",
+      "q": "Is it open source?",
+      "alt": [
+        "Can I see the source code?"
+      ],
+      "keywords": [
+        "open source",
+        "source code",
+        "github",
+        "license",
+        "public"
+      ],
+      "answer": "No.",
+      "facts": [],
+      "app": [],
+      "group": "price",
+      "sources": [
+        "app README: Status"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f45",
+      "q": "Will the other people in the meeting know?",
+      "alt": [
+        "Does it announce that it's recording?",
+        "Is the recording obvious to others?"
+      ],
+      "keywords": [
+        "announce",
+        "announcement",
+        "consent",
+        "others know",
+        "participants",
+        "attendees",
+        "hear",
+        "participants hear",
+        "being recorded",
+        "notify"
+      ],
+      "answer": "Yes, by default. As recording starts, the app says out loud: “I'm recording this meeting to take notes. The recording stays on my Mac.” You can change the words or switch it off, and it stays on until you do. A recording made without it is marked Unannounced.",
+      "facts": [],
+      "app": [
+        "I'm recording this meeting to take notes. The recording stays on my Mac."
+      ],
+      "group": "consent",
+      "sources": [
+        "COPY-BLOCKS: what the app says out loud",
+        "COPY-BLOCKS: FAQ, other people; app CHANGELOG 1.1.0: Recording and transcription",
+        "app CHANGELOG 1.1.0: Recording and transcription"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f46",
+      "q": "Does it join my calls as a bot?",
+      "alt": [
+        "Does it add a bot to Zoom?",
+        "Does it send a calendar invite?"
+      ],
+      "keywords": [
+        "bot",
+        "join",
+        "zoom",
+        "invite",
+        "calendar invite",
+        "bot joins"
+      ],
+      "answer": "No. Nothing joins the call and no calendar invite goes out; it records the call's audio on your Mac. That's why the announcement is on by default: it's how the others find out.",
+      "facts": [],
+      "app": [],
+      "group": "consent",
+      "sources": [
+        "COPY-BLOCKS: FAQ, other people; claims.csv: Core Audio process tap",
+        "COPY-BLOCKS: announcement"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f47",
+      "q": "Does it know which recording law applies to me?",
+      "alt": [
+        "Is it legal to record my meeting?",
+        "Does it handle one-party and two-party consent?"
+      ],
+      "keywords": [
+        "law",
+        "legal",
+        "consent",
+        "one party",
+        "two party",
+        "recording law",
+        "allowed",
+        "where i live",
+        "location",
+        "country",
+        "state"
+      ],
+      "answer": "No, and it doesn't try. The reason is in the code: “the strictest participant's law governs, and nobody's location is knowable.” That's a design choice, not legal advice. One more limit: on headphones, the far end of a call may not hear the announcement.",
+      "facts": [],
+      "app": [],
+      "group": "consent",
+      "sources": [
+        "COPY-BLOCKS: announcement comment",
+        "S2 §1f"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f48",
+      "q": "Can it start recording by itself?",
+      "alt": [
+        "Does it record automatically when a call starts?"
+      ],
+      "keywords": [
+        "automatically",
+        "auto start",
+        "auto record",
+        "start by itself",
+        "begins",
+        "starts"
+      ],
+      "answer": "Only if you turn that on. It's off by default, it works only while announcements are on, and it announces before it records.",
+      "facts": [],
+      "app": [],
+      "group": "consent",
+      "sources": [
+        "app CHANGELOG 1.1.0: Recording and transcription"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f49",
+      "q": "What languages does it understand?",
+      "alt": [
+        "Does it work in Spanish?",
+        "Does it support French or German?"
+      ],
+      "keywords": [
+        "languages",
+        "language",
+        "transcribe other languages",
+        "spanish",
+        "french",
+        "german",
+        "multilingual",
+        "non english",
+        "italian"
+      ],
+      "answer": "The default speech model lists English and 24 other European languages, and Whisper, in Settings, lists 99. I've measured accuracy in English only: every recording in my benchmark is English, so I can't tell you how it does in the others. The vocabulary list works in English only.",
+      "facts": [
+        "lang-default-others",
+        "lang-whisper"
+      ],
+      "app": [],
+      "group": "languages",
+      "sources": [
+        "SITE-FACTS-2026-09-23: SetupWizardView.swift:368; SettingsView.swift:375",
+        "SITE-FACTS-2026-09-23: Bench/README.md",
+        "SITE-FACTS-2026-09-23: SettingsView.swift:425"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f50",
+      "q": "What can I export?",
+      "alt": [
+        "Can I export to Markdown or PDF?",
+        "Can I get the transcript out?"
+      ],
+      "keywords": [
+        "export",
+        "formats",
+        "file formats",
+        "markdown",
+        "pdf",
+        "save",
+        "notes",
+        "save as",
+        "copy out",
+        "share"
+      ],
+      "answer": "The summary (with or without timestamps), the transcript and the mindmap, as Markdown, plain text, PDF, Mermaid or OPML, or everything to a folder at once. An exported summary says whether it was checked.",
+      "facts": [],
+      "app": [],
+      "group": "export",
+      "sources": [
+        "capture README §8",
+        "app CHANGELOG 1.1.0: audit-t1"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f51",
+      "q": "Can I teach it names and jargon?",
+      "alt": [
+        "Is there a custom vocabulary?",
+        "It keeps misspelling a name."
+      ],
+      "keywords": [
+        "vocabulary",
+        "names",
+        "jargon",
+        "custom words",
+        "spelling",
+        "misspelled",
+        "terms",
+        "company terms"
+      ],
+      "answer": "Yes. Add a word to the vocabulary list, and the app changes it wherever it also hears it in the audio. On three bench meetings full of uncommon names, read by synthesised voices, lists halved the error rate, from 10.9% to 5.4%. In the demo, “Pemberton” was fixed both times, and “locum”, heard as “locker”, stayed wrong.",
+      "facts": [
+        "vocab-wer-before",
+        "vocab-wer-after"
+      ],
+      "app": [
+        "locker"
+      ],
+      "group": "people-vocabulary",
+      "sources": [
+        "capture README §5: the Settings caption",
+        "claims.csv: Vocabulary lists halved WER; S2 §1g",
+        "capture README §5"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f52",
+      "q": "Does it suggest corrections by itself?",
+      "alt": [
+        "Does it notice misspelled names?"
+      ],
+      "keywords": [
+        "suggest",
+        "corrections",
+        "near miss",
+        "names",
+        "offer",
+        "fix",
+        "misheard",
+        "misheard names"
+      ],
+      "answer": "Sometimes. When it notices a near-miss it offers the correction, and you confirm it. On the bench it made 14 offers, and all 14 were right. In the demo it made none.",
+      "facts": [
+        "near-miss-offers",
+        "near-miss-correct"
+      ],
+      "app": [],
+      "group": "people-vocabulary",
+      "sources": [
+        "claims.csv: Near-miss offers: 14 offers, 14 correct",
+        "capture README §5"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f54",
+      "q": "Does it work with Zoom, Teams or Google Meet?",
+      "alt": [
+        "Which call apps does it support?"
+      ],
+      "keywords": [
+        "zoom",
+        "teams",
+        "google meet",
+        "meet",
+        "webex",
+        "slack",
+        "facetime",
+        "call app",
+        "integrate",
+        "integration"
+      ],
+      "answer": "It records your microphone and the audio your Mac plays, so the call app doesn't matter. It doesn't connect to any of them.",
+      "facts": [],
+      "app": [],
+      "group": "doesnt-do",
+      "sources": [
+        "S2 §3: system-audio permission string; claims.csv: entitlements; Core Audio process tap"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f55",
+      "q": "Can I share meetings with my team?",
+      "alt": [
+        "Does it sync between Macs?",
+        "Is there a team plan?",
+        "Do I need an account?",
+        "Is there a login?"
+      ],
+      "keywords": [
+        "team",
+        "share",
+        "sync",
+        "account",
+        "login",
+        "collaborate",
+        "colleagues",
+        "coworkers",
+        "see",
+        "icloud"
+      ],
+      "answer": "No. There's no sync and no account. You can export a meeting and send it yourself.",
+      "facts": [],
+      "app": [],
+      "group": "doesnt-do",
+      "sources": [
+        "COPY-BLOCKS: privacy panel green; capture README §8"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f56",
+      "q": "Why pay for this if I only need a transcript?",
+      "alt": [
+        "Is it worth $99?",
+        "What am I paying for?"
+      ],
+      "keywords": [
+        "worth",
+        "value",
+        "why pay",
+        "transcript only",
+        "free transcription",
+        "free alternatives",
+        "exist"
+      ],
+      "answer": "If a transcript is all you need, you may not need Meringo Minutes. The price is for the parts that help you check the notes: the timestamps, the second model's check, and an Ask that says when the meeting doesn't answer.",
+      "facts": [],
+      "app": [],
+      "group": "doesnt-do",
+      "sources": [
+        "DECISIONS 2026-09-21; AUDIT; ASK-BANK"
+      ],
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "f57",
+      "q": "Who makes Meringo Minutes?",
+      "alt": [
+        "Who is behind this?",
+        "How do I contact you?"
+      ],
+      "keywords": [
+        "person",
+        "developer",
+        "maker",
+        "made",
+        "built",
+        "build",
+        "creator",
+        "author",
+        "company",
+        "contact",
+        "email",
+        "support"
+      ],
+      "answer": "I do: Adam Siemaszko, under Meringo Labs LLC, in Erie County, New York. Write to me at support@meringo.app.",
+      "facts": [],
+      "app": [],
+      "group": "doesnt-do",
+      "sources": [
+        "brief: About Adam; live draft footer"
+      ],
+      "asOf": "2026-09-23"
+    }
+  ]
+}
