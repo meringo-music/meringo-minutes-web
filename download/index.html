@@ -4,13 +4,22 @@
   <meta charset="utf-8">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Page not found — Meringo Minutes</title>
-  <meta name="robots" content="noindex">
+  <title>Download Meringo Minutes — requirements and price</title>
+  <meta name="description" content="Meringo Minutes isn't for sale yet. What it will need (Apple Silicon, macOS 27, Ollama), what it downloads and what it will cost.">
+  <link rel="canonical" href="https://meringominutes.app/download/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Meringo Minutes">
+  <meta property="og:title" content="Download Meringo Minutes — requirements and price">
+  <meta property="og:description" content="Meringo Minutes isn't for sale yet. What it will need (Apple Silicon, macOS 27, Ollama), what it downloads and what it will cost.">
+  <meta property="og:url" content="https://meringominutes.app/download/">
+  <meta name="twitter:card" content="summary">
   <meta name="theme-color" content="#07040E" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#FAF6EE" media="(prefers-color-scheme: light)">
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="icon" type="image/png" href="/assets/img/app-icon-64.png" sizes="64x64">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preload" href="/assets/fonts/cormorant-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css">
   <script src="/assets/js/theme-init.js"></script>
   <script type="module" src="/assets/js/site.js"></script>
@@ -45,25 +54,53 @@
   <!-- /sync:header -->
 
   <div id="content" tabindex="-1"></div>
-  <main class="not-found">
-    <div class="wrap">
-      <p class="eyebrow">Error 404</p>
-      <h1>Nothing at this address.</h1>
-      <div class="app-window" role="group" aria-label="A question, asked of this website">
-        <div class="app-bar" aria-hidden="true">
-          <span class="app-lights"><i></i><i></i><i></i></span>
-          <span class="app-title">meringominutes.app</span>
-        </div>
-        <div class="app-body">
-          <div class="app-ask">
-            <div class="app-field"><span class="visually-hidden">Question: </span>Is there a page at this address?</div>
-            <div class="app-scope" aria-hidden="true">This site</div>
-          </div>
-          <p class="app-answer"><span class="visually-hidden">Answer: </span>I found nothing on this site at that address.</p>
-        </div>
-      </div>
-      <p class="fine back"><a href="/">Go to the home page</a></p>
+  <main class="page">
+    <h1>Download Meringo Minutes</h1>
+    <p class="page-lede">Not yet: Meringo Minutes isn't for sale. If you'd like one email when it's ready, write to me.</p>
+    <div class="actions">
+      <a class="button button-primary" href="mailto:support@meringo.app?subject=Tell%20me%20when%20Meringo%20Minutes%20is%20ready">Email me when it's ready</a>
     </div>
+    <p class="fine">I'll use your address for that one email and nothing else.</p>
+
+    <h2 id="needs">What it needs</h2>
+    <ul>
+      <li>A Mac with Apple Silicon. It won't run on an Intel Mac.</li>
+      <li><span data-fact="requires-macos">macOS 27</span> or later. If you haven't updated yet, it won't open.</li>
+      <li>Ollama, a free app. The setup assistant finds it or installs it for you.</li>
+    </ul>
+
+    <h2 id="downloads">What it downloads</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th scope="col">What</th><th scope="col">Size</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>The app</td><td><span data-fact="size-app">84 MB</span></td></tr>
+          <tr><td>Speech models, on first use</td><td>about <span data-fact="size-speech-models">710 MB</span></td></tr>
+          <tr><td>Ollama, a free app</td><td>about <span data-fact="size-ollama">600 MB</span></td></tr>
+          <tr><td>The summary model, through Ollama</td><td><span data-fact="size-summary-model">9.0 GB</span></td></tr>
+          <tr><td>The check model, through Ollama</td><td><span data-fact="size-check-model">4.7 GB</span></td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td>In all, the default setup</td><td>about <span data-fact="size-default-install">15 GB</span></td></tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h2 id="memory">Memory</h2>
+    <p>I've measured it only on an <span data-fact="test-mac-chip">M4</span> with <span data-fact="test-mac-memory">24 GB</span>. I don't know the minimum yet, and I won't guess one.</p>
+
+    <h2 id="price">Price</h2>
+    <p><span data-fact="price-launch">$79</span> during the first month after launch, then <span data-fact="price">$99</span>. You pay once, and there's no subscription. The date the <span data-fact="price-launch">$79</span> ends will be printed here from launch day.</p>
+
+    <h2 id="free-version">The free version (planned)</h2>
+    <p>None of this is built yet.</p>
+    <ul>
+      <li>You'll be able to record a whole meeting, and the free version processes the first <span data-fact="trial-minutes">30</span> minutes of it.</li>
+      <li>Buying processes the rest from the audio it already kept.</li>
+      <li>There's no clock, and nothing checks in with a server.</li>
+    </ul>
   </main>
 
   <!-- sync:footer -->

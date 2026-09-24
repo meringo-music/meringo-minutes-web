@@ -1,6 +1,7 @@
 // Site behaviour shared by every page. Loaded as a module, so it runs after
 // the document is parsed. Nothing here talks to the network.
 
+import { isCurrent } from './nav.js';
 import { label, nextChoice, normalizeChoice, sourceMedia } from './theme.js';
 
 const KEY = 'theme';
@@ -47,4 +48,14 @@ function setupThemeToggle() {
   }
 }
 
+// The header is one shared partial, so the page being viewed is marked here
+// rather than in the HTML. That also keeps aria-current out of /privacy/'s
+// source, which the desk's page renderer copies onto other pages.
+function markCurrentPage() {
+  for (const link of document.querySelectorAll('.site-nav a[href]')) {
+    if (isCurrent(link.getAttribute('href'), location.pathname)) link.setAttribute('aria-current', 'page');
+  }
+}
+
 setupThemeToggle();
+markCurrentPage();
