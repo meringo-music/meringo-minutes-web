@@ -1,0 +1,41 @@
+{
+  "_about": "Copy rules for meringominutes.app, checked by tools/check.py. Each rule names why it exists. The copy speaks as Adam, first person singular; text inside data-lint=\"app\" is the app's own words and is exempt from the voice rules only.",
+
+  "base": "https://meringominutes.app",
+
+  "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'",
+
+  "banned": [
+    { "pattern": "\\bencrypt(ed|ion|s)?\\b", "why": "Nothing is encrypted at rest; never imply it." },
+    { "pattern": "\\bundetectable\\b|\\binvisible\\b", "why": "Concealment language (18 U.S.C. §2512 risk)." },
+    { "pattern": "\\bno (meeting )?bots?\\b", "why": "Absence of a bot is privacy, never concealment; use an allowed phrase." },
+    { "pattern": "\\bmacos blocks\\b|\\bstructurally\\b", "why": "There is no sandbox; nothing is structurally enforced." },
+    { "pattern": "\\bevery (sentence|claim)\\b", "why": "Placement accuracy is not measured to that standard." },
+    { "pattern": "seconds after you stop", "why": "Contradicted by measured processing time." },
+    { "pattern": "\\bhipaa\\b|\\bgdpr\\b|\\bcomplian(t|ce)\\b|\\bbaa\\b", "why": "No compliance claims." },
+    { "pattern": "trusted by|loved by|customers (say|love)|users (say|love)|testimonial", "why": "No users or testimonials exist to cite." },
+    { "pattern": "®", "why": "Trademark is pending: use ™, never ®." },
+    { "pattern": "meringo assist", "why": "Retired name." },
+    { "pattern": "catches every|never wrong|always accurate|100% accurate", "why": "The checker is not exhaustive." }
+  ],
+
+  "voice": [
+    { "pattern": "\\bwe\\b|\\bour\\b|\\bours\\b", "why": "The site speaks as Adam, first person singular." }
+  ],
+
+  "allowed_phrases": [
+    "Is my data encrypted?",
+    "there is no meeting bot"
+  ],
+
+  "locality": {
+    "pattern": "(on|from) your (own )?mac|never leaves|leaves your mac|stays on your mac|on this mac|on your own machine",
+    "requires": "by default",
+    "why": "Locality is the default, not an invariant: the summariser can be pointed at another machine."
+  },
+
+  "forbidden_token_sha256": [
+    "53f3fc2b78657f4e7a17c35c72f2cce8c7df847667d7a1fcc0809d2a131e16c5"
+  ],
+  "_forbidden_token_note": "SHA-256 of lowercase tokens that must never appear in any tracked file (the checking model's name). Stored as hashes so this public repo does not publish the name it forbids."
+}
