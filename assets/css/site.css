@@ -52,6 +52,7 @@
   --accent: #EDA040;          /* links, focus, the one primary button */
   --accent-ink: #EDA040;
   --on-accent: #1C1426;
+  --focus: #EDA040;
   --rule: rgba(237, 160, 64, 0.35);
 
   /* The app window, re-set from the 2026-09-23 capture (dark appearance) */
@@ -108,6 +109,7 @@
     --accent: #EDA040;
     --accent-ink: #8A5A12;
     --on-accent: #1C1426;
+    --focus: #2D1C47;
     --rule: rgba(138, 90, 18, 0.35);
 
     --app-window: #FFFFFF;
@@ -136,6 +138,7 @@
   --accent: #EDA040;
   --accent-ink: #8A5A12;
   --on-accent: #1C1426;
+  --focus: #2D1C47;
   --rule: rgba(138, 90, 18, 0.35);
 
   --app-window: #FFFFFF;
@@ -169,7 +172,7 @@ p { margin: 0 0 var(--space-4); }
 a { color: var(--accent-ink); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
 a:hover { text-decoration-thickness: 2px; }
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--focus);
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -216,9 +219,28 @@ h2 { font-size: clamp(32px, 4vw, 44px); line-height: 1.1; }
   line-height: 1;
 }
 .header-note { font-size: var(--text-sm); color: var(--text-2); }
+.header-end { display: flex; align-items: center; gap: var(--space-3); }
 .header-note { margin: 0; }
 .header-note a { color: var(--text-2); }
+.brand span, .header-note a { white-space: nowrap; }
 @media (max-width: 520px) { .hide-narrow { display: none; } }
+@media (max-width: 440px) { .brand span { font-size: 21px; } .brand { gap: var(--space-2); } }
+@media (max-width: 359px) { .header-note { display: none; } }
+
+/* Theme toggle: System → Light → Dark. Hidden until site.js runs. */
+.theme-toggle {
+  display: inline-grid; place-items: center;
+  width: 40px; height: 40px; padding: 0;
+  border: 1px solid var(--border); border-radius: 50%;
+  background: transparent; color: var(--text-2); cursor: pointer;
+  transition: color var(--fast) var(--ease), border-color var(--fast) var(--ease);
+}
+.theme-toggle:hover { color: var(--text); border-color: var(--text-3); }
+.theme-toggle[hidden] { display: none; }
+.theme-toggle svg { display: none; }
+.theme-toggle[data-choice="system"] .icon-system,
+.theme-toggle[data-choice="light"] .icon-light,
+.theme-toggle[data-choice="dark"] .icon-dark { display: block; }
 
 /* ─── Buttons ────────────────────────────────────────────────────────── */
 .button {
@@ -318,6 +340,60 @@ h2 { font-size: clamp(32px, 4vw, 44px); line-height: 1.1; }
 .prose { max-width: var(--measure); }
 .prose p { color: var(--text-2); }
 .prose strong { color: var(--text); font-weight: 600; }
+
+/* ─── Components ───────────────────────────────────────────────────── */
+hr, .rule { border: 0; height: 1px; background: var(--rule); margin: var(--space-12) 0; }
+.card {
+  background: var(--surface-1); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: var(--space-6);
+}
+.card > :last-child { margin-bottom: 0; }
+.grid { display: grid; gap: var(--space-6); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 760px) { .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* Facts: a definition list of label → value, each value a sourced fact */
+.facts { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; margin: 0 0 var(--space-6); }
+.facts > div { display: grid; gap: var(--space-1); padding: var(--space-3) 0; border-top: 1px solid var(--border); }
+.facts > div:last-child { border-bottom: 1px solid var(--border); }
+.facts dt { font-size: var(--text-sm); color: var(--text-2); }
+.facts dd { margin: 0; color: var(--text); }
+@media (min-width: 640px) {
+  .facts > div { grid-template-columns: minmax(0, 14em) minmax(0, 1fr); gap: var(--space-6); }
+}
+
+/* A quotation of the app's own words */
+.app-quote {
+  margin: 0 0 var(--space-6); padding: var(--space-4) var(--space-6);
+  border-left: 2px solid var(--border); background: var(--surface-1);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-family: var(--font-app); color: var(--text);
+}
+.app-quote p { margin: 0; }
+.app-quote cite { display: block; margin-top: var(--space-2); font-style: normal; font-size: var(--text-xs); color: var(--text-2); }
+
+/* ─── Content pages: <main class="page"> (also the desk's page template) ─ */
+main.page {
+  max-width: calc(var(--measure) + 2 * var(--gutter));
+  margin: 0 auto;
+  padding: var(--space-16) var(--gutter) var(--space-24);
+}
+main.page h1 { font-size: clamp(40px, 5.4vw, 56px); line-height: 1.05; margin-bottom: var(--space-6); }
+main.page h2 { font-size: clamp(28px, 3.4vw, 34px); margin: var(--space-12) 0 var(--space-4); }
+main.page h3 { font: 600 var(--text-md)/1.35 var(--font-ui); margin: var(--space-8) 0 var(--space-2); }
+main.page p, main.page li { color: var(--text); }
+main.page .page-lede { font-size: var(--text-md); color: var(--text-2); }
+main.page ul, main.page ol { padding-left: 1.25em; margin: 0 0 var(--space-6); }
+main.page li { margin-bottom: var(--space-2); }
+main.page li::marker { color: var(--text-3); }
+main.page code { font-family: var(--font-mono); font-size: 0.92em; background: var(--surface-1); padding: 1px 5px; border-radius: 4px; }
+.page-label {
+  font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-2); margin-bottom: var(--space-4);
+}
+.table-wrap { overflow-x: auto; margin: 0 0 var(--space-6); }
+main.page table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+main.page th, main.page td { text-align: left; vertical-align: top; padding: var(--space-3) var(--space-4) var(--space-3) 0; border-bottom: 1px solid var(--border); }
+main.page th { color: var(--text-2); font-weight: 600; }
 
 /* ─── Footer ─────────────────────────────────────────────────────────── */
 .site-footer { border-top: 1px solid var(--border); padding: var(--space-12) 0 var(--space-16); }

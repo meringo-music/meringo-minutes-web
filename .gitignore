@@ -10,3 +10,5 @@ desktop.ini
 
 # Local screenshots from tools/shoot.mjs
 shots/
+__pycache__/
+node_modules/
