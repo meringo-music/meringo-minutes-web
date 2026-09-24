@@ -272,7 +272,7 @@ h2 { font-size: clamp(32px, 4vw, 44px); line-height: 1.1; }
   display: flex; align-items: center; gap: var(--space-3);
 }
 .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--accent); }
-.hero h1 { margin-bottom: var(--space-6); }
+.hero h1 { margin-bottom: var(--space-6); font-size: clamp(40px, 5.4vw, 64px); line-height: 1.04; }
 .lead { font-size: var(--text-md); color: var(--text-2); max-width: 34em; margin-bottom: var(--space-8); }
 .actions { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
 .fine { font-size: var(--text-sm); color: var(--text-2); }
@@ -411,6 +411,11 @@ main.page th { color: var(--text-2); font-weight: 600; }
 .footer-links { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); font-size: var(--text-sm); }
 .footer-links a { color: var(--text-2); text-decoration: none; }
 .footer-links a:hover { color: var(--text); text-decoration: underline; }
+.footer-tagline {
+  font-family: var(--font-display); font-size: 22px; line-height: 1.3; color: var(--heading);
+  margin: var(--space-6) 0 0;
+}
+.footer-tagline em { color: var(--accent-ink); }
 .footer-legal { font-size: var(--text-xs); color: var(--text-2); margin-top: var(--space-4); }
 
 /* ─── 404 ────────────────────────────────────────────────────────────── */
