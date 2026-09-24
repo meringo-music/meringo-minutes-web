@@ -1,1 +1,6 @@
 assets/vendor/** -text
+
+# Binary assets, byte for byte (the recording is checked by SHA-256)
+*.m4a binary
+*.webp binary
+*.png binary

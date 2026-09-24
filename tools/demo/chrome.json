@@ -1,0 +1,25 @@
+{
+  "_about": "The app's own interface words that exist only on screen, not in any file it writes. Each was read from the named frame in the capture's screenshots/ folder (2560 x 1600 originals); where the frame was ambiguous about a character, the note says how it was settled. tools/demo/build_demo.py copies these into demo.json's app area, checks each frame exists in the capture, and cross-checks the counts inside them against the data. The Checked tooltip is deliberately absent: it names the checking model.",
+
+  "strings": {
+    "window": { "text": "Meringo Minutes", "frame": "01b-summary-top-light.png" },
+    "title": { "text": "Weekly partners meeting", "frame": "01b-summary-top-light.png" },
+    "date": { "text": "September 23, 2026 at 9:07 PM", "frame": "01b-summary-top-light.png", "note": "Also the Accessibility value in logs/ask-ax-dumps/q01.dump.txt." },
+    "duration": { "text": "03:53", "frame": "01b-summary-top-light.png" },
+    "status": { "text": "Done", "frame": "01b-summary-top-light.png" },
+    "tabTranscript": { "text": "Transcript", "frame": "01b-summary-top-light.png" },
+    "tabSummary": { "text": "Summary", "frame": "01b-summary-top-light.png" },
+    "tabAsk": { "text": "Ask", "frame": "01b-summary-top-light.png" },
+    "traced": { "text": "All 11 claims traced to the recording", "frame": "01b-summary-top-light.png" },
+    "checked": { "text": "Checked", "frame": "01b-summary-top-light.png", "note": "One mark for the whole summary, top right. Its tooltip is not used." },
+    "setAsideHeading": { "text": "4 unverified sentences", "frame": "01d-summary-bottom-setaside-collapsed-light.png", "note": "Read from the frame, never published from it: 01d also shows the provenance card." },
+    "setAsideLine": { "text": "Written by the AI, but the check model found that the transcript lines it worked from don't say this. Read it as a lead, not a finding.", "frame": "01d-summary-bottom-setaside-collapsed-light.png", "note": "The apostrophe in don't is straight, checked at 4x zoom." },
+    "setAsideShow": { "text": "Show anyway", "frame": "01d-summary-bottom-setaside-collapsed-light.png", "note": "The collapsed card's button." },
+    "setAsideHide": { "text": "Hide", "frame": "02a-summary-setaside-expanded-light.png", "note": "The expanded card's button." },
+    "askPlaceholder": { "text": "Ask this meeting…", "frame": "05-ask-empty-light.png", "note": "One ellipsis character, per the Accessibility placeholder in logs/ask-ax-dumps/q01.dump.txt." },
+    "askScope": { "text": "This meeting", "frame": "05-ask-empty-light.png" },
+    "askButton": { "text": "Ask", "frame": "05-ask-empty-light.png" },
+    "askRefusal": { "text": "I found nothing in this meeting that says that.", "frame": "06-ask-refusal-dayrate-light.png" },
+    "askFootnote": { "text": "1 shown in the transcript's own words: the check model would not support the wording.", "frame": "ask-04.png", "note": "Also the Accessibility value in logs/ask-ax-dumps/q08.dump.txt; the apostrophe is straight." }
+  }
+}
