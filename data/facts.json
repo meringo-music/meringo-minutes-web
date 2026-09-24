@@ -343,6 +343,41 @@
       "source": "Adam's decision, desk DECISIONS 2026-09-23 (refunds)",
       "method": "Owner's decision: 30 days to a refund, no questions asked, once the app is on sale.",
       "asOf": "2026-09-23"
+    },
+    {
+      "id": "bench-ask-meetings",
+      "value": "24",
+      "source": "Meringo Minutes app repo, docs/DECISIONS.md@324d79a (2026-09-19 and 09-20 entries) and Bench/ask/questions.jsonl@2912f34",
+      "method": "Public meetings in the Ask bench: AMI 31 questions, ICSI 15, Earnings-22 14, over 24 meetings.",
+      "asOf": "2026-09-20"
+    },
+    {
+      "id": "bench-ask-questions",
+      "value": "60",
+      "source": "Meringo Minutes app repo, docs/DECISIONS.md@324d79a (2026-09-19 and 09-20 entries) and Bench/ask/questions.jsonl@2912f34",
+      "method": "Questions in Bench/ask/questions.jsonl, counted: 41 answerable, 14 not-said, 5 feelings.",
+      "asOf": "2026-09-20"
+    },
+    {
+      "id": "bench-notsaid",
+      "value": "14",
+      "source": "Meringo Minutes app repo, docs/DECISIONS.md@324d79a (2026-09-19 and 09-20 entries) and Bench/ask/questions.jsonl@2912f34",
+      "method": "Questions that ask for a fact the meeting never states, after the 09-19 correction of the set.",
+      "asOf": "2026-09-20"
+    },
+    {
+      "id": "bench-notsaid-refused",
+      "value": "12",
+      "source": "Meringo Minutes app repo, docs/DECISIONS.md@324d79a (2026-09-19 and 09-20 entries) and Bench/ask/questions.jsonl@2912f34",
+      "method": "Of those 14, asked of their own meeting, the number refused: \"Not-said 12/14 refused\" (09-19 replay through the shipped models).",
+      "asOf": "2026-09-20"
+    },
+    {
+      "id": "bench-wrong-meeting-refused",
+      "value": "14",
+      "source": "Meringo Minutes app repo, docs/DECISIONS.md@324d79a (2026-09-19 and 09-20 entries) and Bench/ask/questions.jsonl@2912f34",
+      "method": "The wrong-meeting falsifier puts each question to the next meeting in the set: \"14 of 14 not-said refused\", 0 right lines cited (09-20, shipped window).",
+      "asOf": "2026-09-20"
     }
   ]
 }

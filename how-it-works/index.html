@@ -76,6 +76,7 @@
     <p>Ask answers only from the transcript. The rarest words in your question pick the lines the model sees. Each line it quotes is looked up word for word, and each sentence it writes goes to the check model against those lines.</p>
     <p>When nothing holds, the answer is <q data-lint="app">I found nothing in this meeting that says that.</q> If no line shares a word with your question, it says that before any model is asked. Ask how somebody felt and you get their own lines on the subject, with no verdict on them.</p>
     <p>In the demo it refused all <span data-fact="ask-unanswerable">8</span> questions the meeting doesn't answer, or answers only in part. It also refused one the meeting did answer. And in another answer it added <q>dollars</q> when nobody named a currency, and the check let that through.</p>
+    <p>On a wider bench of <span data-fact="bench-ask-meetings">24</span> public meetings and <span data-fact="bench-ask-questions">60</span> questions, it refused <span data-fact="bench-notsaid-refused">12</span> of the <span data-fact="bench-notsaid">14</span> that asked for a fact the meeting never states, and all <span data-fact="bench-wrong-meeting-refused">14</span> when each question was put to the wrong meeting. The refusals come from the retrieval and the answer path: in that run the check set aside four right answers and caught none of the wrong ones.</p>
 
     <h2 id="refusals">What it won't do</h2>
     <ul>
