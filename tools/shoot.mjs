@@ -23,7 +23,10 @@ const PORT = 9333;
 
 mkdirSync(out, { recursive: true });
 const profile = mkdtempSync(join(tmpdir(), 'shoot-'));
-const edge = spawn(EDGE, ['--headless=new', '--disable-gpu', '--hide-scrollbars',
+// --no-proxy-server: a filtering proxy on the machine can rewrite pages on
+// their way to the browser (one injected a dark-mode stylesheet into about
+// half the light-theme shots), so a screenshot would show its styles, not ours.
+const edge = spawn(EDGE, ['--headless=new', '--disable-gpu', '--no-proxy-server', '--hide-scrollbars',
   `--remote-debugging-port=${PORT}`, `--user-data-dir=${profile}`, 'about:blank'], { stdio: 'ignore' });
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

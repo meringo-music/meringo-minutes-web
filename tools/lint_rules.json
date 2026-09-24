@@ -24,9 +24,18 @@
   ],
 
   "allowed_phrases": [
-    "Is my data encrypted?",
-    "there is no meeting bot"
+    { "phrase": "Is my data encrypted?", "why": "A visitor's question, answered No." },
+    { "phrase": "there is no meeting bot", "why": "An honest absence: nothing joins the call." },
+    { "phrase": "the app adds no encryption of its own", "why": "/privacy/ says plainly that meetings are stored as ordinary files; the negation is the point." }
   ],
+
+  "digits": {
+    "why": "Every number on the site has a source. A digit in visible copy must sit in a <span data-fact> whose text equals its value in data/facts.json, a <time>, the app's own quoted words (data-lint=\"app\") or the footer.",
+    "allowed": [
+      { "pattern": "\\bQ3\\b", "why": "A quarter's name, quoted from the demo meeting (\"end of Q3\")." },
+      { "pattern": "\\bError 404\\b", "why": "The not-found page naming its own HTTP status, not a claim." }
+    ]
+  },
 
   "locality": {
     "pattern": "(on|from) your (own )?mac|never leaves|leaves your mac|stays on your mac|on this mac|on your own machine",
