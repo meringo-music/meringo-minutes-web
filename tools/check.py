@@ -420,8 +420,12 @@ DEMO_JSON = ROOT / "assets" / "data" / "demo.json"
 ANNOTATIONS = ROOT / "tools" / "demo" / "annotations.json"
 # Where each scoreboard count is also stated as a fact elsewhere on the site.
 TALLY_FACTS = {"lineNo": "demo-anchor-miss", "anchored": "demo-anchored", "linePartly": "demo-anchor-partial",
-               "traps": "ask-unanswerable", "trapsRefused": "ask-unanswerable-refused"}
-BUDGET = {"html": 90_000, "css": 30_000, "js": 20_000, "img": 200_000}  # the plan's home page budget, bytes
+               "traps": "ask-unanswerable", "trapsRefused": "ask-unanswerable-refused",
+               "answerable": "ask-answerable", "answerableRefused": "ask-answerable-refused"}
+# The plan's home page budget, bytes. CSS was raised from 30,000 on 2026-09-24
+# for the home page's proof blocks, the reasons strip and the font-metric
+# fallbacks; images from 200,000 for the two extra real-app frames.
+BUDGET = {"html": 90_000, "css": 40_000, "js": 20_000, "img": 260_000}
 IMPORT = re.compile(r"""^\s*(?:import|export)\b(?!\s*\()[^'"]*?(?:from\s*)?['"]([^'"]+\.js)['"]""", re.M)  # not import()
 
 

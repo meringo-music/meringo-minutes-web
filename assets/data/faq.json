@@ -104,7 +104,7 @@
         "password",
         "safe"
       ],
-      "answer": "No, and I'd rather say so plainly. Recordings and meeting files are ordinary files in a folder in your Library, and the app adds no encryption of its own. macOS file permissions protect them, and FileVault does too if it's on. By default nothing is uploaded, so there's no server copy to protect.",
+      "answer": "No. Recordings and meeting files are ordinary files in a folder in your Library, and the app adds no encryption of its own. macOS file permissions protect them, and FileVault does too if it's on. By default nothing is uploaded, so there's no server copy to protect.",
       "facts": [],
       "app": [],
       "group": "privacy",
@@ -394,7 +394,7 @@
         "exact",
         "precise"
       ],
-      "answer": "Near it. In the demo, none of the 11 landed on a line that states the whole claim: 4 point at a line that doesn't state it, and the other 7 at a line that states only part of it. The 4 misses land early, and the supporting line follows within about 30 seconds. The overview at the top never gets a timestamp, by design, and a sentence the app can't place gets none rather than a guess.",
+      "answer": "Near it. In the demo, none of the 11 landed on a line that states the whole claim: 4 point at a line that doesn't state it, and the other 7 at a line that states only part of it. The 4 misses land early, and the supporting line follows within about 30 seconds. The overview at the top never gets a timestamp, by design, and a sentence the app can't place gets none.",
       "facts": [
         "demo-anchored",
         "demo-anchor-miss",
@@ -472,7 +472,7 @@
         "done",
         "ready"
       ],
-      "answer": "One meeting has been timed on the current build: 3 minutes 53 seconds of audio took about 6½ to 7 minutes, on an M4 with 24 GB, with the speech models already downloaded. The app sets no length limit, but I haven't timed a long meeting on this build, so I won't give you a per-hour figure yet.",
+      "answer": "One meeting has been timed on the current build: 3 minutes 53 seconds of audio took about 6½ to 7 minutes, on an M4 with 24 GB, with the speech models already downloaded. The app sets no length limit, but I haven't timed a long meeting on this build, so there's no per-hour figure yet.",
       "facts": [
         "demo-duration",
         "demo-processing",
@@ -1005,7 +1005,7 @@
         "try before buying",
         "test"
       ],
-      "answer": "One is planned, not built. The free version will process the first 30 minutes of each meeting, and buying processes the rest from the audio it already kept. There's no clock on it.",
+      "answer": "Not yet. A free version is planned, and it isn't built. It will process the first 30 minutes of each meeting, and buying processes the rest from the audio it already kept. There's no clock on it.",
       "facts": [
         "trial-minutes"
       ],
@@ -1137,7 +1137,7 @@
         "country",
         "state"
       ],
-      "answer": "No, and it doesn't try. The reason is in the code: “the strictest participant's law governs, and nobody's location is knowable.” That's a design choice, not legal advice. One more limit: on headphones, the far end of a call may not hear the announcement.",
+      "answer": "No, and it doesn't try. The reason is in the code: “the strictest participant's law governs, and nobody's location is knowable.” It isn't legal advice. One more limit: on headphones, the far end of a call may not hear the announcement.",
       "facts": [],
       "app": [],
       "group": "consent",

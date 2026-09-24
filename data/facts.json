@@ -1,6 +1,5 @@
 {
   "_about": "Every number in this site's page copy, with where it came from. A page wraps each one as <span data-fact=\"id\">value</span>, and tools/check.py fails when the span's text differs from the value here, when the id is unknown, or when a digit in visible copy sits outside a fact span, a <time>, the app's own quoted words (data-lint=\"app\") or the footer. Change a number here first, then on the page.",
-
   "facts": [
     {
       "id": "app-version",
@@ -322,6 +321,27 @@
       "value": "14",
       "source": "claims.csv in the Meringo Minutes app repo: Near-miss offers: 14 offers, 14 correct",
       "method": "Of those offers, the number that were right.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "ask-answerable",
+      "value": "8",
+      "source": "Minutes capture 2026-09-23, ASK-BANK.md (Q1 to Q8)",
+      "method": "Each of the 16 recorded Ask questions read against the transcript: 8 are answered by the meeting.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "ask-answerable-refused",
+      "value": "1",
+      "source": "Minutes capture 2026-09-23, ASK-BANK.md Q3",
+      "method": "Of those 8 answerable questions, the number whose recorded answer was the app's refusal (Q3, What did we decide about the backlog?).",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "refund-days",
+      "value": "30",
+      "source": "Adam's decision, desk DECISIONS 2026-09-23 (refunds)",
+      "method": "Owner's decision: 30 days to a refund, no questions asked, once the app is on sale.",
       "asOf": "2026-09-23"
     }
   ]
