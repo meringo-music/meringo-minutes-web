@@ -624,7 +624,9 @@ main.page .faq-item > p { margin: 0 0 var(--space-4); }
 .audit-static { border-left: 2px solid var(--rule); padding-left: 12px; color: var(--text-2); }
 @media (max-width: 520px) { .demo-pane, .demo-window .app-head { padding: 12px 16px; } .demo-window .app-tabs { margin-left: 16px; } }
 
-/* The scoreboard: each count a line of its own, the numbers in the display face */
+/* The scoreboard: part of the audit layer, so it shows only with the toggle on;
+   each count a line of its own, the numbers in the display face */
+.demo:not([data-audit="on"]) .demo-score { display: none; }
 .demo-score { margin: var(--space-8) 0 0; padding: var(--space-4) var(--space-6) var(--space-3); background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--radius-md); }
 .score-list { list-style: none; margin: var(--space-2) 0 var(--space-3); padding: 0; }
 .score-list li { padding: var(--space-2) 0; border-top: 1px solid var(--border); color: var(--text-2); font-size: var(--text-sm); }

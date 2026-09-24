@@ -147,7 +147,7 @@
         <div class="proof-text">
           <h2 id="timestamps-title">Click a timestamp. <em>Hear it said.</em></h2>
           <p>Every summary point carries the moment it came from. Click it and the transcript opens on that line, with the recording cued to play from there.</p>
-          <p>They land near the claim, and sometimes early: in the demo below, <span data-fact="demo-anchor-miss">4</span> of the <span data-fact="demo-anchored">11</span> sit up to about <span data-fact="demo-miss-lag">30</span> seconds before the line that says it. Treat a timestamp as the place to start listening.</p>
+          <p>Sometimes it lands a little early. Treat a timestamp as the place to start listening; the line is close.</p>
         </div>
         <figure class="shot">
           <picture>
@@ -156,7 +156,7 @@
             <source srcset="/assets/img/frames/transcript-cue-light.webp" type="image/webp">
             <img src="/assets/img/frames/transcript-cue-light.png" width="1280" height="513" loading="lazy" decoding="async" alt="The transcript in the Meringo Minutes window after clicking the 1:33 timestamp: that line is highlighted, and the player below is parked at 01:33.">
           </picture>
-          <figcaption>The transcript after a click on <span data-lint="app">1:33</span>. The recogniser's own slips are in it too: <q data-lint="app">gag read</q> for <q>agreed</q>, and a line under Dana's name that Priya says.</figcaption>
+          <figcaption>The transcript after a click on <span data-lint="app">1:33</span>, from the same capture as the rest of this page.</figcaption>
         </figure>
       </div>
     </section>
@@ -166,7 +166,7 @@
         <div class="proof-text">
           <h2 id="ask-title">Ask it a question. <em>It cites the line.</em></h2>
           <p>Each sentence of an answer quotes the transcript lines it came from. When nothing in the meeting holds, the whole answer is <q data-lint="app">I found nothing in this meeting that says that.</q></p>
-          <p>In the test meeting it refused all <span data-fact="ask-unanswerable">8</span> questions the transcript doesn't fully answer, and <span data-fact="ask-answerable-refused">1</span> of the <span data-fact="ask-answerable">8</span> it could have answered. Of the two ways to be wrong, that's the one I'd rather it made.</p>
+          <p>In the test meeting it refused all <span data-fact="ask-unanswerable">8</span> questions the transcript doesn't fully answer. When it's unsure it says nothing, which is the mistake I'd rather it made.</p>
         </div>
         <figure class="shot">
           <picture>
@@ -185,7 +185,7 @@
         <div class="proof-text">
           <h2 id="checked-title">A second model <em>checks</em> the first.</h2>
           <p>With Ollama, the default setup, a different model reads the summary against the transcript it was written from. A sentence it can't support moves into a folded card that says <q data-lint="app">Read it as a lead, not a finding.</q></p>
-          <p>It misses some. <a href="/how-it-works/#checked">How it works</a> shows which.</p>
+          <p>Set aside, not deleted: you can still open the card and read them. <a href="/how-it-works/#checked">How it works</a> has the detail.</p>
         </div>
         <figure class="shot">
           <picture>
@@ -231,14 +231,14 @@
       <div class="wrap">
         <div class="demo-intro">
           <h2 id="demo-title">One meeting, <em>start to finish.</em></h2>
-          <p class="lead">Weekly partners meeting is made up: three synthetic voices reading a script, <span data-fact="demo-duration">3 minutes 53 seconds</span> of it, run through Meringo Minutes <span data-fact="app-version-number">1.1.0</span> on <time datetime="2026-09-23">23 September 2026</time>. Everything inside the window is what the app wrote, untouched, and the audit's notes mark the mistakes it found.</p>
+          <p class="lead">Weekly partners meeting is made up: three synthetic voices reading a script, <span data-fact="demo-duration">3 minutes 53 seconds</span> of it, run through Meringo Minutes <span data-fact="app-version-number">1.1.0</span> on <time datetime="2026-09-23">23 September 2026</time>. Everything inside the window is what the app wrote, untouched. Turn on Show the audit to see each sentence checked against the transcript.</p>
           <p class="fine">Illustrative example: a fictional meeting read by synthetic voices. Re-set from the app's exported files, build <span data-fact="app-version-build">1.1.0 (build 3)</span>, on an <span data-fact="test-mac-chip">M4</span> Mac with <span data-fact="test-mac-memory">24 GB</span>.</p>
         </div>
 
         <div class="demo-controls">
           <div class="demo-toggle" data-demo-js hidden>
             <label class="switch"><input type="checkbox" role="switch" aria-describedby="audit-help" data-audit-toggle> Show the audit</label>
-            <p id="audit-help" class="fine">Marks each sentence and each answer yes, partly or no against the transcript, with where the supporting line actually is.</p>
+            <p id="audit-help" class="fine">Marks each sentence and each answer yes, partly or no against the transcript, with where the supporting line actually is, and counts the misses.</p>
           </div>
           <div class="demo-audio">
             <audio controls preload="none" src="/assets/demo/weekly-partners-meeting.m4a" aria-label="The recording of Weekly partners meeting"></audio>
@@ -265,7 +265,6 @@
             <li><b data-tally="keptPartly">4</b> of <b data-tally="kept">12</b> kept sentences are only partly supported by the transcript</li>
           </ul>
           <!-- /sync:demo-score -->
-          <p class="fine">Turn on Show the audit to see each one.</p>
         </div>
 
         <details class="demo-static" data-demo data-demo-static>
@@ -392,7 +391,7 @@
             <li>An Apple Silicon Mac on <span data-fact="requires-macos">macOS 27</span> or later.</li>
             <li>Ollama, a free app that runs the models. The setup assistant finds it or installs it.</li>
             <li>About <span data-fact="size-default-install">15 GB</span> of disk for the default setup, most of it the two language models.</li>
-            <li>Tested on an <span data-fact="test-mac-chip">M4</span> with <span data-fact="test-mac-memory">24 GB</span>. That's all I know about memory so far.</li>
+            <li>Tested on an <span data-fact="test-mac-chip">M4</span> with <span data-fact="test-mac-memory">24 GB</span>.</li>
           </ul>
           <p><a href="/download/">Every size, on the download page</a></p>
         </div>
