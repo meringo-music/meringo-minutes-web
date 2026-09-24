@@ -3,6 +3,7 @@
 
 import { isCurrent } from './nav.js';
 import { label, nextChoice, normalizeChoice, sourceMedia } from './theme.js';
+import './visit.js';
 
 const KEY = 'theme';
 
@@ -48,8 +49,7 @@ function setupThemeToggle() {
   }
 }
 
-// The header is one shared partial, so the page being viewed is marked here
-// rather than in the HTML. That also keeps aria-current out of /privacy/'s
+// Marked here, not in the HTML, so aria-current stays out of /privacy/'s
 // source, which the desk's page renderer copies onto other pages.
 function markCurrentPage() {
   for (const link of document.querySelectorAll('.site-nav a[href]')) {

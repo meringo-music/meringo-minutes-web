@@ -21,6 +21,8 @@ What it checks, and why:
   - /privacy/ keeps the shape the desk's page renderer relies on, and, when
     the desk repo sits beside this one, its render_page.build_page renders a
     dummy page into it (skipped when absent, as in CI);
+  - the home page's SoftwareApplication JSON-LD names the product in full,
+    repeats og:description, and carries no offers before launch and no rating;
   - /faq/'s FAQPage JSON-LD says exactly what the page shows: the same
     questions, in the same order, with the same answer text, and the same as
     assets/data/faq.json (JSON-LD is a data block, not a script, so the CSP
@@ -72,8 +74,12 @@ class Page(HTMLParser):
         super().__init__(convert_charrefs=True)
         # (tag, data-lint="app", exempt from the digit rule, data-fact id or None)
         self.stack: list[tuple[str, bool, bool, str | None]] = []
-        self.blocks: list[tuple[str, str, bool]] = []  # (tag, text, is_app)
+        # (tag, text, is_app, own): own is the text outside any data-lint="app"
+        # quotation, so an inline quote of the app is exempt from the voice
+        # and locality rules just as a quoted block is
+        self.blocks: list[tuple[str, str, bool, str]] = []
         self.buf: list[str] = []
+        self.own: list[str] = []
         self.free: list[str] = []  # this block's text outside every digit exemption
         self.loose: list[tuple[str, str]] = []  # (tag, free text) for blocks whose free text has a digit
         self.fact_spans: list[tuple[str, str]] = []  # (fact id, text inside the element)
@@ -100,11 +106,13 @@ class Page(HTMLParser):
     def _flush(self) -> None:
         text = re.sub(r"\s+", " ", "".join(self.buf)).strip()
         if text:
-            self.blocks.append((self.buf_tag, text, self._app()))
+            own = re.sub(r"\s+", " ", "".join(self.own)).strip()
+            self.blocks.append((self.buf_tag, text, self._app(), own))
         free = re.sub(r"\s+", " ", "".join(self.free)).strip()
         if re.search(r"\d", free):
             self.loose.append((self.buf_tag, free))
         self.buf = []
+        self.own = []
         self.free = []
 
     # -- parser hooks
@@ -171,6 +179,7 @@ class Page(HTMLParser):
             self._ld.append(data)
         if not self.skip:
             self.buf.append(data)
+            self.own.append(" " if self._app() else data)
             for buf in self.fact_bufs.values():
                 buf.append(data)
             # an exempt run still separates the free text on either side of it
@@ -330,6 +339,39 @@ def faq_parity(text: str) -> tuple[list[str], list[str]]:
     return errors, notes
 
 
+def software_ld(text: str, cta_state: str | None) -> tuple[list[str], list[str]]:
+    """(errors, notes). The home page's SoftwareApplication JSON-LD: one block,
+    the full product name, the same descriptor as og:description, and, before
+    launch, no offers (nothing is for sale) and never a rating (there are none)."""
+    page = Page()
+    page.feed(text)
+    page.close()
+    if len(page.ld_blocks) != 1:
+        return [f"{HOME}: expected one SoftwareApplication JSON-LD block, found {len(page.ld_blocks)}"], []
+    raw = page.ld_blocks[0]
+    try:
+        ld = json.loads(raw)
+    except json.JSONDecodeError as e:
+        return [f"{HOME}: the JSON-LD doesn't parse: {e}"], []
+    errors = []
+    if ld.get("@context") != "https://schema.org" or ld.get("@type") != "SoftwareApplication":
+        errors.append(f"{HOME}: the JSON-LD is not a schema.org SoftwareApplication")
+    if ld.get("name") != "Meringo Minutes":
+        errors.append(f"{HOME}: the JSON-LD name should be exactly \"Meringo Minutes\"")
+    og = re.search(r'<meta property="og:description" content="([^"]*)">', text)
+    if not og or ld.get("description") != html.unescape(og.group(1)):
+        errors.append(f"{HOME}: the JSON-LD description should be the page's og:description, word for word")
+    flat = json.dumps(ld)
+    for key in ("aggregateRating", "review"):
+        if f'"{key}"' in flat:
+            errors.append(f"{HOME}: the JSON-LD carries {key}; there are no ratings or reviews to cite")
+    if cta_state == "prelaunch" and '"offers"' in flat:
+        errors.append(f"{HOME}: the JSON-LD carries offers, but the site is in the prelaunch state")
+    if "</" in raw:
+        errors.append(f"{HOME}: the JSON-LD holds a raw '</'; escape it as '<\\/'")
+    return errors, ([f"{HOME}: SoftwareApplication JSON-LD checked (no offers while {cta_state})"] if not errors else [])
+
+
 def desk_render(text: str) -> tuple[list[str], list[str]]:
     """(errors, notes). Renders a dummy page into /privacy/ with the desk's own
     render_page.build_page, imported read-only from the desk repo beside this
@@ -362,7 +404,7 @@ def desk_render(text: str) -> tuple[list[str], list[str]]:
         errors.append(f"desk template: the rendered page's canonical is {page.canonical}, not {canonical}")
     if "<title>Template test — Meringo Minutes</title>" not in out:
         errors.append("desk template: the rendered page's <title> was not replaced")
-    if [t for t, _, _ in page.blocks if t == "h1"] != ["h1"] or "Template test" not in out.split("<main", 1)[1]:
+    if [t for t, *_ in page.blocks if t == "h1"] != ["h1"] or "Template test" not in out.split("<main", 1)[1]:
         errors.append("desk template: the rendered page doesn't carry the dummy body as its one <h1>")
     if "privacy" in out.split("<main", 1)[1].split("</main>", 1)[0].lower():
         errors.append("desk template: text from /privacy/'s own <main> survived the render")
@@ -380,7 +422,7 @@ ANNOTATIONS = ROOT / "tools" / "demo" / "annotations.json"
 TALLY_FACTS = {"lineNo": "demo-anchor-miss", "anchored": "demo-anchored", "linePartly": "demo-anchor-partial",
                "traps": "ask-unanswerable", "trapsRefused": "ask-unanswerable-refused"}
 BUDGET = {"html": 90_000, "css": 30_000, "js": 20_000, "img": 200_000}  # the plan's home page budget, bytes
-IMPORT = re.compile(r"""^\s*(?:import|export)\b[^'"]*?(?:from\s*)?['"]([^'"]+\.js)['"]""", re.M)
+IMPORT = re.compile(r"""^\s*(?:import|export)\b(?!\s*\()[^'"]*?(?:from\s*)?['"]([^'"]+\.js)['"]""", re.M)  # not import()
 
 
 def region_text(page: str, name: str) -> str | None:
@@ -582,25 +624,26 @@ def main() -> int:
                         errors.append(f"{rel}: {ref} — no id '{parts.fragment}' in {target.relative_to(ROOT).as_posix()}")
 
         # Copy rules
-        h1s = sum(1 for tag, _, _ in page.blocks if tag == "h1")
+        h1s = sum(1 for tag, *_ in page.blocks if tag == "h1")
         if h1s != 1:
             errors.append(f"{rel}: expected one <h1>, found {h1s}")
-        for tag, text, is_app in page.blocks:
+        for tag, text, is_app, own in page.blocks:
             checked = text
             for phrase in allowed:
                 if phrase.lower() in checked.lower():
                     notes.append(f"{rel}: allowed phrase used: \"{phrase}\"")
                     checked = re.sub(re.escape(phrase), " ", checked, flags=re.I)
+                    own = re.sub(re.escape(phrase), " ", own, flags=re.I)
             for rx, why in banned:
                 m = rx.search(checked)
                 if m:
                     errors.append(f"{rel}: <{tag}> \"{m.group(0)}\" — {why}\n      in: {text[:140]}")
             if not is_app:
                 for rx, why in voice:
-                    m = rx.search(checked)
+                    m = rx.search(own)
                     if m:
                         errors.append(f"{rel}: <{tag}> \"{m.group(0)}\" — {why}\n      in: {text[:140]}")
-                if locality.search(checked) and requires not in checked.lower():
+                if locality.search(own) and requires not in own.lower():
                     errors.append(f"{rel}: <{tag}> locality claim without \"{RULES['locality']['requires']}\" — {RULES['locality']['why']}\n      in: {text[:140]}")
             if tag in HEADINGS and re.search(r"(?<!Meringo )\bMinutes\b", text):
                 errors.append(f"{rel}: <{tag}> uses \"Minutes\" without \"Meringo\": {text[:100]}")
@@ -628,8 +671,12 @@ def main() -> int:
             errors += desk_errors
             notes += desk_notes
 
-        if page.ld_blocks and rel != FAQ_PAGE:
-            errors.append(f"{rel}: carries JSON-LD; only {FAQ_PAGE} has any yet, and check.py checks only that one")
+        if page.ld_blocks and rel not in (FAQ_PAGE, HOME):
+            errors.append(f"{rel}: carries JSON-LD; only {FAQ_PAGE} and {HOME} have any, and check.py checks only those")
+        if rel == HOME:
+            ld_errors, ld_notes = software_ld(path.read_text(encoding="utf-8"), page.cta_state)
+            errors += ld_errors
+            notes += ld_notes
         if rel == FAQ_PAGE:
             faq_errors, faq_notes = faq_parity(path.read_text(encoding="utf-8"))
             errors += faq_errors

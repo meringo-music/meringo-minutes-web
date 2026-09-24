@@ -1,5 +1,4 @@
-// normalize() and the home page demo's bank: no DOM and no search index, so
-// the home page never loads the FAQ engine. ask-core.js re-exports both.
+// normalize() and the demo's bank, apart from the FAQ engine (ask-core.js).
 
 // Lower case, accents off, apostrophes joined ("doesn't" -> "doesnt"), every
 // other mark a space. The same function prepares the index and the question.
@@ -14,9 +13,8 @@ export function normalize(text) {
     .trim();
 }
 
-// The demo answers only the questions the app was actually asked, matched
-// exactly after normalising, and never searches: anything else is "unbanked",
-// and an unbanked result carries nothing from the bank.
+// Only the questions the app was asked, matched exactly after normalising;
+// anything else is "unbanked" and carries nothing from the bank.
 export function bankEngine(bank) {
   const items = new Map();
   for (const item of bank?.questions ?? []) items.set(normalize(item.q), item);

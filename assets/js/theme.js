@@ -1,6 +1,5 @@
-// Theme logic with no DOM, shared by site.js and the node tests.
-// The visitor's choice cycles System → Light → Dark. "System" follows
-// prefers-color-scheme; the other two override it.
+// Theme logic, no DOM. The choice cycles System → Light → Dark; "System"
+// follows prefers-color-scheme, the other two override it.
 
 export const CHOICES = ['system', 'light', 'dark'];
 
@@ -19,9 +18,8 @@ export function resolveTheme(choice, systemDark) {
   return systemDark ? 'dark' : 'light';
 }
 
-// A <source media="(prefers-color-scheme: dark)"> follows the operating
-// system, not the site's toggle. When the visitor overrides the theme, the
-// media query is rewritten to 'all' or 'not all'; on 'system' it goes back.
+// A <source media="(prefers-color-scheme: …)"> follows the OS, not the toggle:
+// an override rewrites it to 'all' or 'not all', and 'system' puts it back.
 export function sourceMedia(original, choice) {
   const c = normalizeChoice(choice);
   if (c === 'system' || !/prefers-color-scheme/.test(original)) return original;

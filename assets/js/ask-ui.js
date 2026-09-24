@@ -1,7 +1,6 @@
-// Ask in the app's layout: question, answer sentences with their citation
-// rows, footnote. Demo mode (askDemo, on /) answers only the 16 questions the
-// app was asked; FAQ mode (ask-faq.js, loaded only on /faq/) answers from the
-// FAQ. What you type is never stored or sent anywhere.
+// Ask in the app's layout. Demo mode (on /) answers only the 16 questions the
+// app was asked; FAQ mode (ask-faq.js, /faq/ only) answers from the FAQ.
+// What you type is never stored or sent anywhere.
 
 const EMAIL = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/gi;
 
@@ -39,7 +38,7 @@ export function presenter(result, status) {
   };
 }
 
-// ─── Demo mode ─────────────────────────────────────────────────────────────
+// Demo mode.
 // engine: bankEngine over the 16 exchanges. chrome: the app's on-screen words.
 // typed: my message for any other question. stamp(t): a play button for a
 // citation. decorate(item): my audit note for an exchange, or null.

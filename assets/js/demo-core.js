@@ -1,6 +1,5 @@
-// The demo's arithmetic, with no DOM: demo.js uses it in the browser and
-// tests/demo-bank.test.js under node. Every number on the scoreboard comes
-// from tally(), which counts my audit notes in demo.json; none is typed.
+// The demo's arithmetic, no DOM. Every scoreboard number comes from tally(),
+// which counts my audit notes in demo.json; none is typed.
 
 export const secondsOf = (ts) => String(ts).split(':').reduce((m, s) => m * 60 + Number(s), 0);
 
