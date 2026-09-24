@@ -210,7 +210,7 @@ def render_demo() -> str:
         if not a or not a.get("note"):
             return ""
         q = f'“{" ".join(quote.split(" ")[:5])}…” ' if quote else ""
-        return f'<p class="audit-static"><strong>{esc(q + bd.verdict_text(a, cap))}.</strong> {esc(a["note"])}</p>'
+        return f'<p class="audit-static"><strong>{esc(cap["auditBy"] + " · " + q + bd.verdict_text(a, cap))}.</strong> {esc(a["note"])}</p>'
 
     s = app["summary"]
     out = [f'{ind}<div class="demo-text">',

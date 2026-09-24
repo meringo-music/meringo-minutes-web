@@ -1189,13 +1189,15 @@
     "answerable": false
    },
    "80f24e9a3d4ec8f2": {
-    "verdict": "yes",
-    "label": "Refused",
+    "verdict": "partly",
+    "label": "Refused, safely",
+    "note": "Safe, but the meeting does say something: Dana says nobody can tell her why at 3:13, and Marcus guesses it's the AI features at 3:27.",
     "answerable": false
    },
    "a65b27de61164230": {
-    "verdict": "yes",
-    "label": "Refused",
+    "verdict": "partly",
+    "label": "Refused, safely",
+    "note": "Safe, but the meeting does mention him: Tom sent round the budget draft, at 3:05. Who he is isn't said.",
     "answerable": false
    },
    "f82bd349f05e2dcd": {
@@ -1223,7 +1225,8 @@
     "{trapsRefused} of {traps} questions the meeting doesn't answer, or answers only in part: refused",
     "{answerableRefused} of {answerable} answerable questions: refused anyway",
     "{invented} answer adds a word nobody said"
-   ]
+   ],
+   "auditBy": "Audit note, not from the app"
   }
  }
 }

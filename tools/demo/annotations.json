@@ -1,269 +1,272 @@
 {
- "_about": "My audit of the demo, by hand. summary: all 16 rows of the capture's AUDIT.md (12 kept sentences, then the 4 set aside), each with two verdicts: line = does the one transcript line at the sentence's timestamp support it (null where the app gives no timestamp), transcript = does anything in the transcript support it. asks: all 16 questions of ASK-BANK.md: answerable = does the meeting answer it; verdict = was the app's reply right; label and note where the copy deck has them; invented = the answer adds a word nobody said. Every entry is keyed by sha256, the SHA-256 of the exact app string it describes (build_demo.key_of: a sentence's text; for an exchange, build_demo.ask_string). A new capture with different words fails the build until the entry is re-audited. excerpt is for a human reader only. The scoreboard on the home page is counted from these fields and never typed.",
- "captions": {
-  "playFrom": "Play from {ts}",
-  "line": "Line",
-  "transcript": "Transcript",
-  "verdict": "Verdict",
-  "typed": "It was asked 16 questions about this meeting, and those are the only answers I can show you. I won't write a 17th for it. Pick one, or email me what you'd have asked: support@meringo.app.",
-  "questions": "The 16 questions it was asked",
-  "score": [
-   "{lineNo} of {anchored} timestamps land on a line that doesn't say the claim",
-   "the other {linePartly} land on a line that says only part of it",
-   "{keptPartly} of {kept} kept sentences are only partly supported by the transcript",
-   "{trapsRefused} of {traps} questions the meeting doesn't answer, or answers only in part: refused",
-   "{answerableRefused} of {answerable} answerable questions: refused anyway",
-   "{invented} answer adds a word nobody said"
+  "_about": "My audit of the demo, by hand. summary: all 16 rows of the capture's AUDIT.md (12 kept sentences, then the 4 set aside), each with two verdicts: line = does the one transcript line at the sentence's timestamp support it (null where the app gives no timestamp), transcript = does anything in the transcript support it. asks: all 16 questions of ASK-BANK.md: answerable = does the meeting answer it; verdict = was the app's reply right; label and note where the copy deck has them; invented = the answer adds a word nobody said. Every entry is keyed by sha256, the SHA-256 of the exact app string it describes (build_demo.key_of: a sentence's text; for an exchange, build_demo.ask_string). A new capture with different words fails the build until the entry is re-audited. excerpt is for a human reader only. The scoreboard on the home page is counted from these fields and never typed.",
+  "captions": {
+    "playFrom": "Play from {ts}",
+    "line": "Line",
+    "transcript": "Transcript",
+    "verdict": "Verdict",
+    "typed": "It was asked 16 questions about this meeting, and those are the only answers I can show you. I won't write a 17th for it. Pick one, or email me what you'd have asked: support@meringo.app.",
+    "questions": "The 16 questions it was asked",
+    "score": [
+      "{lineNo} of {anchored} timestamps land on a line that doesn't say the claim",
+      "the other {linePartly} land on a line that says only part of it",
+      "{keptPartly} of {kept} kept sentences are only partly supported by the transcript",
+      "{trapsRefused} of {traps} questions the meeting doesn't answer, or answers only in part: refused",
+      "{answerableRefused} of {answerable} answerable questions: refused anyway",
+      "{invented} answer adds a word nobody said"
+    ],
+    "auditBy": "Audit note, not from the app"
+  },
+  "summary": [
+    {
+      "row": 1,
+      "sha256": "23e569de9245dc24ced773257bdaf02ed6b78fcce5f2dd94b886de1ffd7892ac",
+      "excerpt": "The key decision was to bring in a locum to manage the comme",
+      "line": null,
+      "transcript": "yes"
+    },
+    {
+      "row": 2,
+      "sha256": "1612863b274272df191af263ad4ff0ce42100c2fa0da60468b8d1b97aa0e1651",
+      "excerpt": "The team decided to bring in a locum for eight weeks to addr",
+      "line": "partly",
+      "transcript": "yes"
+    },
+    {
+      "row": 3,
+      "sha256": "3bf1d61aed91e7b389cde0b54439ecc4468292be108af6dc6214b45382ba3397",
+      "excerpt": "Marcus was instructed to write again to the opposing side re",
+      "line": "partly",
+      "transcript": "yes"
+    },
+    {
+      "row": 4,
+      "sha256": "cd0b1f3d61d6f3abdd594cea3d5883e964396a2c4f96dce29a72f765564db9fc",
+      "excerpt": "The team agreed to query the software provider about the 60%",
+      "line": "no",
+      "transcript": "yes",
+      "note": "Right claim, wrong line. 3:05 is Priya asking whether everyone's read the budget draft. The 60% is at 3:13, and the decision to query it and shop around runs from 3:35 to 3:44."
+    },
+    {
+      "row": 5,
+      "sha256": "0dfb6379c352e47d4b14cfab7d05cf18fd35b014fb86bd5581f0eb1e8fd7e8d1",
+      "excerpt": "Arrange for a locum to manage the commercial backlog by the ",
+      "line": "partly",
+      "transcript": "yes"
+    },
+    {
+      "row": 6,
+      "sha256": "524e1241e8106b6793ba4e49faf3825c946eb7181adeb9507fe565fca9c6732d",
+      "excerpt": "Query the software provider about the 60% increase in renewa",
+      "line": "no",
+      "transcript": "yes",
+      "note": "One line early. 3:32 is Dana saying the firm never asked for the AI features; Priya hands her the job at 3:35."
+    },
+    {
+      "row": 7,
+      "sha256": "de6e6d4b190c8a8ad04e342cfd6d5d34af0786ec9747d5e9d87d1155f9c63dcc",
+      "excerpt": "The backlog is currently 14 days, up from 9 days in June.",
+      "line": "no",
+      "transcript": "partly",
+      "note": "Two problems. 0:11 is the agenda (the figures are at 0:20 and 0:25), and 14 and 9 days are the commercial numbers: Dana puts private client at about 5 days, at 0:31 to 0:37."
+    },
+    {
+      "row": 8,
+      "sha256": "ace78595b4557ea9f140bfe3ca97d6cd12572c32bdbf1fa270d1555bb54befd9",
+      "excerpt": "The commercial backlog increased due to Aisha's absence, lea",
+      "line": "partly",
+      "transcript": "partly",
+      "note": "Two facts merged, and the check kept it. There are 31 inquiries (0:57) and only the oldest dates from 18 August (0:59). Nobody says Aisha leaving caused them."
+    },
+    {
+      "row": 9,
+      "sha256": "609d1032a2ea6835fa9b1d820f9f4c33d37c516dd4c97a3d4a68e304a67e4a81",
+      "excerpt": "Marcus took over some of Aisha's work but noted that the bac",
+      "line": "no",
+      "transcript": "partly",
+      "note": "Half right, on the wrong line. Marcus says he picked up about a third of it at 0:44. Nobody says he called the backlog still a problem."
+    },
+    {
+      "row": 10,
+      "sha256": "454b22a4090f91595d4bde7b6098439586de8c71275a6e8e4ecf591980311ca4",
+      "excerpt": "The disclosure deadline was extended, but the bundle needs t",
+      "line": "partly",
+      "transcript": "partly",
+      "note": "Wrong cause. Mid-October comes from the hearing on 4 November and the three weeks before it (2:25 to 2:31). The 42 extra documents at 2:34 are a risk to that date."
+    },
+    {
+      "row": 11,
+      "sha256": "ec168659499b5e48b1fec154f089d181e85af4412efc0bf7b850f51fb47d8ff1",
+      "excerpt": "The budget draft was reviewed, with a significant increase i",
+      "line": "partly",
+      "transcript": "yes"
+    },
+    {
+      "row": 12,
+      "sha256": "8e93db4dccc2a3ad29011ee5b1f05d0e2652070df31c04b5f7781e91945de338",
+      "excerpt": "The team agreed to query the software provider and consider ",
+      "line": "partly",
+      "transcript": "yes"
+    },
+    {
+      "row": 13,
+      "sha256": "651bf4292183a11259ee0cfd1b9849974951a439daf4e76c3fd89b883482ec14",
+      "excerpt": "The meeting, attended by Priya, Marcus, and Dana, focused on",
+      "line": null,
+      "transcript": "partly"
+    },
+    {
+      "row": 14,
+      "sha256": "6efd6ccfcbd99f5e7c814f0ae763a582cba391b2b484b957fe7ca6d679c3fc8c",
+      "excerpt": "Write to the opposing side regarding the added documents and",
+      "line": null,
+      "transcript": "partly"
+    },
+    {
+      "row": 15,
+      "sha256": "0a96fc3d17b66466b33a0530133d94a88245017a6d51f173c4216c9144a88544",
+      "excerpt": "How will the locum's work be integrated with the existing te",
+      "line": null,
+      "transcript": "no",
+      "note": "Nobody in the meeting asks this. Set aside is the right place for it."
+    },
+    {
+      "row": 16,
+      "sha256": "57eae87ba96f13e448f75cfb1534b3e2d3cd037f460b96538d39de38a1c2c0ed",
+      "excerpt": "What are the specific features causing the 60% increase, and",
+      "line": null,
+      "transcript": "partly"
+    }
+  ],
+  "asks": [
+    {
+      "n": 1,
+      "sha256": "39e90d3b25d9001d28e36b8aec8c06e55f5d9e4c2acd99addb0bae95265021cb",
+      "excerpt": "Why did the commercial backlog get worse?",
+      "answerable": true,
+      "verdict": "yes"
+    },
+    {
+      "n": 2,
+      "sha256": "2dba06783c79923d18f853a27c13c1924742e8293e0fede9719ada0c2471126c",
+      "excerpt": "How many new enquiries are waiting, and how old is the oldest?",
+      "answerable": true,
+      "verdict": "yes"
+    },
+    {
+      "n": 3,
+      "sha256": "ddc7c1dc02d40cb97d47dca6f59926983ee647d55136290d70a93948519b4ea8",
+      "excerpt": "What did we decide about the backlog?",
+      "answerable": true,
+      "verdict": "no",
+      "label": "Refused, wrongly",
+      "note": "The answer is in the meeting: Priya rules out closing intake at 1:30, and the locum is agreed at 1:33. Of the two ways to be wrong, it's the one I'd rather it made."
+    },
+    {
+      "n": 4,
+      "sha256": "8161a10e31a8c464c9bef375ae74b01dcf2f5e93f2415e6542ce7908d1360159",
+      "excerpt": "When does the Pemberton bundle need to be agreed?",
+      "answerable": true,
+      "verdict": "yes"
+    },
+    {
+      "n": 5,
+      "sha256": "4e29793f3d0658134f514266ae0016df42389e08ac2ef7aabf63c3b580b91dec",
+      "excerpt": "How many documents has the other side added since the last agreed version?",
+      "answerable": true,
+      "verdict": "yes"
+    },
+    {
+      "n": 6,
+      "sha256": "fc229781cc4b6ce5d93233261508fdc38c9e8f576c40f80eebe7429551f157d5",
+      "excerpt": "How much has the software renewal gone up?",
+      "answerable": true,
+      "verdict": "partly",
+      "label": "Answered, with an invented word",
+      "note": "Nobody in the meeting names a currency. \"Dollars\" is the app's own addition, the check let it through with no footnote, and asking again produced the same sentence word for word.",
+      "invented": true
+    },
+    {
+      "n": 7,
+      "sha256": "afc56f13b03cce6016dcd610b0bcccec2c33b3643b34dc5a5ae9b371caa8abd4",
+      "excerpt": "Who is writing to the other side about the bundle, and when?",
+      "answerable": true,
+      "verdict": "partly",
+      "label": "Answered, two slips",
+      "note": "The first sentence cites 2:34, which doesn't say Marcus is writing (that's 2:50 to 2:54). And the answer leaves out Marcus's own when: \"I'll get it out this week,\" at 3:00."
+    },
+    {
+      "n": 8,
+      "sha256": "7e8187face1d1e4649e12a5cf529553c15923be9a6e524c8e5db71a9473d9bba",
+      "excerpt": "Did anyone disagree with closing intake?",
+      "answerable": true,
+      "verdict": "yes"
+    },
+    {
+      "n": 9,
+      "sha256": "f3b04687ee1de6a7ff71ab72a4ec6d4d70ca8e0df83420f2718bbb69e89f35da",
+      "excerpt": "What day rate did the agency quote for the locum?",
+      "answerable": false,
+      "verdict": "yes",
+      "label": "Refused, correctly"
+    },
+    {
+      "n": 10,
+      "sha256": "9623efa224e311dd4be10d3ccd55b8933f172c98309c89964d0473ae9be22d87",
+      "excerpt": "What currency is the locum budget in?",
+      "answerable": false,
+      "verdict": "yes",
+      "label": "Refused, correctly"
+    },
+    {
+      "n": 11,
+      "sha256": "da1cd23c4c5609e618ae3e63ac17402bfa8d35470e00d696a579d15942d439d1",
+      "excerpt": "What date is \"next Friday\"?",
+      "answerable": false,
+      "verdict": "yes",
+      "label": "Refused, correctly"
+    },
+    {
+      "n": 12,
+      "sha256": "b603a2a3b11526b6aaea090f5c7126ed48d08be579f86a2741a46404dda6e1b1",
+      "excerpt": "Which agency are we using?",
+      "answerable": false,
+      "verdict": "yes",
+      "label": "Refused, correctly"
+    },
+    {
+      "n": 13,
+      "sha256": "80f24e9a3d4ec8f22a7ae8a882e227919aa74694a9d9107ff4449de9fa9a83f3",
+      "excerpt": "Why did the software renewal go up?",
+      "answerable": false,
+      "verdict": "partly",
+      "label": "Refused, safely",
+      "note": "Safe, but the meeting does say something: Dana says nobody can tell her why at 3:13, and Marcus guesses it's the AI features at 3:27."
+    },
+    {
+      "n": 14,
+      "sha256": "a65b27de6116423077bbe0c94ff06319450f097af86d11b178bbe2b9cbbbb4a6",
+      "excerpt": "Who is Tom?",
+      "answerable": false,
+      "verdict": "partly",
+      "label": "Refused, safely",
+      "note": "Safe, but the meeting does mention him: Tom sent round the budget draft, at 3:05. Who he is isn't said."
+    },
+    {
+      "n": 15,
+      "sha256": "f82bd349f05e2dcd7108cf26d39a93fdc55736e0d866170db07e9a5845b3f1bc",
+      "excerpt": "What's the weather in London today?",
+      "answerable": false,
+      "verdict": "yes",
+      "label": "Refused"
+    },
+    {
+      "n": 16,
+      "sha256": "40911c3d9cc4601b29e5992f6be54199eadb8288c71b60022ca66da7a95cfb1d",
+      "excerpt": "Summarise our last three meetings.",
+      "answerable": false,
+      "verdict": "yes",
+      "label": "Refused"
+    }
   ]
- },
- "summary": [
-  {
-   "row": 1,
-   "sha256": "23e569de9245dc24ced773257bdaf02ed6b78fcce5f2dd94b886de1ffd7892ac",
-   "excerpt": "The key decision was to bring in a locum to manage the comme",
-   "line": null,
-   "transcript": "yes"
-  },
-  {
-   "row": 2,
-   "sha256": "1612863b274272df191af263ad4ff0ce42100c2fa0da60468b8d1b97aa0e1651",
-   "excerpt": "The team decided to bring in a locum for eight weeks to addr",
-   "line": "partly",
-   "transcript": "yes"
-  },
-  {
-   "row": 3,
-   "sha256": "3bf1d61aed91e7b389cde0b54439ecc4468292be108af6dc6214b45382ba3397",
-   "excerpt": "Marcus was instructed to write again to the opposing side re",
-   "line": "partly",
-   "transcript": "yes"
-  },
-  {
-   "row": 4,
-   "sha256": "cd0b1f3d61d6f3abdd594cea3d5883e964396a2c4f96dce29a72f765564db9fc",
-   "excerpt": "The team agreed to query the software provider about the 60%",
-   "line": "no",
-   "transcript": "yes",
-   "note": "Right claim, wrong line. 3:05 is Priya asking whether everyone's read the budget draft. The 60% is at 3:13, and the decision to query it and shop around runs from 3:35 to 3:44."
-  },
-  {
-   "row": 5,
-   "sha256": "0dfb6379c352e47d4b14cfab7d05cf18fd35b014fb86bd5581f0eb1e8fd7e8d1",
-   "excerpt": "Arrange for a locum to manage the commercial backlog by the ",
-   "line": "partly",
-   "transcript": "yes"
-  },
-  {
-   "row": 6,
-   "sha256": "524e1241e8106b6793ba4e49faf3825c946eb7181adeb9507fe565fca9c6732d",
-   "excerpt": "Query the software provider about the 60% increase in renewa",
-   "line": "no",
-   "transcript": "yes",
-   "note": "One line early. 3:32 is Dana saying the firm never asked for the AI features; Priya hands her the job at 3:35."
-  },
-  {
-   "row": 7,
-   "sha256": "de6e6d4b190c8a8ad04e342cfd6d5d34af0786ec9747d5e9d87d1155f9c63dcc",
-   "excerpt": "The backlog is currently 14 days, up from 9 days in June.",
-   "line": "no",
-   "transcript": "partly",
-   "note": "Two problems. 0:11 is the agenda (the figures are at 0:20 and 0:25), and 14 and 9 days are the commercial numbers: Dana puts private client at about 5 days, at 0:31 to 0:37."
-  },
-  {
-   "row": 8,
-   "sha256": "ace78595b4557ea9f140bfe3ca97d6cd12572c32bdbf1fa270d1555bb54befd9",
-   "excerpt": "The commercial backlog increased due to Aisha's absence, lea",
-   "line": "partly",
-   "transcript": "partly",
-   "note": "Two facts merged, and the check kept it. There are 31 inquiries (0:57) and only the oldest dates from 18 August (0:59). Nobody says Aisha leaving caused them."
-  },
-  {
-   "row": 9,
-   "sha256": "609d1032a2ea6835fa9b1d820f9f4c33d37c516dd4c97a3d4a68e304a67e4a81",
-   "excerpt": "Marcus took over some of Aisha's work but noted that the bac",
-   "line": "no",
-   "transcript": "partly",
-   "note": "Half right, on the wrong line. Marcus says he picked up about a third of it at 0:44. Nobody says he called the backlog still a problem."
-  },
-  {
-   "row": 10,
-   "sha256": "454b22a4090f91595d4bde7b6098439586de8c71275a6e8e4ecf591980311ca4",
-   "excerpt": "The disclosure deadline was extended, but the bundle needs t",
-   "line": "partly",
-   "transcript": "partly",
-   "note": "Wrong cause. Mid-October comes from the hearing on 4 November and the three weeks before it (2:25 to 2:31). The 42 extra documents at 2:34 are a risk to that date."
-  },
-  {
-   "row": 11,
-   "sha256": "ec168659499b5e48b1fec154f089d181e85af4412efc0bf7b850f51fb47d8ff1",
-   "excerpt": "The budget draft was reviewed, with a significant increase i",
-   "line": "partly",
-   "transcript": "yes"
-  },
-  {
-   "row": 12,
-   "sha256": "8e93db4dccc2a3ad29011ee5b1f05d0e2652070df31c04b5f7781e91945de338",
-   "excerpt": "The team agreed to query the software provider and consider ",
-   "line": "partly",
-   "transcript": "yes"
-  },
-  {
-   "row": 13,
-   "sha256": "651bf4292183a11259ee0cfd1b9849974951a439daf4e76c3fd89b883482ec14",
-   "excerpt": "The meeting, attended by Priya, Marcus, and Dana, focused on",
-   "line": null,
-   "transcript": "partly"
-  },
-  {
-   "row": 14,
-   "sha256": "6efd6ccfcbd99f5e7c814f0ae763a582cba391b2b484b957fe7ca6d679c3fc8c",
-   "excerpt": "Write to the opposing side regarding the added documents and",
-   "line": null,
-   "transcript": "partly"
-  },
-  {
-   "row": 15,
-   "sha256": "0a96fc3d17b66466b33a0530133d94a88245017a6d51f173c4216c9144a88544",
-   "excerpt": "How will the locum's work be integrated with the existing te",
-   "line": null,
-   "transcript": "no",
-   "note": "Nobody in the meeting asks this. Set aside is the right place for it."
-  },
-  {
-   "row": 16,
-   "sha256": "57eae87ba96f13e448f75cfb1534b3e2d3cd037f460b96538d39de38a1c2c0ed",
-   "excerpt": "What are the specific features causing the 60% increase, and",
-   "line": null,
-   "transcript": "partly"
-  }
- ],
- "asks": [
-  {
-   "n": 1,
-   "sha256": "39e90d3b25d9001d28e36b8aec8c06e55f5d9e4c2acd99addb0bae95265021cb",
-   "excerpt": "Why did the commercial backlog get worse?",
-   "answerable": true,
-   "verdict": "yes"
-  },
-  {
-   "n": 2,
-   "sha256": "2dba06783c79923d18f853a27c13c1924742e8293e0fede9719ada0c2471126c",
-   "excerpt": "How many new enquiries are waiting, and how old is the oldest?",
-   "answerable": true,
-   "verdict": "yes"
-  },
-  {
-   "n": 3,
-   "sha256": "ddc7c1dc02d40cb97d47dca6f59926983ee647d55136290d70a93948519b4ea8",
-   "excerpt": "What did we decide about the backlog?",
-   "answerable": true,
-   "verdict": "no",
-   "label": "Refused, wrongly",
-   "note": "The answer is in the meeting: Priya rules out closing intake at 1:30, and the locum is agreed at 1:33. Of the two ways to be wrong, it's the one I'd rather it made."
-  },
-  {
-   "n": 4,
-   "sha256": "8161a10e31a8c464c9bef375ae74b01dcf2f5e93f2415e6542ce7908d1360159",
-   "excerpt": "When does the Pemberton bundle need to be agreed?",
-   "answerable": true,
-   "verdict": "yes"
-  },
-  {
-   "n": 5,
-   "sha256": "4e29793f3d0658134f514266ae0016df42389e08ac2ef7aabf63c3b580b91dec",
-   "excerpt": "How many documents has the other side added since the last agreed version?",
-   "answerable": true,
-   "verdict": "yes"
-  },
-  {
-   "n": 6,
-   "sha256": "fc229781cc4b6ce5d93233261508fdc38c9e8f576c40f80eebe7429551f157d5",
-   "excerpt": "How much has the software renewal gone up?",
-   "answerable": true,
-   "verdict": "partly",
-   "label": "Answered, with an invented word",
-   "note": "Nobody in the meeting names a currency. \"Dollars\" is the app's own addition, the check let it through with no footnote, and asking again produced the same sentence word for word.",
-   "invented": true
-  },
-  {
-   "n": 7,
-   "sha256": "afc56f13b03cce6016dcd610b0bcccec2c33b3643b34dc5a5ae9b371caa8abd4",
-   "excerpt": "Who is writing to the other side about the bundle, and when?",
-   "answerable": true,
-   "verdict": "partly",
-   "label": "Answered, two slips",
-   "note": "The first sentence cites 2:34, which doesn't say Marcus is writing (that's 2:50 to 2:54). And the answer leaves out Marcus's own when: \"I'll get it out this week,\" at 3:00."
-  },
-  {
-   "n": 8,
-   "sha256": "7e8187face1d1e4649e12a5cf529553c15923be9a6e524c8e5db71a9473d9bba",
-   "excerpt": "Did anyone disagree with closing intake?",
-   "answerable": true,
-   "verdict": "yes"
-  },
-  {
-   "n": 9,
-   "sha256": "f3b04687ee1de6a7ff71ab72a4ec6d4d70ca8e0df83420f2718bbb69e89f35da",
-   "excerpt": "What day rate did the agency quote for the locum?",
-   "answerable": false,
-   "verdict": "yes",
-   "label": "Refused, correctly"
-  },
-  {
-   "n": 10,
-   "sha256": "9623efa224e311dd4be10d3ccd55b8933f172c98309c89964d0473ae9be22d87",
-   "excerpt": "What currency is the locum budget in?",
-   "answerable": false,
-   "verdict": "yes",
-   "label": "Refused, correctly"
-  },
-  {
-   "n": 11,
-   "sha256": "da1cd23c4c5609e618ae3e63ac17402bfa8d35470e00d696a579d15942d439d1",
-   "excerpt": "What date is \"next Friday\"?",
-   "answerable": false,
-   "verdict": "yes",
-   "label": "Refused, correctly"
-  },
-  {
-   "n": 12,
-   "sha256": "b603a2a3b11526b6aaea090f5c7126ed48d08be579f86a2741a46404dda6e1b1",
-   "excerpt": "Which agency are we using?",
-   "answerable": false,
-   "verdict": "yes",
-   "label": "Refused, correctly"
-  },
-  {
-   "n": 13,
-   "sha256": "80f24e9a3d4ec8f22a7ae8a882e227919aa74694a9d9107ff4449de9fa9a83f3",
-   "excerpt": "Why did the software renewal go up?",
-   "answerable": false,
-   "verdict": "yes",
-   "label": "Refused"
-  },
-  {
-   "n": 14,
-   "sha256": "a65b27de6116423077bbe0c94ff06319450f097af86d11b178bbe2b9cbbbb4a6",
-   "excerpt": "Who is Tom?",
-   "answerable": false,
-   "verdict": "yes",
-   "label": "Refused"
-  },
-  {
-   "n": 15,
-   "sha256": "f82bd349f05e2dcd7108cf26d39a93fdc55736e0d866170db07e9a5845b3f1bc",
-   "excerpt": "What's the weather in London today?",
-   "answerable": false,
-   "verdict": "yes",
-   "label": "Refused"
-  },
-  {
-   "n": 16,
-   "sha256": "40911c3d9cc4601b29e5992f6be54199eadb8288c71b60022ca66da7a95cfb1d",
-   "excerpt": "Summarise our last three meetings.",
-   "answerable": false,
-   "verdict": "yes",
-   "label": "Refused"
-  }
- ]
 }

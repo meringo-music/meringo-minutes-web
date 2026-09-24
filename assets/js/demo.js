@@ -29,7 +29,7 @@ function build(section, demo) {
     const a = audit[h];
     if (!a) return null;
     return el(tag, { class: `audit${open && a.note ? ' is-open' : ''}`, 'data-for': h },
-      el('p', { class: 'audit-v' }, quote ? `“${quote.split(' ').slice(0, 5).join(' ')}…” ` : '', verdictText(a, cap)),
+      el('p', { class: 'audit-v' }, `${cap.auditBy} · `, quote ? `“${quote.split(' ').slice(0, 5).join(' ')}…” ` : '', verdictText(a, cap)),
       a.note && el('p', {}, a.note));
   };
 
