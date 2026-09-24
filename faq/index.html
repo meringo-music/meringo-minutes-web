@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meringo Minutes FAQ: privacy, accuracy, price</title>
+  <meta name="description" content="Plain answers about Meringo Minutes: where meetings are stored, how accurate it is, what it needs, what it will cost and what it doesn't do.">
+  <link rel="canonical" href="https://meringominutes.app/faq/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Meringo Minutes">
+  <meta property="og:title" content="Meringo Minutes FAQ: privacy, accuracy, price">
+  <meta property="og:description" content="Plain answers about Meringo Minutes: where meetings are stored, how accurate it is, what it needs, what it will cost and what it doesn't do.">
+  <meta property="og:url" content="https://meringominutes.app/faq/">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#07040E" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#FAF6EE" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="icon" type="image/png" href="/assets/img/app-icon-64.png" sizes="64x64">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preload" href="/assets/fonts/cormorant-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <script src="/assets/js/theme-init.js"></script>
+  <script type="module" src="/assets/js/site.js"></script>
+  <script type="module" src="/assets/js/ask-ui.js"></script>
+  <!-- sync:faq-ld -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does it work offline?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, once the models are downloaded. By default, recording, transcription and the summary all run on your Mac. The internet is needed only to download each model the first time."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my data encrypted?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No, and I'd rather say so plainly. Recordings and meeting files are ordinary files in a folder in your Library, and the app adds no encryption of its own. macOS file permissions protect them, and FileVault does too if it's on. By default nothing is uploaded, so there's no server copy to protect."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does anything about my meetings get sent anywhere?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "By default, no. The only traffic is models coming in the first time they're needed, and there's no analytics, telemetry or crash-reporting code in the app. If you point the summariser at Ollama on another machine, each transcript goes there, and the privacy panel turns orange and names it."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it check for updates?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not in the current build, which never contacts an update server. When I add an update check, the privacy page will say what it sends, in the same release."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where are my recordings kept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "In ~/Library/Application Support/Meringo Minutes/, one folder for everything. Deleting a meeting moves it to the Trash, so you can get it back until you empty it."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it need Screen Recording permission?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. It hears the other side of a call through a Core Audio tap, so it never asks for Screen Recording."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I run the summariser on another computer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes: point the server URL in Settings at another machine running Ollama. Each transcript is then sent there, and the privacy panel turns orange and names the machine. The audio and the transcript stay stored on your Mac."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does it read on my Mac?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Your microphone, the audio your Mac plays during a call, and your calendar, to name meetings. Reminders when you send a commitment there, and your own Contacts card only when you ask. The signature holds exactly three entitlements: audio input, address book and calendars."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this website track me?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No cookies and no analytics. It keeps your theme choice in your browser. GitHub, which hosts the site, logs IP addresses for security. The privacy page has the details."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How accurate is the transcription?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It gets about one word in five wrong: an 18.4% median word error rate across 66 bench recordings. In the demo it heard “locum” as “locker” and “agreed” as “gag read”."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I trust the summary?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "As far as you can check it. Most summary sentences carry a timestamp, and with Ollama a second model sets aside what it can't support. Neither is perfect. In the demo, 4 of 11 timestamps point at a line that doesn't state the claim, and the check kept a sentence that merged two facts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do the timestamps point to the right place?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Near it. In the demo, none of the 11 landed on a line that states the whole claim: 4 point at a line that doesn't state it, and the other 7 at a line that states only part of it. The 4 misses land early, and the supporting line follows within about 30 seconds. The overview at the top never gets a timestamp, by design, and a sentence the app can't place gets none rather than a guess."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How well does it tell speakers apart?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It found all three voices in the demo and gave 5 of the 56 lines to the wrong one. No voice is stored or matched from one meeting to the next, so you name the voices once per meeting."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does it take to process a meeting?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "One meeting has been timed on the current build: 3 minutes 53 seconds of audio took about 6½ to 7 minutes, on an M4 with 24 GB, with the speech models already downloaded. The app sets no length limit, but I haven't timed a long meeting on this build, so I won't give you a per-hour figure yet."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it find action items?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Each one has an owner, and it gets a date only when the meeting gave one certain day. It's the part I'd check hardest. In the demo it listed 8 items for 5 commitments, with Dana's locum task in three wordings."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is Ask?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A tab where you put a question to a meeting in plain words. Each sentence of the answer comes with the transcript lines it cites. You can ask one meeting, or all of them at once."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens when the meeting doesn't answer my question?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It says “I found nothing in this meeting that says that.” and stops there. In the demo it did that for all 8 questions the meeting doesn't answer, or answers only in part, including one where a plausible day rate was one division away."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Ask ever get it wrong?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. In the demo it refused one question the meeting did answer, and it added “dollars” to another answer when nobody named a currency. Asked again, it gave the same answer word for word, mistake included."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does “Checked” mean?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A second, different model has read the summary against the transcript and moved what it couldn't support into a separate card. This build shows one Checked mark for the whole summary. It doesn't mark sentences one by one."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the difference between traced and checked?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Traced means a sentence carries a timestamp, placed by plain code with no model involved, on every setup. Checked means a second model read the summary and set aside what it couldn't support, and that needs Ollama. A timestamp can still point at the wrong line, and a checked summary can still hold a mistake."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will the check find all the mistakes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. In the demo it kept a sentence that merged two facts, and it passed an Ask answer that added “dollars”. It also sets aside sentences that are nearly right. It catches some mistakes, and reading the transcript catches more."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens to the sentences it sets aside?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "They go in a folded card under the summary, headed with a count, such as “4 unverified sentences”. The card's own line is “Read it as a lead, not a finding.” In this build they carry no timestamp."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does my summary say Not checked?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It tells you why: the check model isn't downloaded, Ollama wasn't running, the check is off, or it stopped part-way. Check Now checks the summary without writing it again."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What do I need to run it?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A Mac with Apple Silicon, running macOS 27 or later, plus Ollama. Ollama is a free app, and the setup assistant finds it or installs it for you. Older versions of macOS won't run it, and I haven't settled whether they ever could."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it run on an Intel Mac?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. It's built for Apple Silicon only."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there a Windows, iPhone or iPad version?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Meringo Minutes runs on the Mac only."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does it download?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The app is 84 MB, with no models inside it. The default setup adds about 710 MB of speech models, Ollama, and two language models of 9.0 GB and 4.7 GB, so plan on about 15 GB of disk."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much memory does it need?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "I don't know the minimum yet. I've measured it only on an M4 with 24 GB."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is Ollama, and why do I need it?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ollama is a free app that runs language models, by default on your own Mac. Meringo Minutes uses it for the summary, the check and Ask. Without it, a meeting is still transcribed and its summary waits for Ollama. Apple Intelligence is listed in Settings as experimental."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I import a recording I already have?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Import Audio takes a file, and the demo on this site was made that way. It accepts m4a, wav, mp3, aiff and mp4."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does it cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "$79 during the first month after launch, then $99. You pay once, and there's no subscription."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When can I buy it?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not yet, and I don't have a date to give you. Email support@meringo.app and I'll send one note when it's ready."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there a free trial?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "One is planned, not built. The free version will process the first 30 minutes of each meeting, and buying processes the rest from the audio it already kept. There's no clock on it."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it on the Mac App Store?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. It'll be sold directly, through a link on this site."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it open source?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will the other people in the meeting know?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, by default. As recording starts, the app says out loud: “I'm recording this meeting to take notes. The recording stays on my Mac.” You can change the words or switch it off, and it stays on until you do. A recording made without it is marked Unannounced."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it join my calls as a bot?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Nothing joins the call and no calendar invite goes out; it records the call's audio on your Mac. That's why the announcement is on by default: it's how the others find out."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it know which recording law applies to me?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No, and it doesn't try. The reason is in the code: “the strictest participant's law governs, and nobody's location is knowable.” That's a design choice, not legal advice. One more limit: on headphones, the far end of a call may not hear the announcement."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can it start recording by itself?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Only if you turn that on. It's off by default, it works only while announcements are on, and it announces before it records."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What languages does it understand?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The default speech model lists English and 24 other European languages, and Whisper, in Settings, lists 99. I've measured accuracy in English only: every recording in my benchmark is English, so I can't tell you how it does in the others. The vocabulary list works in English only."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What can I export?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The summary (with or without timestamps), the transcript and the mindmap, as Markdown, plain text, PDF, Mermaid or OPML, or everything to a folder at once. An exported summary says whether it was checked."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I teach it names and jargon?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Add a word to the vocabulary list, and the app changes it wherever it also hears it in the audio. On three bench meetings full of uncommon names, read by synthesised voices, lists halved the error rate, from 10.9% to 5.4%. In the demo, “Pemberton” was fixed both times, and “locum”, heard as “locker”, stayed wrong."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it suggest corrections by itself?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sometimes. When it notices a near-miss it offers the correction, and you confirm it. On the bench it made 14 offers, and all 14 were right. In the demo it made none."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it work with Zoom, Teams or Google Meet?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It records your microphone and the audio your Mac plays, so the call app doesn't matter. It doesn't connect to any of them."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I share meetings with my team?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. There's no sync and no account. You can export a meeting and send it yourself."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why pay for this if I only need a transcript?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "If a transcript is all you need, you may not need Meringo Minutes. The price is for the parts that help you check the notes: the timestamps, the second model's check, and an Ask that says when the meeting doesn't answer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Who makes Meringo Minutes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "I do: Adam Siemaszko, under Meringo Labs LLC, in Erie County, New York. Write to me at support@meringo.app."
+        }
+      }
+    ]
+  }
+  </script>
+  <!-- /sync:faq-ld -->
+</head>
+<body data-cta-state="prelaunch">
+  <!-- sync:header -->
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/" aria-label="Meringo Minutes, home">
+        <img src="/assets/img/app-icon-64.png" width="30" height="30" alt="">
+        <span>Meringo Minutes</span>
+      </a>
+      <nav class="site-nav" aria-label="Site">
+        <ul>
+          <li><a href="/how-it-works/">How it works</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+          <li><a href="/download/">Download</a></li>
+        </ul>
+      </nav>
+      <div class="header-end">
+        <p class="header-note"><span class="hide-narrow">Not for sale yet · </span><a href="/#notify">Tell me when</a></p>
+        <button class="theme-toggle" type="button" data-theme-toggle data-choice="system" aria-label="Theme: match system" title="Theme: match system" hidden>
+          <svg class="icon-system" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg>
+          <svg class="icon-light" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg class="icon-dark" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M19.5 14.6A8 8 0 0 1 9.4 4.5a8 8 0 1 0 10.1 10.1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <!-- /sync:header -->
+
+  <div id="content" tabindex="-1"></div>
+  <main class="page faq-page">
+    <h1>Questions about Meringo Minutes</h1>
+    <div class="ask-mount" data-ask-faq></div>
+
+    <!-- sync:faq -->
+    <nav class="faq-topics" aria-label="Topics">
+      <ul>
+        <li><a href="#topic-privacy">Privacy</a></li>
+        <li><a href="#topic-accuracy">Accuracy</a></li>
+        <li><a href="#topic-ask">Ask</a></li>
+        <li><a href="#topic-check">The check</a></li>
+        <li><a href="#topic-setup">Setup and requirements</a></li>
+        <li><a href="#topic-price">Price and trial</a></li>
+        <li><a href="#topic-consent">Consent and the announcement</a></li>
+        <li><a href="#topic-languages">Languages</a></li>
+        <li><a href="#topic-export">Export</a></li>
+        <li><a href="#topic-people-vocabulary">People and vocabulary</a></li>
+        <li><a href="#topic-doesnt-do">What it doesn&#x27;t do</a></li>
+      </ul>
+    </nav>
+
+    <section class="faq-group" aria-labelledby="topic-privacy">
+      <h2 id="topic-privacy">Privacy</h2>
+      <details class="faq-item" id="f01">
+        <summary>Does it work offline?</summary>
+        <p>Yes, once the models are downloaded. By default, recording, transcription and the summary all run on your Mac. The internet is needed only to download each model the first time.</p>
+      </details>
+      <details class="faq-item" id="f02">
+        <summary>Is my data encrypted?</summary>
+        <p>No, and I'd rather say so plainly. Recordings and meeting files are ordinary files in a folder in your Library, and the app adds no encryption of its own. macOS file permissions protect them, and FileVault does too if it's on. By default nothing is uploaded, so there's no server copy to protect.</p>
+      </details>
+      <details class="faq-item" id="f03">
+        <summary>Does anything about my meetings get sent anywhere?</summary>
+        <p>By default, no. The only traffic is models coming in the first time they're needed, and there's no analytics, telemetry or crash-reporting code in the app. If you point the summariser at Ollama on another machine, each transcript goes there, and the privacy panel turns orange and names it.</p>
+      </details>
+      <details class="faq-item" id="f06">
+        <summary>Does it check for updates?</summary>
+        <p>Not in the current build, which never contacts an update server. When I add an update check, the privacy page will say what it sends, in the same release.</p>
+      </details>
+      <details class="faq-item" id="f07">
+        <summary>Where are my recordings kept?</summary>
+        <p>In ~/Library/Application Support/Meringo Minutes/, one folder for everything. Deleting a meeting moves it to the Trash, so you can get it back until you empty it.</p>
+      </details>
+      <details class="faq-item" id="f08">
+        <summary>Does it need Screen Recording permission?</summary>
+        <p>No. It hears the other side of a call through a Core Audio tap, so it never asks for Screen Recording.</p>
+      </details>
+      <details class="faq-item" id="f09">
+        <summary>Can I run the summariser on another computer?</summary>
+        <p>Yes: point the server URL in Settings at another machine running Ollama. Each transcript is then sent there, and the privacy panel turns orange and names the machine. The audio and the transcript stay stored on your Mac.</p>
+      </details>
+      <details class="faq-item" id="f10">
+        <summary>What does it read on my Mac?</summary>
+        <p>Your microphone, the audio your Mac plays during a call, and your calendar, to name meetings. Reminders when you send a commitment there, and your own Contacts card only when you ask. The signature holds exactly three entitlements: audio input, address book and calendars.</p>
+      </details>
+      <details class="faq-item" id="f11">
+        <summary>Does this website track me?</summary>
+        <p>No cookies and no analytics. It keeps your theme choice in your browser. GitHub, which hosts the site, logs IP addresses for security. <a href="/privacy/">The privacy page</a> has the details.</p>
+      </details>
+    </section>
+
+    <section class="faq-group" aria-labelledby="topic-accuracy">
+      <h2 id="topic-accuracy">Accuracy</h2>
+      <details class="faq-item" id="f12">
+        <summary>How accurate is the transcription?</summary>
+        <p>It gets about one word in five wrong: an <span data-fact="bench-wer">18.4%</span> median word error rate across <span data-fact="bench-recordings">66</span> bench recordings. In the demo it heard “locum” as “<span data-lint="app">locker</span>” and “agreed” as “<span data-lint="app">gag read</span>”.</p>
+      </details>
+      <details class="faq-item" id="f13">
+        <summary>Can I trust the summary?</summary>
+        <p>As far as you can check it. Most summary sentences carry a timestamp, and with Ollama a second model sets aside what it can't support. Neither is perfect. In the demo, <span data-fact="demo-anchor-miss">4</span> of <span data-fact="demo-anchored">11</span> timestamps point at a line that doesn't state the claim, and the check kept a sentence that merged two facts.</p>
+      </details>
+      <details class="faq-item" id="f15">
+        <summary>Do the timestamps point to the right place?</summary>
+        <p>Near it. In the demo, none of the <span data-fact="demo-anchored">11</span> landed on a line that states the whole claim: <span data-fact="demo-anchor-miss">4</span> point at a line that doesn't state it, and the other <span data-fact="demo-anchor-partial">7</span> at a line that states only part of it. The <span data-fact="demo-anchor-miss">4</span> misses land early, and the supporting line follows within about <span data-fact="demo-miss-lag">30</span> seconds. The overview at the top never gets a timestamp, by design, and a sentence the app can't place gets none rather than a guess.</p>
+      </details>
+      <details class="faq-item" id="f16">
+        <summary>How well does it tell speakers apart?</summary>
+        <p>It found all three voices in the demo and gave <span data-fact="demo-speaker-errors">5</span> of the <span data-fact="demo-lines">56</span> lines to the wrong one. No voice is stored or matched from one meeting to the next, so you name the voices once per meeting.</p>
+      </details>
+      <details class="faq-item" id="f17">
+        <summary>How long does it take to process a meeting?</summary>
+        <p>One meeting has been timed on the current build: <span data-fact="demo-duration">3 minutes 53 seconds</span> of audio took about <span data-fact="demo-processing">6½ to 7 minutes</span>, on an <span data-fact="test-mac-chip">M4</span> with <span data-fact="test-mac-memory">24 GB</span>, with the speech models already downloaded. The app sets no length limit, but I haven't timed a long meeting on this build, so I won't give you a per-hour figure yet.</p>
+      </details>
+      <details class="faq-item" id="f18">
+        <summary>Does it find action items?</summary>
+        <p>Yes. Each one has an owner, and it gets a date only when the meeting gave one certain day. It's the part I'd check hardest. In the demo it listed <span data-fact="demo-action-items">8</span> items for <span data-fact="demo-commitments">5</span> commitments, with Dana's locum task in three wordings.</p>
+      </details>
+    </section>
+
+    <section class="faq-group" aria-labelledby="topic-ask">
+      <h2 id="topic-ask">Ask</h2>
+      <details class="faq-item" id="f19">
+        <summary>What is Ask?</summary>
+        <p>A tab where you put a question to a meeting in plain words. Each sentence of the answer comes with the transcript lines it cites. You can ask one meeting, or all of them at once.</p>
+      </details>
+      <details class="faq-item" id="f20">
+        <summary>What happens when the meeting doesn't answer my question?</summary>
+        <p>It says “<span data-lint="app">I found nothing in this meeting that says that.</span>” and stops there. In the demo it did that for all <span data-fact="ask-unanswerable">8</span> questions the meeting doesn't answer, or answers only in part, including one where a plausible day rate was one division away.</p>
+      </details>
+      <details class="faq-item" id="f21">
+        <summary>Does Ask ever get it wrong?</summary>
+        <p>Yes. In the demo it refused one question the meeting did answer, and it added “dollars” to another answer when nobody named a currency. Asked again, it gave the same answer word for word, mistake included.</p>
+      </details>
+    </section>
+
+    <section class="faq-group" aria-labelledby="topic-check">
+      <h2 id="topic-check">The check</h2>
+      <details class="faq-item" id="f23">
+        <summary>What does “Checked” mean?</summary>
+        <p>A second, different model has read the summary against the transcript and moved what it couldn't support into a separate card. This build shows one Checked mark for the whole summary. It doesn't mark sentences one by one.</p>
+      </details>
+      <details class="faq-item" id="f24">
+        <summary>What's the difference between traced and checked?</summary>
+        <p>Traced means a sentence carries a timestamp, placed by plain code with no model involved, on every setup. Checked means a second model read the summary and set aside what it couldn't support, and that needs Ollama. A timestamp can still point at the wrong line, and a checked summary can still hold a mistake.</p>
+      </details>
+      <details class="faq-item" id="f25">
+        <summary>Will the check find all the mistakes?</summary>
+        <p>No. In the demo it kept a sentence that merged two facts, and it passed an Ask answer that added “dollars”. It also sets aside sentences that are nearly right. It catches some mistakes, and reading the transcript catches more.</p>
+      </details>
+      <details class="faq-item" id="f26">
+        <summary>What happens to the sentences it sets aside?</summary>
+        <p>They go in a folded card under the summary, headed with a count, such as “<span data-fact="demo-setaside">4</span> unverified sentences”. The card's own line is “<span data-lint="app">Read it as a lead, not a finding.</span>” In this build they carry no timestamp.</p>
+      </details>
+      <details class="faq-item" id="f27">
+        <summary>Why does my summary say Not checked?</summary>
+        <p>It tells you why: the check model isn't downloaded, Ollama wasn't running, the check is off, or it stopped part-way. Check Now checks the summary without writing it again.</p>
+      </details>
+    </section>
+
+    <section class="faq-group" aria-labelledby="topic-setup">
+      <h2 id="topic-setup">Setup and requirements</h2>
+      <details class="faq-item" id="f29">
+        <summary>What do I need to run it?</summary>
+        <p>A Mac with Apple Silicon, running <span data-fact="requires-macos">macOS 27</span> or later, plus Ollama. Ollama is a free app, and the setup assistant finds it or installs it for you. Older versions of macOS won't run it, and I haven't settled whether they ever could.</p>
+      </details>
+      <details class="faq-item" id="f30">
+        <summary>Does it run on an Intel Mac?</summary>
+        <p>No. It's built for Apple Silicon only.</p>
+      </details>
+      <details class="faq-item" id="f31">
+        <summary>Is there a Windows, iPhone or iPad version?</summary>
+        <p>No. Meringo Minutes runs on the Mac only.</p>
+      </details>
+      <details class="faq-item" id="f34">
+        <summary>How much does it download?</summary>
+        <p>The app is <span data-fact="size-app">84 MB</span>, with no models inside it. The default setup adds about <span data-fact="size-speech-models">710 MB</span> of speech models, Ollama, and two language models of <span data-fact="size-summary-model">9.0 GB</span> and <span data-fact="size-check-model">4.7 GB</span>, so plan on about <span data-fact="size-default-install">15 GB</span> of disk.</p>
+      </details>
+      <details class="faq-item" id="f35">
+        <summary>How much memory does it need?</summary>
+        <p>I don't know the minimum yet. I've measured it only on an <span data-fact="test-mac-chip">M4</span> with <span data-fact="test-mac-memory">24 GB</span>.</p>
+      </details>
+      <details class="faq-item" id="f36">
+        <summary>What is Ollama, and why do I need it?</summary>
+        <p>Ollama is a free app that runs language models, by default on your own Mac. Meringo Minutes uses it for the summary, the check and Ask. Without it, a meeting is still transcribed and its summary waits for Ollama. Apple Intelligence is listed in Settings as experimental.</p>
+      </details>
+      <details class="faq-item" id="f37">
+        <summary>Can I import a recording I already have?</summary>
+        <p>Yes. Import Audio takes a file, and the demo on this site was made that way. It accepts m4a, wav, mp3, aiff and mp4.</p>
+      </details>
+    </section>
+
+    <section class="faq-group" aria-labelledby="topic-price">
+      <h2 id="topic-price">Price and trial</h2>
+      <details class="faq-item" id="f39">
+        <summary>How much does it cost?</summary>
+        <p><span data-fact="price-launch">$79</span> during the first month after launch, then <span data-fact="price">$99</span>. You pay once, and there's no subscription.</p>
+      </details>
+      <details class="faq-item" id="f40">
+        <summary>When can I buy it?</summary>
+        <p>Not yet, and I don't have a date to give you. Email <a href="mailto:support@meringo.app">support@meringo.app</a> and I'll send one note when it's ready.</p>
+      </details>
+      <details class="faq-item" id="f41">
+        <summary>Is there a free trial?</summary>
+        <p>One is planned, not built. The free version will process the first <span data-fact="trial-minutes">30</span> minutes of each meeting, and buying processes the rest from the audio it already kept. There's no clock on it.</p>
+      </details>
+      <details class="faq-item" id="f43">
+        <summary>Is it on the Mac App Store?</summary>
+        <p>No. It'll be sold directly, through a link on this site.</p>
+      </details>
+      <details class="faq-item" id="f44">
+        <summary>Is it open source?</summary>
+        <p>No.</p>
+      </details>
+    </section>
+
+    <section class="faq-group" aria-labelledby="topic-consent">
+      <h2 id="topic-consent">Consent and the announcement</h2>
+      <details class="faq-item" id="f45">
+        <summary>Will the other people in the meeting know?</summary>
+        <p>Yes, by default. As recording starts, the app says out loud: “<span data-lint="app">I'm recording this meeting to take notes. The recording stays on my Mac.</span>” You can change the words or switch it off, and it stays on until you do. A recording made without it is marked Unannounced.</p>
+      </details>
+      <details class="faq-item" id="f46">
+        <summary>Does it join my calls as a bot?</summary>
+        <p>No. Nothing joins the call and no calendar invite goes out; it records the call's audio on your Mac. That's why the announcement is on by default: it's how the others find out.</p>
+      </details>
+      <details class="faq-item" id="f47">
+        <summary>Does it know which recording law applies to me?</summary>
+        <p>No, and it doesn't try. The reason is in the code: “the strictest participant's law governs, and nobody's location is knowable.” That's a design choice, not legal advice. One more limit: on headphones, the far end of a call may not hear the announcement.</p>
+      </details>
+      <details class="faq-item" id="f48">
+        <summary>Can it start recording by itself?</summary>
+        <p>Only if you turn that on. It's off by default, it works only while announcements are on, and it announces before it records.</p>
+      </details>
+    </section>
+
+    <section class="faq-group" aria-labelledby="topic-languages">
+      <h2 id="topic-languages">Languages</h2>
+      <details class="faq-item" id="f49">
+        <summary>What languages does it understand?</summary>
+        <p>The default speech model lists English and <span data-fact="lang-default-others">24</span> other European languages, and Whisper, in Settings, lists <span data-fact="lang-whisper">99</span>. I've measured accuracy in English only: every recording in my benchmark is English, so I can't tell you how it does in the others. The vocabulary list works in English only.</p>
+      </details>
+    </section>
+
+    <section class="faq-group" aria-labelledby="topic-export">
+      <h2 id="topic-export">Export</h2>
+      <details class="faq-item" id="f50">
+        <summary>What can I export?</summary>
+        <p>The summary (with or without timestamps), the transcript and the mindmap, as Markdown, plain text, PDF, Mermaid or OPML, or everything to a folder at once. An exported summary says whether it was checked.</p>
+      </details>
+    </section>
+
+    <section class="faq-group" aria-labelledby="topic-people-vocabulary">
+      <h2 id="topic-people-vocabulary">People and vocabulary</h2>
+      <details class="faq-item" id="f51">
+        <summary>Can I teach it names and jargon?</summary>
+        <p>Yes. Add a word to the vocabulary list, and the app changes it wherever it also hears it in the audio. On three bench meetings full of uncommon names, read by synthesised voices, lists halved the error rate, from <span data-fact="vocab-wer-before">10.9%</span> to <span data-fact="vocab-wer-after">5.4%</span>. In the demo, “Pemberton” was fixed both times, and “locum”, heard as “<span data-lint="app">locker</span>”, stayed wrong.</p>
+      </details>
+      <details class="faq-item" id="f52">
+        <summary>Does it suggest corrections by itself?</summary>
+        <p>Sometimes. When it notices a near-miss it offers the correction, and you confirm it. On the bench it made <span data-fact="near-miss-offers">14</span> offers, and all <span data-fact="near-miss-correct">14</span> were right. In the demo it made none.</p>
+      </details>
+    </section>
+
+    <section class="faq-group" aria-labelledby="topic-doesnt-do">
+      <h2 id="topic-doesnt-do">What it doesn&#x27;t do</h2>
+      <details class="faq-item" id="f54">
+        <summary>Does it work with Zoom, Teams or Google Meet?</summary>
+        <p>It records your microphone and the audio your Mac plays, so the call app doesn't matter. It doesn't connect to any of them.</p>
+      </details>
+      <details class="faq-item" id="f55">
+        <summary>Can I share meetings with my team?</summary>
+        <p>No. There's no sync and no account. You can export a meeting and send it yourself.</p>
+      </details>
+      <details class="faq-item" id="f56">
+        <summary>Why pay for this if I only need a transcript?</summary>
+        <p>If a transcript is all you need, you may not need Meringo Minutes. The price is for the parts that help you check the notes: the timestamps, the second model's check, and an Ask that says when the meeting doesn't answer.</p>
+      </details>
+      <details class="faq-item" id="f57">
+        <summary>Who makes Meringo Minutes?</summary>
+        <p>I do: Adam Siemaszko, under Meringo Labs LLC, in Erie County, New York. Write to me at <a href="mailto:support@meringo.app">support@meringo.app</a>.</p>
+      </details>
+    </section>
+    <!-- /sync:faq -->
+  </main>
+
+  <!-- sync:footer -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div>
+        <div class="footer-mark">
+          <img src="/assets/img/meringo-mark.svg" width="44" height="44" alt="Meringo Labs">
+          <p><strong>Meringo Minutes™</strong> is made by Adam Siemaszko at Meringo Labs.<br>This site sets no cookies and runs no analytics.</p>
+        </div>
+        <p class="footer-tagline">Respecting the room. <em>Showing the work.</em></p>
+        <p class="footer-legal">© 2026 Meringo Labs LLC · Erie County, NY</p>
+      </div>
+      <div class="footer-nav">
+        <ul class="footer-links">
+          <li><a href="/how-it-works/">How it works</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+        </ul>
+        <ul class="footer-links">
+          <li><a href="https://meringo.app" rel="noopener">Meringo Music ↗</a></li>
+          <li><a href="https://meringolisten.app" rel="noopener">Meringo Listen ↗</a></li>
+          <li><a href="https://adamsiemaszko.com/" rel="noopener">Made by Adam Siemaszko ↗</a></li>
+          <li><a href="mailto:support@meringo.app">support@meringo.app</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  <!-- /sync:footer -->
+</body>
+</html>

@@ -425,6 +425,68 @@ main.page blockquote p { color: var(--text-2); }
 main.page .actions { margin: var(--space-6) 0 var(--space-3); }
 main.page .actions + .fine { margin-bottom: var(--space-8); }
 
+/* ─── /faq/: the questions, generated from assets/data/faq.json ────────── */
+main.page .faq-topics ul {
+  list-style: none; padding: 0; margin: 0 0 var(--space-8);
+  display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6);
+  font-size: var(--text-sm);
+}
+main.page .faq-topics li { margin: 0; }
+.faq-topics a { color: var(--text-2); }
+.faq-topics a:hover { color: var(--text); }
+.faq-group h2, .faq-item { scroll-margin-top: var(--space-6); }
+.faq-item { border-top: 1px solid var(--border); }
+.faq-item:last-child { border-bottom: 1px solid var(--border); }
+.faq-item > summary {
+  display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-4);
+  min-height: 44px; padding: var(--space-3) 0;
+  font-weight: 600; color: var(--text); cursor: pointer; list-style: none;
+}
+.faq-item > summary::-webkit-details-marker { display: none; }
+.faq-item > summary::after {
+  content: "+"; flex: 0 0 auto; width: 1em; text-align: center;
+  font-weight: 400; font-size: var(--text-md); line-height: 1; color: var(--text-2);
+}
+.faq-item[open] > summary::after { content: "\2212"; }
+.faq-item > summary:hover { color: var(--heading); }
+main.page .faq-item > p { margin: 0 0 var(--space-4); }
+.faq-item:target > summary { color: var(--heading); }
+
+/* The assistant: the site's re-set app window, in the site's own colours.
+   ask-ui.js builds it, so without JavaScript there's nothing here. */
+.ask-mount:empty { display: none; }
+.ask {
+  margin: var(--space-8) 0 var(--space-12);
+  background: var(--surface-1); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.ask-bar {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-2); border-bottom: 1px solid var(--border);
+}
+.ask-lights { display: flex; gap: 7px; }
+.ask-lights i { width: 11px; height: 11px; border-radius: 50%; background: var(--border); }
+.ask-title { font-size: var(--text-xs); font-weight: 600; color: var(--text-2); }
+.ask-body { padding: var(--space-6); }
+.ask .ask-label { display: block; font-weight: 600; margin-bottom: var(--space-1); }
+.ask .ask-disclosure { font-size: var(--text-sm); color: var(--text-2); margin-bottom: var(--space-3); }
+.ask-row { display: flex; gap: var(--space-2); }
+.ask-row input {
+  flex: 1 1 auto; min-width: 0; min-height: 48px; padding: 0 var(--space-3);
+  font: inherit; color: var(--text); background: var(--bg);
+  border: 1px solid var(--text-3); border-radius: var(--radius-sm);
+}
+.ask-submit { flex: 0 0 auto; }
+.ask-result { margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--border); }
+.ask .ask-matched { font-size: var(--text-sm); color: var(--text-2); margin-bottom: var(--space-2); }
+.ask .ask-answer { margin-bottom: var(--space-2); }
+.ask .ask-contact { font-size: var(--text-sm); color: var(--text-2); margin: 0; }
+@media (max-width: 520px) {
+  .ask-body { padding: var(--space-4); }
+}
+
 /* ─── Footer ─────────────────────────────────────────────────────────── */
 .site-footer { border-top: 1px solid var(--border); padding: var(--space-12) 0 var(--space-16); }
 .site-footer .wrap {
