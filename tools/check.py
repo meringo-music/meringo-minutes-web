@@ -20,8 +20,12 @@ What it checks, and why:
   - /privacy/ keeps the shape the desk's page renderer relies on, and, when
     the desk repo sits beside this one, its render_page.build_page renders a
     dummy page into it (skipped when absent, as in CI);
-  - shared regions match partials/ (tools/sync.py) and the colour tokens
-    meet WCAG contrast in both themes (tools/contrast.py);
+  - /faq/'s FAQPage JSON-LD says exactly what the page shows: the same
+    questions, in the same order, with the same answer text, and the same as
+    assets/data/faq.json (JSON-LD is a data block, not a script, so the CSP
+    allows it and it isn't counted as inline code);
+  - shared and generated regions match their sources (tools/sync.py) and the
+    colour tokens meet WCAG contrast in both themes (tools/contrast.py);
   - no tracked file holds a personal path or the checking model's name.
 """
 
@@ -43,6 +47,7 @@ RULES = json.loads((ROOT / "tools" / "lint_rules.json").read_text(encoding="utf-
 FACTS = ROOT / "data" / "facts.json"
 FACT_FIELDS = ("id", "value", "source", "method", "asOf")
 TEMPLATE = "privacy/index.html"  # the page the desk's renderer borrows its shell from
+FAQ_PAGE = "faq/index.html"  # generated from assets/data/faq.json by tools/sync.py
 DIGIT_EXEMPT_TAGS = {"time", "footer"}
 
 BLOCKS = {"p", "li", "figcaption", "h1", "h2", "h3", "h4", "h5", "h6", "dt", "dd",
@@ -77,6 +82,8 @@ class Page(HTMLParser):
         self.style_attrs = 0
         self.cta_state: str | None = None
         self.skip = 0  # inside <script>/<style>
+        self.ld_blocks: list[str] = []  # the text of each <script type="application/ld+json">
+        self._ld: list[str] | None = None
 
     # -- helpers
     def _app(self) -> bool:
@@ -107,7 +114,9 @@ class Page(HTMLParser):
         if tag == "body":
             self.cta_state = a.get("data-cta-state")
         if tag == "script":
-            if "src" not in a and (a.get("type") or "") != "application/ld+json":
+            if (a.get("type") or "") == "application/ld+json":
+                self._ld = []  # a data block: the CSP doesn't apply, nothing runs
+            elif "src" not in a:
                 self.inline_scripts += 1
             self.skip += 1
         if tag == "style":
@@ -136,6 +145,9 @@ class Page(HTMLParser):
     def handle_endtag(self, tag):
         if tag in ("script", "style"):
             self.skip = max(0, self.skip - 1)
+        if tag == "script" and self._ld is not None:
+            self.ld_blocks.append("".join(self._ld))
+            self._ld = None
         if tag in BLOCKS:
             self._flush()
             self.buf_tag = "body"
@@ -150,6 +162,8 @@ class Page(HTMLParser):
                 break
 
     def handle_data(self, data):
+        if self._ld is not None:
+            self._ld.append(data)
         if not self.skip:
             self.buf.append(data)
             for buf in self.fact_bufs.values():
@@ -222,6 +236,93 @@ def template_errors(text: str) -> list[str]:
     if text.count("</style>") > 1:
         errors.append(f"{TEMPLATE}: more than one </style>; the desk renderer adds table styles to exactly one")
     return errors
+
+
+class FaqItems(HTMLParser):
+    """What /faq/ shows: each <details class="faq-item">, its <summary> as the
+    question and the rest of its text as the answer."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.items: list[tuple[str, str, str]] = []  # (id, question, answer)
+        self._item: dict | None = None
+        self._depth = 0  # <details> nesting inside the current item
+        self._in_summary = False
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if tag == "details":
+            if self._item is None and "faq-item" in (a.get("class") or "").split():
+                self._item = {"id": a.get("id") or "", "q": [], "a": []}
+                self._depth = 0
+            elif self._item is not None:
+                self._depth += 1
+        if tag == "summary" and self._item is not None and self._depth == 0:
+            self._in_summary = True
+
+    def handle_endtag(self, tag):
+        if tag == "summary":
+            self._in_summary = False
+        if tag == "details" and self._item is not None:
+            if self._depth:
+                self._depth -= 1
+                return
+            flat = lambda parts: re.sub(r"\s+", " ", "".join(parts)).strip()
+            self.items.append((self._item["id"], flat(self._item["q"]), flat(self._item["a"])))
+            self._item = None
+
+    def handle_data(self, data):
+        if self._item is not None:
+            self._item["q" if self._in_summary else "a"].append(data)
+
+
+def faq_parity(text: str) -> tuple[list[str], list[str]]:
+    """(errors, notes). The FAQPage JSON-LD on /faq/ must say exactly what the
+    page shows, question for question, and both must match faq.json."""
+    sys.dont_write_bytecode = True
+    sys.path.insert(0, str(ROOT / "tools"))
+    import sync  # noqa: E402
+
+    errors: list[str] = []
+    page = Page()
+    page.feed(text)
+    page.close()
+    if len(page.ld_blocks) != 1:
+        return [f"{FAQ_PAGE}: expected one FAQPage JSON-LD block, found {len(page.ld_blocks)}"], []
+    try:
+        ld = json.loads(page.ld_blocks[0])
+    except json.JSONDecodeError as e:
+        return [f"{FAQ_PAGE}: the JSON-LD doesn't parse: {e}"], []
+    flat = lambda s: re.sub(r"\s+", " ", str(s)).strip()
+    if ld.get("@type") != "FAQPage" or ld.get("@context") != "https://schema.org":
+        errors.append(f"{FAQ_PAGE}: the JSON-LD is not a schema.org FAQPage")
+    said = [(flat(q.get("name", "")), flat(q.get("acceptedAnswer", {}).get("text", "")))
+            for q in ld.get("mainEntity", []) if q.get("@type") == "Question"]
+    if len(said) != len(ld.get("mainEntity", [])):
+        errors.append(f"{FAQ_PAGE}: an entry in the JSON-LD is not a Question")
+
+    shown = FaqItems()
+    shown.feed(text)
+    shown.close()
+    visible = [(q, a) for _, q, a in shown.items]
+    source = [(flat(q["name"]), flat(q["acceptedAnswer"]["text"])) for q in sync.faq_jsonld()["mainEntity"]]
+
+    for name, other in (("the visible page", visible), ("assets/data/faq.json", source)):
+        if len(said) != len(other):
+            errors.append(f"{FAQ_PAGE}: the JSON-LD has {len(said)} questions, {name} has {len(other)}")
+            continue
+        for i, (a, b) in enumerate(zip(said, other)):
+            if a != b:
+                k = 0 if a[0] != b[0] else 1
+                errors.append(f"{FAQ_PAGE}: JSON-LD question {i + 1}'s {('question', 'answer')[k]} differs from {name}:\n"
+                              f"      JSON-LD: {a[k][:120]}\n"
+                              f"      {name}: {b[k][:120]}")
+                break
+    ids = [i for i, _, _ in shown.items]
+    if len(set(ids)) != len(ids) or not all(ids):
+        errors.append(f"{FAQ_PAGE}: every <details class=\"faq-item\"> needs its own id")
+    notes = [] if errors else [f"{FAQ_PAGE}: JSON-LD matches the page and faq.json, {len(said)} questions"]
+    return errors, notes
 
 
 def desk_render(text: str) -> tuple[list[str], list[str]]:
@@ -380,6 +481,16 @@ def main() -> int:
             desk_errors, desk_notes = desk_render(text)
             errors += desk_errors
             notes += desk_notes
+
+        if page.ld_blocks and rel != FAQ_PAGE:
+            errors.append(f"{rel}: carries JSON-LD; only {FAQ_PAGE} has any yet, and check.py checks only that one")
+        if rel == FAQ_PAGE:
+            faq_errors, faq_notes = faq_parity(path.read_text(encoding="utf-8"))
+            errors += faq_errors
+            notes += faq_notes
+
+    if FAQ_PAGE not in {p.relative_to(ROOT).as_posix() for p in pages}:
+        errors.append(f"{FAQ_PAGE} is missing")
 
     if len(set(states.values())) > 1:
         errors.append(f"pages disagree on data-cta-state: {states}")

@@ -253,6 +253,55 @@
       "source": "SITE-FACTS-2026-09-23",
       "method": "Sum of the default setup: 13.7 GB of Ollama models, 0.7 GB of speech models, 0.6 GB for Ollama.app and 84 MB for the app; about 15 GB.",
       "asOf": "2026-09-23"
+    },
+    {
+      "id": "demo-setaside",
+      "value": "4",
+      "source": "Minutes capture 2026-09-23, AUDIT.md (Set-aside sentences, rows 13 to 16)",
+      "method": "The heading of the demo's set-aside card as the app shows it: \"4 unverified sentences\".",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "lang-default-others",
+      "value": "24",
+      "source": "SITE-FACTS-2026-09-23 (Languages): SetupWizardView.swift:368",
+      "method": "The default speech model's setup text, \"English and 24 other European languages\"; the codes are listed in TranscriptionLanguage.swift. A claim the app makes, not a measurement.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "lang-whisper",
+      "value": "99",
+      "source": "SITE-FACTS-2026-09-23 (Languages): SettingsView.swift:375",
+      "method": "The optional Whisper model's language count as Settings states it. A claim the app makes, not a measurement.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "vocab-wer-before",
+      "value": "10.9%",
+      "source": "claims.csv in the Meringo Minutes app repo: Vocabulary lists halved WER on three name-dense meetings (10.9 % → 5.4 %)",
+      "method": "Word error rate on three name-dense bench meetings without a vocabulary list.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "vocab-wer-after",
+      "value": "5.4%",
+      "source": "claims.csv in the Meringo Minutes app repo: Vocabulary lists halved WER on three name-dense meetings (10.9 % → 5.4 %)",
+      "method": "Word error rate on the same three meetings with a vocabulary list.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "near-miss-offers",
+      "value": "14",
+      "source": "claims.csv in the Meringo Minutes app repo: Near-miss offers: 14 offers, 14 correct",
+      "method": "Near-miss corrections the app offered across the bench run of 2026-09-20.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "near-miss-correct",
+      "value": "14",
+      "source": "claims.csv in the Meringo Minutes app repo: Near-miss offers: 14 offers, 14 correct",
+      "method": "Of those offers, the number that were right.",
+      "asOf": "2026-09-23"
     }
   ]
 }
