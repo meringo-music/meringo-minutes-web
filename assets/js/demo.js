@@ -1,7 +1,5 @@
-// The home page demo: the app's own output for one made-up meeting, from
-// assets/data/demo.json. In the window every word is the app's; my audit notes
-// (.audit, .site-note) are a layer styled apart. Without JavaScript the
-// plain-text version stands alone.
+// The home page demo from assets/data/demo.json. In the window every word is
+// the app's; my audit notes (.audit, .site-note) are a layer styled apart.
 
 import { bankEngine } from './ask-bank.js';
 import { askDemo, el } from './ask-ui.js';

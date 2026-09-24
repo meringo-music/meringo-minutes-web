@@ -12,7 +12,11 @@
   <meta property="og:title" content="Meringo Minutes — meeting notes you can check">
   <meta property="og:description" content="Meringo Minutes summarises meetings on your Mac by default, with timestamps for checking the summary against the recording.">
   <meta property="og:url" content="https://meringominutes.app/">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://meringominutes.app/assets/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Meringo Minutes: meeting notes you can check against the recording. Beside the headline, the app answers a question about a day rate with: I found nothing in this meeting that says that.">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#07040E" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#FAF6EE" media="(prefers-color-scheme: light)">
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
@@ -24,6 +28,27 @@
   <script src="/assets/js/theme-init.js"></script>
   <script type="module" src="/assets/js/site.js"></script>
   <script type="module" src="/assets/js/demo.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Meringo Minutes",
+    "operatingSystem": "macOS 27 or later",
+    "applicationCategory": "BusinessApplication",
+    "description": "Meringo Minutes summarises meetings on your Mac by default, with timestamps for checking the summary against the recording.",
+    "url": "https://meringominutes.app/",
+    "image": "https://meringominutes.app/assets/img/og.png",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Meringo Labs LLC"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Adam Siemaszko",
+      "url": "https://adamsiemaszko.com/"
+    }
+  }
+  </script>
 </head>
 <body data-cta-state="prelaunch">
   <!-- sync:header -->
@@ -254,13 +279,93 @@
       </div>
     </section>
 
+    <section class="section" id="privacy" aria-labelledby="privacy-title">
+      <div class="wrap split">
+        <h2 id="privacy-title">Where a meeting goes</h2>
+        <div class="prose">
+          <figure class="quoted">
+            <p>By default, nowhere. Meringo Minutes keeps the recording, the transcript and the notes in a folder on your Mac, and its privacy panel says so:</p>
+            <blockquote class="app-quote" data-lint="app">
+              <p>Audio, transcripts, summaries and mindmaps are produced and stored on this machine. There is no account, no sync and no usage tracking. The only internet use is downloading a model the first time it is needed; talking to Ollama stays on this Mac.</p>
+            </blockquote>
+          </figure>
+          <p>Point the summariser at another computer on your network and the panel turns orange and names it. In a test for this site it read <q data-lint="app">Summaries are sent to <span class="nowrap">gpu-box.lan</span></q>, and went on: <q data-lint="app">The audio and the transcript are still only stored on this Mac.</q></p>
+          <p><a href="/how-it-works/#network">A test in the build</a> runs a real meeting, watches the network while it does, and fails on any connection that isn't local. It looks every <span data-fact="egress-sample-ms">100</span> ms, so a connection that opens and closes between two looks would get past it.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features" aria-labelledby="features-title">
+      <div class="wrap split">
+        <h2 id="features-title">What Meringo Minutes does</h2>
+        <ol class="features">
+          <li><p><strong>Timestamps you can follow.</strong> A summary sentence's timestamp opens the transcript at that line, with the playhead parked there. In the demo, <span data-fact="demo-anchor-miss">4</span> of the <span data-fact="demo-anchored">11</span> point at the wrong line, each a little early, and the right one follows within about <span data-fact="demo-miss-lag">30</span> seconds.</p></li>
+          <li><p><strong>A second model, checking.</strong> With Ollama, the default setup, a second, different model reads the summary against the transcript. What it can't support moves into a folded card. It misses some; <a href="/how-it-works/#checked">How it works</a> shows which.</p></li>
+          <li><p><strong>Answers that cite the meeting.</strong> Ask a question and each sentence of the answer comes with the transcript lines it cites. When nothing in the meeting holds, the whole answer is <q data-lint="app">I found nothing in this meeting that says that.</q></p></li>
+          <li><p><strong>Deadlines it won't invent.</strong> <q>End of Q3</q> becomes a date. <q>Next Friday</q> stays in words, so it can't turn into a false Overdue.</p></li>
+          <li><p><strong>It tells the room.</strong> By default, recording starts with the app saying out loud that it's recording.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="clients" aria-labelledby="clients-title">
+      <div class="wrap split">
+        <h2 id="clients-title">For client meetings</h2>
+        <div class="prose">
+          <p>If you meet clients, the first thing to know is where the recording went. By default it stays in that folder on your Mac, with no account and no sync. Whether the app fits your professional obligations is your call, and this page gives you the facts I have.</p>
+          <p>By default it speaks as recording starts: <q data-lint="app">I'm recording this meeting to take notes. The recording stays on my Mac.</q> You can change the words or switch it off; it stays on until you do. The announcement goes into the recording too. One limit: on headphones, the other end of a call may not hear it.</p>
+          <p>It doesn't try to work out whose consent law applies. The code gives the reason: <q>the strictest participant's law governs, and nobody's location is knowable.</q> That's a design choice, not legal advice.</p>
+          <p>Nothing joins the call and no calendar invite goes out, so the spoken announcement is how the others find out.</p>
+          <p>Checking the notes is still your job. The timestamps, and the recording kept with the meeting, make it quicker.</p>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="notify" aria-labelledby="notify-title">
-      <div class="wrap"><div class="prose">
-        <h2 id="notify-title">Not for sale yet</h2>
-        <p>I'm still finishing Meringo Minutes. When it's ready it will be <strong><span data-fact="price-launch">$79</span> during the first month after launch, then <span data-fact="price">$99</span></strong>, paid once. It needs an Apple Silicon Mac running <span data-fact="requires-macos">macOS 27</span> or later.</p>
-        <p>If you'd like one email when it's ready, send me a note. I'll use your address for that email and nothing else.</p>
-        <p><a class="button button-quiet" href="mailto:support@meringo.app?subject=Tell%20me%20when%20Meringo%20Minutes%20is%20ready">Email me when it's ready</a></p>
-      </div></div>
+      <div class="wrap split">
+        <h2 id="notify-title">What you'll need, and what it costs</h2>
+        <div class="prose">
+          <ul class="needs">
+            <li>An Apple Silicon Mac on <span data-fact="requires-macos">macOS 27</span> or later.</li>
+            <li>Ollama, a free app that runs the language models. The setup assistant finds it or installs it.</li>
+            <li>About <span data-fact="size-default-install">15 GB</span> of disk for the default setup: the app, about <span data-fact="size-speech-models">710 MB</span> of speech models, Ollama, and its two models of <span data-fact="size-summary-model">9.0 GB</span> and <span data-fact="size-check-model">4.7 GB</span>.</li>
+            <li>Memory: I've measured it only on an <span data-fact="test-mac-chip">M4</span> with <span data-fact="test-mac-memory">24 GB</span>.</li>
+          </ul>
+          <div class="card price">
+            <p><strong><span data-fact="price-launch">$79</span> during the first month after launch, then <span data-fact="price">$99</span>, paid once.</strong> It isn't for sale yet.</p>
+            <p>A free version is planned, not built. It'll process the first <span data-fact="trial-minutes">30</span> minutes of each meeting, and buying processes the rest from the audio it already kept.</p>
+            <div class="actions">
+              <a class="button button-primary" href="mailto:support@meringo.app?subject=Tell%20me%20when%20Meringo%20Minutes%20is%20ready">Email me when it's ready</a>
+            </div>
+            <p class="fine">I'll use your address for that one email and nothing else.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="maker" aria-labelledby="maker-title">
+      <div class="wrap split">
+        <h2 id="maker-title">Who makes Meringo Minutes</h2>
+        <div class="prose">
+          <p>I'm Adam Siemaszko. I build three apps under Meringo Labs LLC, in Erie County, New York: Meringo, a music player for Android; Meringo Listen, an audiobook player; and Meringo Minutes. If a sentence on this site is wrong, tell me at <a href="mailto:support@meringo.app">support@meringo.app</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="questions" aria-labelledby="questions-title">
+      <div class="wrap split">
+        <h2 id="questions-title">Questions</h2>
+        <div class="prose">
+          <p>Three I expect first, with the short answers:</p>
+          <ul class="teaser">
+            <li><a href="/faq/#f01">Does it work offline?</a> Yes, once the models are downloaded.</li>
+            <li><a href="/faq/#f02">Is my data encrypted?</a> No. The FAQ says what protects it instead.</li>
+            <li><a href="/faq/#f45">Will the other people in the meeting know?</a> By default, it tells them out loud.</li>
+          </ul>
+          <p>The FAQ has a box that answers from its own questions, in your browser, and says so when nothing there fits.</p>
+          <p><a class="button button-quiet" href="/faq/">All questions</a></p>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -269,7 +374,7 @@
     <div class="wrap">
       <div>
         <div class="footer-mark">
-          <img src="/assets/img/meringo-mark.svg" width="44" height="44" alt="Meringo Labs">
+          <button class="hat" type="button" aria-label="Meringo Labs"><img src="/assets/img/meringo-mark.svg" width="44" height="44" alt=""></button>
           <p><strong>Meringo Minutes™</strong> is made by Adam Siemaszko at Meringo Labs.<br>This site sets no cookies and runs no analytics.</p>
         </div>
         <p class="footer-tagline">Respecting the room. <em>Showing the work.</em></p>
