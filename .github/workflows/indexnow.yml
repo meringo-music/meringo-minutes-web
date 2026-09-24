@@ -1,0 +1,28 @@
+name: indexnow
+
+# Tells the IndexNow engines (Bing and the others that share the protocol;
+# Google is not one of them) that the site changed, right after a push to
+# main. The key file at the repo root proves the ping comes from this site.
+# It sends nothing but the page URLs listed in sitemap.xml.
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Submit the sitemap's URLs
+        run: |
+          KEY=$(basename "$(ls ./*.txt | grep -E '/[0-9a-f]{32}\.txt$')" .txt)
+          URLS=$(grep -o '<loc>[^<]*</loc>' sitemap.xml | sed 's/<[^>]*>//g' | sed 's/.*/"&"/' | paste -sd, -)
+          curl --silent --show-error --fail-with-body \
+            -H 'Content-Type: application/json; charset=utf-8' \
+            -d "{\"host\":\"meringominutes.app\",\"key\":\"$KEY\",\"keyLocation\":\"https://meringominutes.app/$KEY.txt\",\"urlList\":[$URLS]}" \
+            https://api.indexnow.org/indexnow

@@ -4,15 +4,59 @@
   "crops": [
     {
       "name": "summary-top",
-      "frames": { "light": "01b-summary-top-light.png", "dark": "01b-summary-top-dark.png" },
-      "box": [0, 0, 2560, 1424],
+      "frames": {
+        "light": "01b-summary-top-light.png",
+        "dark": "01b-summary-top-dark.png"
+      },
+      "box": [
+        0,
+        0,
+        2560,
+        1424
+      ],
       "why": "The top of the summary: the Checked mark, All 11 claims traced, and the timestamps beside each point. Cut above the waveform and player. NOT-FOR-PUBLICATION.md lists 01a to 01d under use-with-care only: Discussion Notes shows the sentence at 0:37 that merges two facts and the one at 2:13 that gives the wrong cause, and the demo beside it marks both."
     },
     {
       "name": "ask-refusal",
-      "frames": { "light": "06-ask-refusal-dayrate-light.png", "dark": "06-ask-refusal-dayrate-dark.png" },
-      "box": [0, 0, 2560, 560],
+      "frames": {
+        "light": "06-ask-refusal-dayrate-light.png",
+        "dark": "06-ask-refusal-dayrate-dark.png"
+      },
+      "box": [
+        0,
+        0,
+        2560,
+        560
+      ],
       "why": "The Ask tab refusing the day-rate question, the one the hero quotes. Cut below the answer; the rest of the frame is empty."
+    },
+    {
+      "name": "transcript-cue",
+      "frames": {
+        "light": "04b-after-click-claim-1-33-transcript-highlight.png",
+        "dark": "04b-after-click-claim-1-33-transcript-highlight.png"
+      },
+      "box": [
+        563,
+        800,
+        2560,
+        1600
+      ],
+      "why": "After clicking the 1:33 timestamp on a summary point: the transcript open on that line, highlighted, with the playhead parked at 01:33. This frame exists only in the dark appearance, so both themes show it. Cut to the content column from the 01:07 line down through the player. NOT-FOR-PUBLICATION.md lists 04b under use-with-care: it shows locker for locum, close in 8 for close intake, gag read for agreed, and Dana credited with a line Priya says; the page says so beside the picture."
+    },
+    {
+      "name": "ask-cited",
+      "frames": {
+        "light": "07-ask-cited-answer-light.png",
+        "dark": "07-ask-cited-answer-dark.png"
+      },
+      "box": [
+        563,
+        120,
+        2560,
+        560
+      ],
+      "why": "The Ask tab answering a question the meeting does answer, with the transcript line it cites at 0:37. Cut to the content column from the meeting title down through the citation; the rest of the frame is empty."
     }
   ]
 }

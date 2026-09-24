@@ -1219,12 +1219,12 @@
    "typed": "It was asked 16 questions about this meeting, and those are the only answers I can show you. I won't write a 17th for it. Pick one, or email me what you'd have asked: support@meringo.app.",
    "questions": "The 16 questions it was asked",
    "score": [
-    "{lineNo} of {anchored} timestamps land on a line that doesn't say the claim",
+    "{trapsRefused} of {traps} questions the meeting doesn't fully answer: refused",
+    "{answerableRefused} of {answerable} questions it could have answered: refused anyway",
+    "{invented} answer adds a word nobody said",
+    "{lineNo} of {anchored} timestamps land early, on a line before the claim",
     "the other {linePartly} land on a line that says only part of it",
-    "{keptPartly} of {kept} kept sentences are only partly supported by the transcript",
-    "{trapsRefused} of {traps} questions the meeting doesn't answer, or answers only in part: refused",
-    "{answerableRefused} of {answerable} answerable questions: refused anyway",
-    "{invented} answer adds a word nobody said"
+    "{keptPartly} of {kept} kept sentences are only partly supported by the transcript"
    ],
    "auditBy": "Audit note, not from the app"
   }

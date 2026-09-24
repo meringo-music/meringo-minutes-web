@@ -40,12 +40,14 @@
     "image": "https://meringominutes.app/assets/img/og.png",
     "publisher": {
       "@type": "Organization",
-      "name": "Meringo Labs LLC"
+      "name": "Meringo Labs LLC",
+      "sameAs": ["https://meringo.app/", "https://meringolisten.app/"]
     },
     "author": {
       "@type": "Person",
       "name": "Adam Siemaszko",
-      "url": "https://adamsiemaszko.com/"
+      "url": "https://adamsiemaszko.com/",
+      "sameAs": ["https://github.com/meringo-music"]
     }
   }
   </script>
@@ -69,7 +71,7 @@
         </ul>
       </nav>
       <div class="header-end">
-        <p class="header-note"><span class="hide-narrow">Not for sale yet · </span><a href="/#notify">Tell me when</a></p>
+        <p class="header-note"><span class="hide-narrow">Not for sale yet · </span><a href="/#price">Tell me when</a></p>
         <button class="theme-toggle" type="button" data-theme-toggle data-choice="system" aria-label="Theme: match system" title="Theme: match system" hidden>
           <svg class="icon-system" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg>
           <svg class="icon-light" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -84,16 +86,19 @@
   <main>
     <section class="hero" aria-labelledby="hero-title">
       <div class="wrap">
-        <div>
+        <div class="hero-copy">
           <p class="eyebrow">A meeting recorder for the Mac</p>
           <h1 id="hero-title">Meeting notes you can check against the recording.</h1>
-          <p class="lead">Meringo Minutes records your meetings, transcribes them and writes the summary, by default all on your own Mac. Click a timestamp in the summary and the transcript opens at that line, ready to play. Further down is its <a href="#demo">real output for a made-up meeting</a>, with the mistakes marked.</p>
+          <p class="lead">Meringo Minutes records the meeting and writes the notes on your own Mac, by default. Each point in the summary carries the moment it was said, so you can click it and hear it.</p>
           <div class="actions">
-            <a class="button button-primary" href="mailto:support@meringo.app?subject=Tell%20me%20when%20Meringo%20Minutes%20is%20ready">Tell me when it's ready</a>
+            <a class="button button-primary" href="mailto:support@meringo.app?subject=Tell%20me%20when%20Meringo%20Minutes%20is%20ready&amp;body=One%20email%20when%20it%27s%20ready%2C%20please.">Tell me when it's ready</a>
+            <a class="button button-quiet" href="#demo">See one meeting</a>
           </div>
+          <p class="hero-price"><span data-fact="price-launch">$79</span> in the first month after launch, then <span data-fact="price">$99</span>. Paid once, no subscription. Not for sale yet.</p>
         </div>
 
-        <figure class="figure">
+        <figure class="figure hero-stage">
+          <p class="setup">The meeting mentions that eight weeks at the agency's day rate comes to about <span data-fact="demo-locum-total">22,000</span>. Asked for the day rate itself:</p>
           <div class="app-window" data-lint="app" role="group" aria-label="Meringo Minutes, the Ask tab of a recorded meeting">
             <div class="app-bar" aria-hidden="true">
               <span class="app-lights"><i></i><i></i><i></i></span>
@@ -110,44 +115,135 @@
               <p class="app-answer"><span class="visually-hidden">Answer: </span>I found nothing in this meeting that says that.</p>
             </div>
           </div>
-          <figcaption>Illustrative example: a fictional meeting read by synthetic voices. The question and the answer are copied word for word from Meringo Minutes <span data-fact="app-version">1.1.0 (3)</span> on <time datetime="2026-09-23">23 September 2026</time>. The window is re-set in HTML.</figcaption>
-          <p class="note">The meeting did include <q>Eight weeks at that day rate is somewhere around <span data-fact="demo-locum-total">22,000</span>.</q> One division turns that into a day rate nobody quoted. It didn't do the division. Of the <span data-fact="ask-unanswerable">8</span> questions the meeting doesn't answer, or answers only in part, it refused all <span data-fact="ask-unanswerable-refused">8</span>.</p>
+          <figcaption>The app's own words, from a made-up meeting read by synthetic voices. One division would have produced a day rate nobody quoted. It didn't do the division.</figcaption>
         </figure>
+      </div>
+    </section>
+
+    <section class="reasons" aria-label="Three things to know">
+      <div class="wrap">
+        <ul>
+          <li>
+            <p class="reason-title">It stays on your Mac, by default.</p>
+            <p>No account, no sync, no usage tracking.</p>
+            <a href="#privacy">Where a meeting goes</a>
+          </li>
+          <li>
+            <p class="reason-title">When the meeting didn't say, it says so.</p>
+            <p>In the test meeting, all <span data-fact="ask-unanswerable">8</span> questions the transcript doesn't fully answer got the same refusal.</p>
+            <a href="#ask">How it answers</a>
+          </li>
+          <li>
+            <p class="reason-title">Nothing joins the call.</p>
+            <p>By default it says out loud that it's recording, in words you can change.</p>
+            <a href="#room">What it says</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="proof" id="timestamps" aria-labelledby="timestamps-title">
+      <div class="wrap">
+        <div class="proof-text">
+          <h2 id="timestamps-title">Click a timestamp. <em>Hear it said.</em></h2>
+          <p>Every summary point carries the moment it came from. Click it and the transcript opens on that line, with the recording cued to play from there.</p>
+          <p>Sometimes it lands a little early. Treat a timestamp as the place to start listening; the line is close.</p>
+        </div>
+        <figure class="shot">
+          <picture>
+            <source media="(prefers-color-scheme: dark)" srcset="/assets/img/frames/transcript-cue-dark.webp" type="image/webp">
+            <source media="(prefers-color-scheme: dark)" srcset="/assets/img/frames/transcript-cue-dark.png">
+            <source srcset="/assets/img/frames/transcript-cue-light.webp" type="image/webp">
+            <img src="/assets/img/frames/transcript-cue-light.png" width="1280" height="513" loading="lazy" decoding="async" alt="The transcript in the Meringo Minutes window after clicking the 1:33 timestamp: that line is highlighted, and the player below is parked at 01:33.">
+          </picture>
+          <figcaption>The transcript after a click on <span data-lint="app">1:33</span>, from the same capture as the rest of this page.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="proof" id="ask" aria-labelledby="ask-title">
+      <div class="wrap">
+        <div class="proof-text">
+          <h2 id="ask-title">Ask it a question. <em>It cites the line.</em></h2>
+          <p>Each sentence of an answer quotes the transcript lines it came from. When nothing in the meeting holds, the whole answer is <q data-lint="app">I found nothing in this meeting that says that.</q></p>
+          <p>Across <span data-fact="bench-ask-meetings">24</span> public meetings and <span data-fact="bench-ask-questions">60</span> questions, it refused <span data-fact="bench-notsaid-refused">12</span> of the <span data-fact="bench-notsaid">14</span> that asked for something the meeting never says, and all <span data-fact="bench-wrong-meeting-refused">14</span> when those questions were put to the wrong meeting. When it's unsure it says nothing, which is the mistake I'd rather it made.</p>
+        </div>
+        <figure class="shot">
+          <picture>
+            <source media="(prefers-color-scheme: dark)" srcset="/assets/img/frames/ask-cited-dark.webp" type="image/webp">
+            <source media="(prefers-color-scheme: dark)" srcset="/assets/img/frames/ask-cited-dark.png">
+            <source srcset="/assets/img/frames/ask-cited-light.webp" type="image/webp">
+            <img src="/assets/img/frames/ask-cited-light.png" width="1280" height="282" loading="lazy" decoding="async" alt="The Ask tab in the Meringo Minutes window. The question: Why did the commercial backlog get worse? The answer: The commercial backlog got worse because Aisha's queue was not picked up after she left. Under it, the transcript line it cites, at 0:37.">
+          </picture>
+          <figcaption>An answer the meeting does hold, with the line it came from.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="proof" id="checked" aria-labelledby="checked-title">
+      <div class="wrap">
+        <div class="proof-text">
+          <h2 id="checked-title">A second model <em>checks</em> the first.</h2>
+          <p>With Ollama, the default setup, a different model reads the summary against the transcript it was written from. A sentence it can't support moves into a folded card that says <q data-lint="app">Read it as a lead, not a finding.</q></p>
+          <p>Set aside, not deleted: you can still open the card and read them. <a href="/how-it-works/#checked">How it works</a> has the detail.</p>
+        </div>
+        <figure class="shot">
+          <picture>
+            <source media="(prefers-color-scheme: dark)" srcset="/assets/img/frames/summary-top-dark.webp" type="image/webp">
+            <source media="(prefers-color-scheme: dark)" srcset="/assets/img/frames/summary-top-dark.png">
+            <source srcset="/assets/img/frames/summary-top-light.webp" type="image/webp">
+            <img src="/assets/img/frames/summary-top-light.png" width="1280" height="712" loading="lazy" decoding="async" alt="The Summary tab in the Meringo Minutes window: a timestamp beside each point, All 11 claims traced to the recording at the top left, and Checked at the top right.">
+          </picture>
+          <figcaption>The top of the summary from the same capture, unretouched.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="room" id="room" aria-labelledby="room-title">
+      <div class="wrap">
+        <h2 id="room-title">It tells the room.</h2>
+        <blockquote class="spoken" data-lint="app"><p>I'm recording this meeting to take notes. The recording stays on my Mac.</p></blockquote>
+        <div class="prose">
+          <p>By default, that's what it says out loud as recording starts, and the words go into the recording too. You can change them, or switch it off; it stays on until you do. Nothing joins the call and no invite goes out, so the announcement is how the others find out. On headphones, the far end of a call may not hear it.</p>
+          <p>It hears whatever your Mac plays, so it isn't tied to any one call app.</p>
+          <p>It doesn't try to work out whose consent law applies. The code gives the reason: <q>the strictest participant's law governs, and nobody's location is knowable.</q> It isn't legal advice.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section band" id="privacy" aria-labelledby="privacy-title">
+      <div class="wrap split">
+        <div>
+          <h2 id="privacy-title">Where a meeting goes</h2>
+          <p class="kicker">By default, nowhere.</p>
+        </div>
+        <div class="prose">
+          <p>Meringo Minutes keeps the recording, the transcript and the notes in one folder on your Mac, by default, and its privacy panel says so:</p>
+          <blockquote class="app-quote" data-lint="app">
+            <p>Audio, transcripts, summaries and mindmaps are produced and stored on this machine. There is no account, no sync and no usage tracking. The only internet use is downloading a model the first time it is needed; talking to Ollama stays on this Mac.</p>
+          </blockquote>
+          <p>Point the summariser at another computer on your network and the panel turns orange and names it. <a href="/how-it-works/#network">A test in the build</a> runs a real meeting, watches the network while it does, and fails on any connection that isn't local.</p>
+          <p><a href="/privacy/">What this site and the app read, in full</a></p>
+        </div>
       </div>
     </section>
 
     <section class="section demo" id="demo" aria-labelledby="demo-title" data-audit="off">
       <div class="wrap">
-        <div class="prose">
-          <h2 id="demo-title">What Meringo Minutes made of one meeting</h2>
-          <p>Weekly partners meeting is made up. Three synthetic voices read a written script, <span data-fact="demo-duration">3 minutes 53 seconds</span> of it, and the recording was imported into Meringo Minutes <span data-fact="app-version-number">1.1.0</span> on <time datetime="2026-09-23">23 September 2026</time>. Everything inside the window is what the app wrote, copied from its own files, and none of it has been tidied.</p>
-          <p class="fine">Illustrative example: a fictional meeting read by synthetic voices.</p>
-          <p class="fine">Re-set in HTML from the app's exported files. Meringo Minutes <span data-fact="app-version-build">1.1.0 (build 3)</span>, captured <time datetime="2026-09-23">23 September 2026</time> on an <span data-fact="test-mac-chip">M4</span> Mac with <span data-fact="test-mac-memory">24 GB</span> of memory.</p>
-        </div>
-
-        <div class="demo-score" data-demo aria-labelledby="score-title" role="group">
-          <h3 id="score-title">Where it went wrong, counted</h3>
-          <!-- sync:demo-score -->
-          <ul class="score-list">
-            <li><b data-tally="lineNo">4</b> of <b data-tally="anchored">11</b> timestamps land on a line that doesn't say the claim</li>
-            <li>the other <b data-tally="linePartly">7</b> land on a line that says only part of it</li>
-            <li><b data-tally="keptPartly">4</b> of <b data-tally="kept">12</b> kept sentences are only partly supported by the transcript</li>
-            <li><b data-tally="trapsRefused">8</b> of <b data-tally="traps">8</b> questions the meeting doesn't answer, or answers only in part: refused</li>
-            <li><b data-tally="answerableRefused">1</b> of <b data-tally="answerable">8</b> answerable questions: refused anyway</li>
-            <li><b data-tally="invented">1</b> answer adds a word nobody said</li>
-          </ul>
-          <!-- /sync:demo-score -->
-          <p class="fine">The page counts these from the audit notes each time it loads. Turn on Show the audit to see each one.</p>
+        <div class="demo-intro">
+          <h2 id="demo-title">One meeting, <em>start to finish.</em></h2>
+          <p class="lead">Weekly partners meeting is made up: three synthetic voices reading a script, <span data-fact="demo-duration">3 minutes 53 seconds</span> of it, run through Meringo Minutes <span data-fact="app-version-number">1.1.0</span> on <time datetime="2026-09-23">23 September 2026</time>. Everything inside the window is what the app wrote, untouched. Turn on Show the audit to see each sentence checked against the transcript.</p>
+          <p class="fine">Illustrative example: a fictional meeting read by synthetic voices. Re-set from the app's exported files, build <span data-fact="app-version-build">1.1.0 (build 3)</span>, on an <span data-fact="test-mac-chip">M4</span> Mac with <span data-fact="test-mac-memory">24 GB</span>.</p>
         </div>
 
         <div class="demo-controls">
           <div class="demo-toggle" data-demo-js hidden>
             <label class="switch"><input type="checkbox" role="switch" aria-describedby="audit-help" data-audit-toggle> Show the audit</label>
-            <p id="audit-help" class="fine">Off, you see what the app shows and nothing more. On, each summary sentence and each answer is marked yes, partly or no against the transcript, with where the supporting line actually is. A flagged sentence shows its note either way.</p>
+            <p id="audit-help" class="fine">Marks each sentence and each answer yes, partly or no against the transcript, with where the supporting line actually is, and counts the misses.</p>
           </div>
           <div class="demo-audio">
             <audio controls preload="none" src="/assets/demo/weekly-partners-meeting.m4a" aria-label="The recording of Weekly partners meeting"></audio>
-            <p class="fine">The recording is <span data-fact="demo-audio-size">3.5 MB</span> and loads the first time you press play.</p>
+            <p class="fine">The recording is <span data-fact="demo-audio-size">3.5 MB</span> and loads when you press play.</p>
           </div>
         </div>
 
@@ -156,6 +252,20 @@
         <div class="demo-tray" data-demo data-demo-js data-demo-tray hidden>
           <h3>The 16 questions it was asked</h3>
           <p class="fine">Pick one to see the app's answer word for word, with the lines it cites.</p>
+        </div>
+
+        <div class="demo-score" data-demo aria-labelledby="score-title" role="group">
+          <h3 id="score-title">Where it went wrong, counted</h3>
+          <!-- sync:demo-score -->
+          <ul class="score-list">
+            <li><b data-tally="trapsRefused">8</b> of <b data-tally="traps">8</b> questions the meeting doesn't fully answer: refused</li>
+            <li><b data-tally="answerableRefused">1</b> of <b data-tally="answerable">8</b> questions it could have answered: refused anyway</li>
+            <li><b data-tally="invented">1</b> answer adds a word nobody said</li>
+            <li><b data-tally="lineNo">4</b> of <b data-tally="anchored">11</b> timestamps land early, on a line before the claim</li>
+            <li>the other <b data-tally="linePartly">7</b> land on a line that says only part of it</li>
+            <li><b data-tally="keptPartly">4</b> of <b data-tally="kept">12</b> kept sentences are only partly supported by the transcript</li>
+          </ul>
+          <!-- /sync:demo-score -->
         </div>
 
         <details class="demo-static" data-demo data-demo-static>
@@ -260,110 +370,58 @@
           </ol>
           <!-- /sync:demo-script -->
         </details>
-
-        <figure class="demo-frames">
-          <picture>
-            <source media="(prefers-color-scheme: dark)" srcset="/assets/img/frames/summary-top-dark.webp" type="image/webp">
-            <source media="(prefers-color-scheme: dark)" srcset="/assets/img/frames/summary-top-dark.png">
-            <source srcset="/assets/img/frames/summary-top-light.webp" type="image/webp">
-            <img src="/assets/img/frames/summary-top-light.png" width="1280" height="712" loading="lazy" decoding="async" alt="The same meeting in the Meringo Minutes window: the Summary tab, with a timestamp beside each point, All 11 claims traced to the recording, and Checked at the top right.">
-          </picture>
-          <picture>
-            <source media="(prefers-color-scheme: dark)" srcset="/assets/img/frames/ask-refusal-dark.webp" type="image/webp">
-            <source media="(prefers-color-scheme: dark)" srcset="/assets/img/frames/ask-refusal-dark.png">
-            <source srcset="/assets/img/frames/ask-refusal-light.webp" type="image/webp">
-            <img src="/assets/img/frames/ask-refusal-light.png" width="1280" height="280" loading="lazy" decoding="async" alt="The Ask tab in the Meringo Minutes window. The question: What day rate did the agency quote for the locum? The answer: I found nothing in this meeting that says that.">
-          </picture>
-          <figcaption>The app itself, from the same capture: the top of the summary, and Ask refusing the day-rate question. Cropped from full-window screenshots; nothing in them is retouched.</figcaption>
-        </figure>
       </div>
     </section>
 
-    <section class="section" id="privacy" aria-labelledby="privacy-title">
+    <section class="section band" id="price" aria-labelledby="price-title">
       <div class="wrap split">
-        <h2 id="privacy-title">Where a meeting goes</h2>
-        <div class="prose">
-          <figure class="quoted">
-            <p>By default, nowhere. Meringo Minutes keeps the recording, the transcript and the notes in a folder on your Mac, and its privacy panel says so:</p>
-            <blockquote class="app-quote" data-lint="app">
-              <p>Audio, transcripts, summaries and mindmaps are produced and stored on this machine. There is no account, no sync and no usage tracking. The only internet use is downloading a model the first time it is needed; talking to Ollama stays on this Mac.</p>
-            </blockquote>
-          </figure>
-          <p>Point the summariser at another computer on your network and the panel turns orange and names it. In a test for this site it read <q data-lint="app">Summaries are sent to <span class="nowrap">gpu-box.lan</span></q>, and went on: <q data-lint="app">The audio and the transcript are still only stored on this Mac.</q></p>
-          <p><a href="/how-it-works/#network">A test in the build</a> runs a real meeting, watches the network while it does, and fails on any connection that isn't local. It looks every <span data-fact="egress-sample-ms">100</span> ms, so a connection that opens and closes between two looks would get past it.</p>
+        <div>
+          <h2 id="price-title">What it costs, <em>and what it needs.</em></h2>
         </div>
-      </div>
-    </section>
-
-    <section class="section" id="features" aria-labelledby="features-title">
-      <div class="wrap split">
-        <h2 id="features-title">What Meringo Minutes does</h2>
-        <ol class="features">
-          <li><p><strong>Timestamps you can follow.</strong> A summary sentence's timestamp opens the transcript at that line, with the playhead parked there. In the demo, <span data-fact="demo-anchor-miss">4</span> of the <span data-fact="demo-anchored">11</span> point at the wrong line, each a little early, and the right one follows within about <span data-fact="demo-miss-lag">30</span> seconds.</p></li>
-          <li><p><strong>A second model, checking.</strong> With Ollama, the default setup, a second, different model reads the summary against the transcript. What it can't support moves into a folded card. It misses some; <a href="/how-it-works/#checked">How it works</a> shows which.</p></li>
-          <li><p><strong>Answers that cite the meeting.</strong> Ask a question and each sentence of the answer comes with the transcript lines it cites. When nothing in the meeting holds, the whole answer is <q data-lint="app">I found nothing in this meeting that says that.</q></p></li>
-          <li><p><strong>Deadlines it won't invent.</strong> <q>End of Q3</q> becomes a date. <q>Next Friday</q> stays in words, so it can't turn into a false Overdue.</p></li>
-          <li><p><strong>It tells the room.</strong> By default, recording starts with the app saying out loud that it's recording.</p></li>
-        </ol>
-      </div>
-    </section>
-
-    <section class="section" id="clients" aria-labelledby="clients-title">
-      <div class="wrap split">
-        <h2 id="clients-title">For client meetings</h2>
         <div class="prose">
-          <p>If you meet clients, the first thing to know is where the recording went. By default it stays in that folder on your Mac, with no account and no sync. Whether the app fits your professional obligations is your call, and this page gives you the facts I have.</p>
-          <p>By default it speaks as recording starts: <q data-lint="app">I'm recording this meeting to take notes. The recording stays on my Mac.</q> You can change the words or switch it off; it stays on until you do. The announcement goes into the recording too. One limit: on headphones, the other end of a call may not hear it.</p>
-          <p>It doesn't try to work out whose consent law applies. The code gives the reason: <q>the strictest participant's law governs, and nobody's location is knowable.</q> That's a design choice, not legal advice.</p>
-          <p>Nothing joins the call and no calendar invite goes out, so the spoken announcement is how the others find out.</p>
-          <p>Checking the notes is still your job. The timestamps, and the recording kept with the meeting, make it quicker.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="notify" aria-labelledby="notify-title">
-      <div class="wrap split">
-        <h2 id="notify-title">What you'll need, and what it costs</h2>
-        <div class="prose">
+          <div class="card price">
+            <p class="price-big"><span data-fact="price">$99</span> <span class="price-once">paid once</span></p>
+            <p><span data-fact="price-launch">$79</span> during the first month after launch, and the date that ends will be printed here from launch day. No subscription. Once it's on sale, <span data-fact="refund-days">30</span> days to a refund, no questions.</p>
+            <p>A free version is planned: it will process the first <span data-fact="trial-minutes">30</span> minutes of each meeting, and buying processes the rest from the audio it already kept.</p>
+            <div class="actions">
+              <a class="button button-primary" href="mailto:support@meringo.app?subject=Tell%20me%20when%20Meringo%20Minutes%20is%20ready&amp;body=One%20email%20when%20it%27s%20ready%2C%20please.">Email me when it's ready</a>
+            </div>
+            <p class="fine">One email when it's ready, and nothing else.</p>
+          </div>
           <ul class="needs">
             <li>An Apple Silicon Mac on <span data-fact="requires-macos">macOS 27</span> or later.</li>
-            <li>Ollama, a free app that runs the language models. The setup assistant finds it or installs it.</li>
-            <li>About <span data-fact="size-default-install">15 GB</span> of disk for the default setup: the app, about <span data-fact="size-speech-models">710 MB</span> of speech models, Ollama, and its two models of <span data-fact="size-summary-model">9.0 GB</span> and <span data-fact="size-check-model">4.7 GB</span>.</li>
-            <li>Memory: I've measured it only on an <span data-fact="test-mac-chip">M4</span> with <span data-fact="test-mac-memory">24 GB</span>.</li>
+            <li>Ollama, a free app that runs the models. The setup assistant finds it or installs it.</li>
+            <li>About <span data-fact="size-default-install">15 GB</span> of disk for the default setup, most of it the two language models.</li>
+            <li>Tested on an <span data-fact="test-mac-chip">M4</span> with <span data-fact="test-mac-memory">24 GB</span>.</li>
           </ul>
-          <div class="card price">
-            <p><strong><span data-fact="price-launch">$79</span> during the first month after launch, then <span data-fact="price">$99</span>, paid once.</strong> It isn't for sale yet.</p>
-            <p>A free version is planned, not built. It'll process the first <span data-fact="trial-minutes">30</span> minutes of each meeting, and buying processes the rest from the audio it already kept.</p>
-            <div class="actions">
-              <a class="button button-primary" href="mailto:support@meringo.app?subject=Tell%20me%20when%20Meringo%20Minutes%20is%20ready">Email me when it's ready</a>
-            </div>
-            <p class="fine">I'll use your address for that one email and nothing else.</p>
-          </div>
+          <p><a href="/download/">Every size, on the download page</a></p>
         </div>
       </div>
     </section>
 
     <section class="section" id="maker" aria-labelledby="maker-title">
       <div class="wrap split">
-        <h2 id="maker-title">Who makes Meringo Minutes</h2>
+        <div>
+          <h2 id="maker-title">Who makes it</h2>
+        </div>
         <div class="prose">
-          <p>I'm Adam Siemaszko. I build three apps under Meringo Labs LLC, in Erie County, New York: Meringo, a music player for Android; Meringo Listen, an audiobook player; and Meringo Minutes. If a sentence on this site is wrong, tell me at <a href="mailto:support@meringo.app">support@meringo.app</a>.</p>
+          <p>I'm Adam Siemaszko. I build three apps under Meringo Labs LLC, in Erie County, New York: Meringo, a music player for Android; Meringo Listen, an audiobook player; and Meringo Minutes. I keep a list of <a href="/how-it-works/#weak">where it's weak</a>. If a sentence on this site is wrong, tell me at <a href="mailto:support@meringo.app">support@meringo.app</a>.</p>
         </div>
       </div>
     </section>
 
     <section class="section" id="questions" aria-labelledby="questions-title">
       <div class="wrap split">
-        <h2 id="questions-title">Questions</h2>
+        <div>
+          <h2 id="questions-title">Questions</h2>
+        </div>
         <div class="prose">
-          <p>Three I expect first, with the short answers:</p>
           <ul class="teaser">
             <li><a href="/faq/#f01">Does it work offline?</a> Yes, once the models are downloaded.</li>
             <li><a href="/faq/#f02">Is my data encrypted?</a> No. The FAQ says what protects it instead.</li>
             <li><a href="/faq/#f45">Will the other people in the meeting know?</a> By default, it tells them out loud.</li>
           </ul>
-          <p>The FAQ has a box that answers from its own questions, in your browser, and says so when nothing there fits.</p>
-          <p><a class="button button-quiet" href="/faq/">All questions</a></p>
+          <p><a class="button button-quiet" href="/faq/">All the questions</a></p>
         </div>
       </div>
     </section>
