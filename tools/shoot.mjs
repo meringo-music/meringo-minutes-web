@@ -24,9 +24,11 @@ const PORT = 9333;
 mkdirSync(out, { recursive: true });
 const profile = mkdtempSync(join(tmpdir(), 'shoot-'));
 // --no-proxy-server: a filtering proxy on the machine can rewrite pages on
-// their way to the browser (one injected a dark-mode stylesheet into about
-// half the light-theme shots), so a screenshot would show its styles, not ours.
-const edge = spawn(EDGE, ['--headless=new', '--disable-gpu', '--no-proxy-server', '--hide-scrollbars',
+// their way to the browser, so a screenshot would show its styles, not ours.
+// --disable-extensions: an extension installed by policy loads even into this
+// fresh profile; Dark Reader repainted light-theme shots #181A1B once the page
+// had been interacted with (it adds data-darkreader-* to <html>).
+const edge = spawn(EDGE, ['--headless=new', '--disable-gpu', '--no-proxy-server', '--disable-extensions', '--hide-scrollbars',
   `--remote-debugging-port=${PORT}`, `--user-data-dir=${profile}`, 'about:blank'], { stdio: 'ignore' });
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

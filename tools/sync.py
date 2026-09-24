@@ -20,6 +20,18 @@ Two regions are generated rather than copied, both from assets/data/faq.json:
 Both are built from the same plain text, and tools/check.py compares the
 visible answers with the JSON-LD on the page itself.
 
+Three more are generated from assets/data/demo.json, for the home page's demo:
+
+    sync:demo-score    the scoreboard, counted from the audit notes (demo.js
+                       counts again in the browser, from the same data)
+    sync:demo          the app's summary and all 16 exchanges as plain text,
+                       with my note on each flagged item: the demo without
+                       JavaScript
+    sync:demo-script   the script the voices read
+
+tools/check.py also checks that every app string in demo.json appears in the
+sync:demo region.
+
 Every page must carry the header and footer regions.
 """
 
@@ -154,7 +166,100 @@ def render_faq_ld() -> str:
     return "\n".join(lines) + "\n"
 
 
-GENERATED = {"faq": render_faq, "faq-ld": render_faq_ld}
+DEMO = ROOT / "assets" / "data" / "demo.json"
+
+
+def demo_module():
+    sys.path.insert(0, str(ROOT / "tools" / "demo"))
+    import build_demo  # noqa: E402
+    return build_demo
+
+
+def load_demo() -> dict:
+    return json.loads(DEMO.read_text(encoding="utf-8"))
+
+
+def esc(text: str) -> str:
+    return html.escape(text, quote=False)
+
+
+def render_demo_score() -> str:
+    """The scoreboard's lines, each number in <b data-tally> for demo.js."""
+    demo = load_demo()
+    counts = demo_module().tally(demo)
+    ind = " " * 10
+    lines = [f'{ind}<ul class="score-list">']
+    for template in demo["site"]["captions"]["score"]:
+        body = re.sub(r"\{(\w+)\}", lambda m: f'<b data-tally="{m.group(1)}">{counts[m.group(1)]}</b>', esc(template))
+        lines.append(f"{ind}  <li>{body}</li>")
+    lines.append(f"{ind}</ul>")
+    return "\n".join(lines) + "\n"
+
+
+def render_demo() -> str:
+    """The demo as plain text: the app's words in data-lint="app", my note
+    after each item that has one."""
+    demo = load_demo()
+    bd = demo_module()
+    app, site = demo["app"], demo["site"]
+    cap, audit, chrome = site["captions"], site["audit"], app["chrome"]
+    ind = " " * 10
+
+    def note(h: str, quote: str | None = None) -> str:
+        a = audit.get(h)
+        if not a or not a.get("note"):
+            return ""
+        q = f'“{" ".join(quote.split(" ")[:5])}…” ' if quote else ""
+        return f'<p class="audit-static"><strong>{esc(cap["auditBy"] + " · " + q + bd.verdict_text(a, cap))}.</strong> {esc(a["note"])}</p>'
+
+    s = app["summary"]
+    out = [f'{ind}<div class="demo-text">',
+           f'{ind}  <h3 data-lint="app">{esc(s["heading"])}</h3>',
+           f'{ind}  <p data-lint="app">{esc(s["overview"])}</p>{note(s["overviewH"])}']
+    for sec in s["sections"]:
+        out.append(f'{ind}  <h4 data-lint="app">{esc(sec["heading"])}</h4>')
+        if not sec["items"]:
+            continue
+        out.append(f"{ind}  <ul>")
+        for it in sec["items"]:
+            words = [f'<strong>{esc(it["label"])}</strong>:']
+            for x in it["sentences"]:
+                words.append(esc(x["text"]) + (f' <span class="ts">{esc(x["t"])}</span>' if x["show"] else ""))
+            many = len(it["sentences"]) > 1
+            notes = "".join(note(x["h"], x["text"] if many else None) for x in it["sentences"])
+            out.append(f'{ind}    <li><p data-lint="app">{" ".join(words)}</p>{notes}</li>')
+        out.append(f"{ind}  </ul>")
+    out += [f'{ind}  <h4 data-lint="app">{esc(chrome["setAsideHeading"])}</h4>',
+            f'{ind}  <p data-lint="app">{esc(chrome["setAsideLine"])}</p>',
+            f"{ind}  <ul>"]
+    for it in app["setAside"]:
+        label = f'<strong>{esc(it["label"])}</strong>: ' if it["label"] else ""
+        out.append(f'{ind}    <li><p data-lint="app">{label}{esc(it["text"])}</p>{note(it["h"])}</li>')
+    out += [f"{ind}  </ul>", f'{ind}  <h3>{esc(cap["questions"])}</h3>', f'{ind}  <ol class="exchanges">']
+    for q in app["asks"]:
+        body = []
+        for x in q["answer"]:
+            body.append(f'<p>{esc(x["text"])}</p>')
+            body += [f'<p class="ask-cite"><span class="ts">{esc(c["t"])}</span> {esc(c["speaker"])}: {esc(c["text"])}</p>' for c in x["cites"]]
+        if q["footnote"]:
+            body.append(f'<p class="ask-foot">{esc(q["footnote"])}</p>')
+        out.append(f'{ind}    <li><p class="q" data-lint="app"><strong>{esc(q["q"])}</strong></p>'
+                   f'<div data-lint="app">{"".join(body)}</div>{note(q["h"])}</li>')
+    out += [f"{ind}  </ol>", f"{ind}</div>"]
+    return "\n".join(out) + "\n"
+
+
+def render_demo_script() -> str:
+    ind = " " * 10
+    lines = [f'{ind}<ol class="script" data-lint="reference">']
+    lines += [f'{ind}  <li><strong>{esc(l["speaker"])}:</strong> {esc(l["text"])}</li>'
+              for l in load_demo()["reference"]["script"]]
+    lines.append(f"{ind}</ol>")
+    return "\n".join(lines) + "\n"
+
+
+GENERATED = {"faq": render_faq, "faq-ld": render_faq_ld,
+             "demo-score": render_demo_score, "demo": render_demo, "demo-script": render_demo_script}
 
 
 def pages() -> list[Path]:

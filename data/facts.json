@@ -10,6 +10,27 @@
       "asOf": "2026-09-23"
     },
     {
+      "id": "app-version-number",
+      "value": "1.1.0",
+      "source": "Minutes capture 2026-09-23, README §1",
+      "method": "CFBundleShortVersionString of the captured build, the version number alone.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "app-version-build",
+      "value": "1.1.0 (build 3)",
+      "source": "Minutes capture 2026-09-23, README §1",
+      "method": "CFBundleShortVersionString 1.1.0 and CFBundleVersion 3 of the captured build, written out.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "demo-audio-size",
+      "value": "3.5 MB",
+      "source": "Minutes capture 2026-09-23, README §3: 3,532,399 bytes; the same file is assets/demo/weekly-partners-meeting.m4a",
+      "method": "3,532,399 bytes in decimal megabytes, as Finder shows sizes, to one decimal place. tools/check.py checks the file's SHA-256.",
+      "asOf": "2026-09-23"
+    },
+    {
       "id": "requires-macos",
       "value": "macOS 27",
       "source": "claims.csv in the Meringo Minutes app repo: Requires macOS 27.0",

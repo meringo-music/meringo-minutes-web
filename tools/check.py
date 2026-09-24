@@ -1,6 +1,7 @@
 """Checks meringominutes.app before every pull request.
 
     python tools/check.py
+    python tools/check.py --capture <capture folder>   # also re-extract the demo and diff it
 
 Exits 0 when clean, 1 on any error. Standard library only.
 
@@ -32,6 +33,7 @@ What it checks, and why:
 from __future__ import annotations
 
 import hashlib
+import html
 import importlib.util
 import json
 import os
@@ -49,6 +51,9 @@ FACT_FIELDS = ("id", "value", "source", "method", "asOf")
 TEMPLATE = "privacy/index.html"  # the page the desk's renderer borrows its shell from
 FAQ_PAGE = "faq/index.html"  # generated from assets/data/faq.json by tools/sync.py
 DIGIT_EXEMPT_TAGS = {"time", "footer"}
+# Words someone else wrote, quoted: the app's own (data-lint="app") and the demo
+# script (data-lint="reference"). Exempt from the voice rules, never the bans.
+QUOTED = {"app", "reference"}
 
 BLOCKS = {"p", "li", "figcaption", "h1", "h2", "h3", "h4", "h5", "h6", "dt", "dd",
           "td", "th", "blockquote", "summary", "title", "caption", "label", "button"}
@@ -135,9 +140,9 @@ class Page(HTMLParser):
             self._flush()
             self.buf_tag = tag
         if tag not in VOID:
-            app = a.get("data-lint") == "app"
+            app = a.get("data-lint") in QUOTED
             fact = a.get("data-fact")
-            exempt = app or fact is not None or tag in DIGIT_EXEMPT_TAGS
+            exempt = app or fact is not None or tag in DIGIT_EXEMPT_TAGS or "data-demo" in a
             self.stack.append((tag, app, exempt, fact))
             if fact is not None:
                 self.fact_bufs[len(self.stack) - 1] = []
@@ -368,9 +373,150 @@ def desk_render(text: str) -> tuple[list[str], list[str]]:
     return errors, ["desk template: render_page.build_page rendered a dummy page into /privacy/ cleanly"] if not errors else []
 
 
+HOME = "index.html"
+DEMO_JSON = ROOT / "assets" / "data" / "demo.json"
+ANNOTATIONS = ROOT / "tools" / "demo" / "annotations.json"
+# Where each scoreboard count is also stated as a fact elsewhere on the site.
+TALLY_FACTS = {"lineNo": "demo-anchor-miss", "anchored": "demo-anchored", "linePartly": "demo-anchor-partial",
+               "traps": "ask-unanswerable", "trapsRefused": "ask-unanswerable-refused"}
+BUDGET = {"html": 90_000, "css": 30_000, "js": 20_000, "img": 200_000}  # the plan's home page budget, bytes
+IMPORT = re.compile(r"""^\s*(?:import|export)\b[^'"]*?(?:from\s*)?['"]([^'"]+\.js)['"]""", re.M)
+
+
+def region_text(page: str, name: str) -> str | None:
+    m = re.search(rf"<!-- sync:{name} -->(.*?)<!-- /sync:{name} -->", page, re.S)
+    if not m:
+        return None
+    text = re.sub(r"<[^>]+>", " ", m.group(1))
+    return re.sub(r"\s+", " ", html.unescape(text))
+
+
+def demo_errors(facts: dict[str, str], forbidden: set[str]) -> tuple[list[str], list[str]]:
+    """(errors, notes) for the home page's demo, from the committed files alone
+    (no capture needed, so CI runs it):
+      - every app string in demo.json is in the page's no-JavaScript region;
+      - every annotation's SHA-256 is an app string's, and every app string has one;
+      - the recording is the capture's, by SHA-256;
+      - no app string holds the checking model's name;
+      - the scoreboard agrees with the facts the rest of the site states;
+      - my notes and captions, which demo.js puts on the page, follow the copy rules."""
+    sys.dont_write_bytecode = True
+    sys.path.insert(0, str(ROOT / "tools" / "demo"))
+    import build_demo as bd  # noqa: E402
+
+    errors: list[str] = []
+    demo = json.loads(DEMO_JSON.read_text(encoding="utf-8"))
+    app = demo["app"]
+    page = (ROOT / HOME).read_text(encoding="utf-8")
+    shown = region_text(page, "demo")
+    if shown is None:
+        return [f"{HOME}: no sync:demo region (the demo without JavaScript)"], []
+
+    flat = lambda s: re.sub(r"\s+", " ", s).strip()
+    strings = [text for _, _, text in bd.app_items(app) if "\n" not in text]
+    for ask in app["asks"]:
+        strings.append(ask["q"])
+        for s in ask["answer"]:
+            strings.append(s["text"])
+            strings += [f'{c["t"]} {c["speaker"]}: {c["text"]}' for c in s["cites"]]
+        strings += [ask["footnote"]] if ask["footnote"] else []
+    strings += [app["chrome"]["setAsideHeading"], app["chrome"]["setAsideLine"], app["summary"]["heading"]]
+    for s in strings:
+        if flat(s) not in shown:
+            errors.append(f"{HOME}: the no-JavaScript demo is missing an app string from demo.json: {s[:80]}")
+
+    everything = [text for _, _, text in bd.app_items(app)] + list(app["chrome"].values())
+    everything += [l["text"] for l in app["transcript"]]
+    for s in everything:
+        if any(hashlib.sha256(t.encode()).hexdigest() in forbidden for t in re.findall(r"[a-z0-9]+", s.lower())):
+            errors.append("demo.json: an app string names the checking model")
+
+    keys = {bd.key_of(text): where for _, where, text in bd.app_items(app)}
+    notes = json.loads(ANNOTATIONS.read_text(encoding="utf-8"))
+    filed = set()
+    for kind in ("summary", "asks"):
+        for a in notes[kind]:
+            if a["sha256"] not in keys:
+                errors.append(f"annotations.json: {kind} {a.get('row') or a.get('n')} ({a.get('excerpt', '')[:40]}) "
+                              "matches no app string in demo.json; re-audit it")
+            filed.add(a["sha256"])
+    for k, where in keys.items():
+        if k not in filed:
+            errors.append(f"annotations.json: no annotation for {where}")
+        if k[:16] not in demo["site"]["audit"]:
+            errors.append(f"demo.json: site.audit has nothing for {where}")
+
+    audio = ROOT / demo["provenance"]["audio"]["url"].lstrip("/")
+    if not audio.is_file() or hashlib.sha256(audio.read_bytes()).hexdigest() != bd.AUDIO_SHA256:
+        errors.append(f"{audio.relative_to(ROOT).as_posix()}: missing, or not the capture's recording (SHA-256)")
+
+    counts = bd.tally(demo)
+    for key, fid in TALLY_FACTS.items():
+        if facts.get(fid) != str(counts[key]):
+            errors.append(f"the demo's scoreboard counts {key} = {counts[key]}, but data/facts.json has {fid} = {facts.get(fid)}")
+
+    rules = [(re.compile(r["pattern"], re.I), r["why"]) for r in RULES["banned"] + RULES["voice"]]
+    site = demo["site"]
+    copy = [a["note"] for a in site["audit"].values() if a.get("note")]
+    copy += [v for v in site["captions"].values() if isinstance(v, str)] + site["captions"]["score"]
+    copy += [a["label"] for a in site["audit"].values() if a.get("label")]
+    for text in copy:
+        for rx, why in rules:
+            m = rx.search(text)
+            if m:
+                errors.append(f"demo.json site copy: \"{m.group(0)}\" — {why}\n      in: {text[:140]}")
+    return errors, ([f"demo: {len(keys)} app strings annotated, scoreboard {counts}"] if not errors else [])
+
+
+def module_graph(entry: Path) -> set[Path]:
+    """The JavaScript a page loads through static imports and re-exports, from
+    one module. Dynamic import() is left out: it loads only when it runs."""
+    seen: set[Path] = set()
+    todo = [entry]
+    while todo:
+        f = todo.pop()
+        if f in seen or not f.is_file():
+            continue
+        seen.add(f)
+        for spec in IMPORT.findall(f.read_text(encoding="utf-8")):
+            todo.append(ROOT / spec.lstrip("/") if spec.startswith("/") else (f.parent / spec).resolve())
+    return seen
+
+
+def budget_errors() -> tuple[list[str], list[str]]:
+    """The home page against the plan's budget, in bytes as served; the audio
+    isn't counted, nor vendored code. A <picture> counts its largest WebP,
+    since a visitor downloads one of its files and every current browser
+    takes the WebP over the PNG fallback."""
+    text = (ROOT / HOME).read_text(encoding="utf-8")
+    size = lambda f: len(f.read_bytes().replace(b"\r\n", b"\n"))  # as served: the repo stores LF
+    js: set[Path] = set()
+    for src in re.findall(r'<script[^>]*\bsrc="([^"]+)"', text):
+        js |= module_graph(ROOT / src.lstrip("/"))
+    js = {f for f in js if "vendor" not in f.parts}
+    css = sum(size(ROOT / h.lstrip("/")) for h in re.findall(r'<link rel="stylesheet" href="([^"]+)"', text))
+    img = 0
+    for pic in re.findall(r"<picture>(.*?)</picture>", text, re.S):
+        files = re.findall(r'(?:src|srcset)="([^" ]+)', pic)
+        webp = [u for u in files if u.endswith(".webp")]  # what every current browser picks
+        img += max((ROOT / u.lstrip("/")).stat().st_size for u in (webp or files))
+    outside = re.sub(r"<picture>.*?</picture>", "", text, flags=re.S)
+    img += sum((ROOT / u.lstrip("/")).stat().st_size for u in re.findall(r'<img[^>]*\bsrc="(/[^"]+)"', outside))
+    sizes = {"html": len(text.encode("utf-8")), "css": css, "js": sum(size(f) for f in js), "img": img}
+    errors = [f"{HOME}: {k.upper()} is {v:,} bytes, over the budget of {BUDGET[k]:,}" for k, v in sizes.items() if v > BUDGET[k]]
+    return errors, [f"{HOME} budget: " + ", ".join(f"{k} {v:,} of {BUDGET[k]:,}" for k, v in sizes.items())]
+
+
 def main() -> int:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
+    capture = None
+    if "--capture" in sys.argv:
+        i = sys.argv.index("--capture")
+        if i + 1 >= len(sys.argv):
+            print("usage: python tools/check.py [--capture <capture folder>]")
+            return 2
+        capture = sys.argv[i + 1]
     errors: list[str] = []
     notes: list[str] = []
     files = tracked_files()
@@ -522,6 +668,19 @@ def main() -> int:
     import sync  # noqa: E402
     errors += sync.check()
     errors += contrast.check()
+
+    # The demo, and the home page's budget
+    more, more_notes = demo_errors(facts, forbidden)
+    errors += more
+    notes += more_notes
+    more, more_notes = budget_errors()
+    errors += more
+    notes += more_notes
+    if capture:
+        import build_demo  # noqa: E402  (imported by demo_errors)
+        print(f"re-extracting the demo from {Path(capture).name}:")
+        if build_demo.main(["--capture", capture, "--check"]) != 0:
+            errors.append("the demo differs from a fresh extraction of the capture (see above)")
 
     for n in sorted(set(notes)):
         print("note:", n)
