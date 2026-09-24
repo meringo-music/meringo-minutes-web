@@ -108,7 +108,7 @@ pages disagree.
 | State       | What visitors see |
 |-------------|-------------------|
 | `prelaunch` | Now. Not for sale; one mailto asks to be told at launch. There is no Buy, no Download, and no price markup beyond the stated plan. |
-| `launch`    | Buy, through Paddle's hosted checkout, linked out. Download: the notarized DMG on GitHub Releases, with its SHA-256. $79 with its published end date, and $99 struck through. |
+| `launch`    | Buy, through Paddle's hosted checkout, linked out. Download: the notarized DMG on Cloudflare R2, where the app's update feed also lives, with its SHA-256. Not GitHub Releases: the app's repository is private, so its releases cannot be downloaded. $79 with its published end date, and $99 struck through. |
 | `live`      | $99. |
 
 The `launch` markup arrives in its own pull request. Two things block it, and
