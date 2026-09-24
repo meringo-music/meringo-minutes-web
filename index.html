@@ -34,6 +34,13 @@
         <img src="/assets/img/app-icon-64.png" width="30" height="30" alt="">
         <span>Meringo Minutes</span>
       </a>
+      <nav class="site-nav" aria-label="Site">
+        <ul>
+          <li><a href="/how-it-works/">How it works</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+          <li><a href="/download/">Download</a></li>
+        </ul>
+      </nav>
       <div class="header-end">
         <p class="header-note"><span class="hide-narrow">Not for sale yet · </span><a href="/#notify">Tell me when</a></p>
         <button class="theme-toggle" type="button" data-theme-toggle data-choice="system" aria-label="Theme: match system" title="Theme: match system" hidden>
@@ -76,8 +83,8 @@
               <p class="app-answer"><span class="visually-hidden">Answer: </span>I found nothing in this meeting that says that.</p>
             </div>
           </div>
-          <figcaption>Illustrative example: a fictional meeting read by synthetic voices. The question and the answer are copied word for word from Meringo Minutes 1.1.0 (3) on 23 September 2026. The window is re-set in HTML.</figcaption>
-          <p class="note">The meeting did include <q>Eight weeks at that day rate is somewhere around 22,000.</q> One division turns that into a day rate nobody quoted. It didn't do the division. Of the 8 questions the meeting doesn't answer, or answers only in part, it refused all 8.</p>
+          <figcaption>Illustrative example: a fictional meeting read by synthetic voices. The question and the answer are copied word for word from Meringo Minutes <span data-fact="app-version">1.1.0 (3)</span> on <time datetime="2026-09-23">23 September 2026</time>. The window is re-set in HTML.</figcaption>
+          <p class="note">The meeting did include <q>Eight weeks at that day rate is somewhere around <span data-fact="demo-locum-total">22,000</span>.</q> One division turns that into a day rate nobody quoted. It didn't do the division. Of the <span data-fact="ask-unanswerable">8</span> questions the meeting doesn't answer, or answers only in part, it refused all <span data-fact="ask-unanswerable-refused">8</span>.</p>
         </figure>
       </div>
     </section>
@@ -85,7 +92,7 @@
     <section class="section" id="notify" aria-labelledby="notify-title">
       <div class="wrap"><div class="prose">
         <h2 id="notify-title">Not for sale yet</h2>
-        <p>I'm still finishing Meringo Minutes. When it's ready it will be <strong>$79 during the first month after launch, then $99</strong>, paid once. It needs an Apple Silicon Mac running macOS 27 or later.</p>
+        <p>I'm still finishing Meringo Minutes. When it's ready it will be <strong><span data-fact="price-launch">$79</span> during the first month after launch, then <span data-fact="price">$99</span></strong>, paid once. It needs an Apple Silicon Mac running <span data-fact="requires-macos">macOS 27</span> or later.</p>
         <p>If you'd like one email when it's ready, send me a note. I'll use your address for that email and nothing else.</p>
         <p><a class="button button-quiet" href="mailto:support@meringo.app?subject=Tell%20me%20when%20Meringo%20Minutes%20is%20ready">Email me when it's ready</a></p>
       </div></div>
@@ -103,12 +110,18 @@
         <p class="footer-tagline">Respecting the room. <em>Showing the work.</em></p>
         <p class="footer-legal">© 2026 Meringo Labs LLC · Erie County, NY</p>
       </div>
-      <ul class="footer-links">
-        <li><a href="https://meringo.app" rel="noopener">Meringo Music ↗</a></li>
-        <li><a href="https://meringolisten.app" rel="noopener">Meringo Listen ↗</a></li>
-        <li><a href="https://adamsiemaszko.com/" rel="noopener">Made by Adam Siemaszko ↗</a></li>
-        <li><a href="mailto:support@meringo.app">support@meringo.app</a></li>
-      </ul>
+      <div class="footer-nav">
+        <ul class="footer-links">
+          <li><a href="/how-it-works/">How it works</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+        </ul>
+        <ul class="footer-links">
+          <li><a href="https://meringo.app" rel="noopener">Meringo Music ↗</a></li>
+          <li><a href="https://meringolisten.app" rel="noopener">Meringo Listen ↗</a></li>
+          <li><a href="https://adamsiemaszko.com/" rel="noopener">Made by Adam Siemaszko ↗</a></li>
+          <li><a href="mailto:support@meringo.app">support@meringo.app</a></li>
+        </ul>
+      </div>
     </div>
   </footer>
   <!-- /sync:footer -->

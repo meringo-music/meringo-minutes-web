@@ -13,6 +13,13 @@ What it checks, and why:
   - the copy rules in tools/lint_rules.json (banned phrases, first-person
     voice, "by default" on locality claims, the full product name in titles);
   - every page is in the same launch state;
+  - every number in page copy has a source: a <span data-fact="id"> must
+    hold exactly the value data/facts.json gives that id, and any other digit
+    in visible copy fails unless it sits in a <time>, the app's own quoted
+    words (data-lint="app"), the footer, or a pattern lint_rules.json allows;
+  - /privacy/ keeps the shape the desk's page renderer relies on, and, when
+    the desk repo sits beside this one, its render_page.build_page renders a
+    dummy page into it (skipped when absent, as in CI);
   - shared regions match partials/ (tools/sync.py) and the colour tokens
     meet WCAG contrast in both themes (tools/contrast.py);
   - no tracked file holds a personal path or the checking model's name.
@@ -21,7 +28,9 @@ What it checks, and why:
 from __future__ import annotations
 
 import hashlib
+import importlib.util
 import json
+import os
 import re
 import subprocess
 import sys
@@ -31,6 +40,10 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parent.parent
 RULES = json.loads((ROOT / "tools" / "lint_rules.json").read_text(encoding="utf-8"))
+FACTS = ROOT / "data" / "facts.json"
+FACT_FIELDS = ("id", "value", "source", "method", "asOf")
+TEMPLATE = "privacy/index.html"  # the page the desk's renderer borrows its shell from
+DIGIT_EXEMPT_TAGS = {"time", "footer"}
 
 BLOCKS = {"p", "li", "figcaption", "h1", "h2", "h3", "h4", "h5", "h6", "dt", "dd",
           "td", "th", "blockquote", "summary", "title", "caption", "label", "button"}
@@ -47,9 +60,14 @@ LOADS = {  # tag -> attributes that make the browser fetch something
 class Page(HTMLParser):
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
-        self.stack: list[tuple[str, bool]] = []   # (tag, inside data-lint="app")
+        # (tag, data-lint="app", exempt from the digit rule, data-fact id or None)
+        self.stack: list[tuple[str, bool, bool, str | None]] = []
         self.blocks: list[tuple[str, str, bool]] = []  # (tag, text, is_app)
         self.buf: list[str] = []
+        self.free: list[str] = []  # this block's text outside every digit exemption
+        self.loose: list[tuple[str, str]] = []  # (tag, free text) for blocks whose free text has a digit
+        self.fact_spans: list[tuple[str, str]] = []  # (fact id, text inside the element)
+        self.fact_bufs: dict[int, list[str]] = {}  # stack index -> text so far
         self.buf_tag = "body"
         self.ids: set[str] = set()
         self.links: list[tuple[str, str, str]] = []  # (tag, attr, value)
@@ -62,13 +80,20 @@ class Page(HTMLParser):
 
     # -- helpers
     def _app(self) -> bool:
-        return any(app for _, app in self.stack)
+        return any(app for _, app, _, _ in self.stack)
+
+    def _exempt(self) -> bool:
+        return any(exempt for _, _, exempt, _ in self.stack)
 
     def _flush(self) -> None:
         text = re.sub(r"\s+", " ", "".join(self.buf)).strip()
         if text:
             self.blocks.append((self.buf_tag, text, self._app()))
+        free = re.sub(r"\s+", " ", "".join(self.free)).strip()
+        if re.search(r"\d", free):
+            self.loose.append((self.buf_tag, free))
         self.buf = []
+        self.free = []
 
     # -- parser hooks
     def handle_starttag(self, tag, attrs):
@@ -101,7 +126,12 @@ class Page(HTMLParser):
             self._flush()
             self.buf_tag = tag
         if tag not in VOID:
-            self.stack.append((tag, a.get("data-lint") == "app"))
+            app = a.get("data-lint") == "app"
+            fact = a.get("data-fact")
+            exempt = app or fact is not None or tag in DIGIT_EXEMPT_TAGS
+            self.stack.append((tag, app, exempt, fact))
+            if fact is not None:
+                self.fact_bufs[len(self.stack) - 1] = []
 
     def handle_endtag(self, tag):
         if tag in ("script", "style"):
@@ -112,12 +142,20 @@ class Page(HTMLParser):
         # pop to the matching tag (tolerates unclosed <p>/<li>)
         for i in range(len(self.stack) - 1, -1, -1):
             if self.stack[i][0] == tag:
+                for depth in range(len(self.stack) - 1, i - 1, -1):
+                    if depth in self.fact_bufs:
+                        text = re.sub(r"\s+", " ", "".join(self.fact_bufs.pop(depth))).strip()
+                        self.fact_spans.append((self.stack[depth][3] or "", text))
                 del self.stack[i:]
                 break
 
     def handle_data(self, data):
         if not self.skip:
             self.buf.append(data)
+            for buf in self.fact_bufs.values():
+                buf.append(data)
+            # an exempt run still separates the free text on either side of it
+            self.free.append(" " if self._exempt() else data)
 
     def close(self):
         super().close()
@@ -140,6 +178,95 @@ def resolve(url_path: str, page: Path) -> Path:
     return target
 
 
+def load_facts() -> tuple[dict[str, str], list[str]]:
+    """({id: value}, errors). Every fact names its source, method and date."""
+    errors: list[str] = []
+    facts: dict[str, str] = {}
+    for i, fact in enumerate(json.loads(FACTS.read_text(encoding="utf-8")).get("facts", [])):
+        fid = str(fact.get("id") or f"entry {i + 1}")
+        missing = [k for k in FACT_FIELDS if not str(fact.get(k, "")).strip()]
+        if missing:
+            errors.append(f"data/facts.json: {fid} has no {', '.join(missing)}")
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(fact.get("asOf", ""))):
+            errors.append(f"data/facts.json: {fid} asOf should be a YYYY-MM-DD date")
+        if fid in facts:
+            errors.append(f"data/facts.json: {fid} is listed twice")
+        facts[fid] = str(fact.get("value", ""))
+    return facts, errors
+
+
+def template_errors(text: str) -> list[str]:
+    """The shape the desk's page renderer (meringo-desk tools/render_page.py)
+    needs from the page it borrows its shell from. It replaces the title, the
+    meta description, the canonical link and the inside of <main class="page">
+    by exact pattern, so each must appear once and in exactly this form."""
+    errors = []
+    once = [
+        (r"<title>.*?</title>", "<title>…</title>"),
+        (r'<meta name="description" content="[^"]*">', '<meta name="description" content="…">'),
+        (r'<link rel="canonical" href="[^"]*">', '<link rel="canonical" href="…">'),
+        (r'<main class="page">', '<main class="page"> (no other attributes on main)'),
+        (r"<main\b", "<main>"),
+    ]
+    for pattern, what in once:
+        n = len(re.findall(pattern, text, flags=re.S))
+        if n != 1:
+            errors.append(f"{TEMPLATE}: the desk template needs exactly one {what}, found {n}")
+    if "application/ld+json" in text:
+        errors.append(f"{TEMPLATE}: carries JSON-LD, which the desk renderer would copy onto a page it doesn't describe")
+    header = re.search(r"<header\b.*?</header>", text, flags=re.S)
+    if header and "aria-current" in header.group(0):
+        errors.append(f"{TEMPLATE}: aria-current in the header would mark every rendered page as /privacy/ (site.js sets it at runtime)")
+    if not re.search(r'<div id="content" tabindex="-1"></div>\s*<main class="page">', text):
+        errors.append(f'{TEMPLATE}: the skip target <div id="content" tabindex="-1"></div> must sit just before <main class="page">')
+    if text.count("</style>") > 1:
+        errors.append(f"{TEMPLATE}: more than one </style>; the desk renderer adds table styles to exactly one")
+    return errors
+
+
+def desk_render(text: str) -> tuple[list[str], list[str]]:
+    """(errors, notes). Renders a dummy page into /privacy/ with the desk's own
+    render_page.build_page, imported read-only from the desk repo beside this
+    one (or MERINGO_DESK). Skips, with a note, when the desk isn't there."""
+    desk = Path(os.environ.get("MERINGO_DESK") or ROOT.parent / "meringo-desk")
+    renderer = desk / "tools" / "render_page.py"
+    if not renderer.is_file():
+        return [], ["desk template: meringo-desk/tools/render_page.py is not beside this repo; render test skipped"]
+    sys.dont_write_bytecode = True  # leave nothing behind in the desk repo
+    spec = importlib.util.spec_from_file_location("desk_render_page", renderer)
+    module = importlib.util.module_from_spec(spec)
+    meta = {"title": "Template test — Meringo Minutes",
+            "description": "A dummy page, rendered into the privacy page's shell by the desk's renderer."}
+    canonical = RULES["base"] + "/template-test/"
+    body = "# Template test\n\nA paragraph the renderer converts.\n\n## A section\n\n- one item\n- another item"
+    try:
+        spec.loader.exec_module(module)
+        inner, _ = module.md_to_html(body)
+        out = module.build_page(text, meta, inner, canonical)
+    except Exception as e:  # a Refusal, or the renderer's API changed under us
+        return [f"desk template: render_page could not render into {TEMPLATE}: {type(e).__name__}: {e}"], []
+
+    errors = []
+    page = Page()
+    page.feed(out)
+    page.close()
+    if page.csp != [RULES["csp"]]:
+        errors.append("desk template: the rendered page lost its CSP")
+    if page.canonical != [canonical]:
+        errors.append(f"desk template: the rendered page's canonical is {page.canonical}, not {canonical}")
+    if "<title>Template test — Meringo Minutes</title>" not in out:
+        errors.append("desk template: the rendered page's <title> was not replaced")
+    if [t for t, _, _ in page.blocks if t == "h1"] != ["h1"] or "Template test" not in out.split("<main", 1)[1]:
+        errors.append("desk template: the rendered page doesn't carry the dummy body as its one <h1>")
+    if "privacy" in out.split("<main", 1)[1].split("</main>", 1)[0].lower():
+        errors.append("desk template: text from /privacy/'s own <main> survived the render")
+    for region in ("header", "footer"):
+        rx = re.compile(rf"<!-- sync:{region} -->.*?<!-- /sync:{region} -->", re.S)
+        if rx.search(out) is None or rx.search(out).group(0) != rx.search(text).group(0):
+            errors.append(f"desk template: the shared {region} changed in the render")
+    return errors, ["desk template: render_page.build_page rendered a dummy page into /privacy/ cleanly"] if not errors else []
+
+
 def main() -> int:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
@@ -157,7 +284,11 @@ def main() -> int:
 
     banned = [(re.compile(r["pattern"], re.I), r["why"]) for r in RULES["banned"]]
     voice = [(re.compile(r["pattern"], re.I), r["why"]) for r in RULES["voice"]]
-    allowed = RULES["allowed_phrases"]
+    allowed = [a["phrase"] if isinstance(a, dict) else a for a in RULES["allowed_phrases"]]
+    digits_allowed = [re.compile(a["pattern"]) for a in RULES["digits"]["allowed"]]
+    facts, fact_errors = load_facts()
+    errors += fact_errors
+    used_facts: set[str] = set()
     locality = re.compile(RULES["locality"]["pattern"], re.I)
     requires = RULES["locality"]["requires"].lower()
     states = {}
@@ -227,8 +358,35 @@ def main() -> int:
             if tag in HEADINGS and re.search(r"(?<!Meringo )\bMinutes\b", text):
                 errors.append(f"{rel}: <{tag}> uses \"Minutes\" without \"Meringo\": {text[:100]}")
 
+        # Numbers: each one sourced in data/facts.json
+        for fid, text in page.fact_spans:
+            used_facts.add(fid)
+            if fid not in facts:
+                errors.append(f"{rel}: data-fact=\"{fid}\" is not in data/facts.json")
+            elif text != facts[fid]:
+                errors.append(f"{rel}: data-fact=\"{fid}\" reads \"{text}\", but data/facts.json says \"{facts[fid]}\"")
+        for tag, free in page.loose:
+            rest = free
+            for rx in digits_allowed:
+                rest = rx.sub(" ", rest)
+            m = re.search(r"\S*\d\S*", rest)
+            if m:
+                errors.append(f"{rel}: <{tag}> \"{m.group(0)}\" is a number with no source — "
+                              f"{RULES['digits']['why']}\n      in: {free[:140]}")
+
+        if rel == TEMPLATE:
+            text = path.read_text(encoding="utf-8")
+            errors += template_errors(text)
+            desk_errors, desk_notes = desk_render(text)
+            errors += desk_errors
+            notes += desk_notes
+
     if len(set(states.values())) > 1:
         errors.append(f"pages disagree on data-cta-state: {states}")
+    if TEMPLATE not in {p.relative_to(ROOT).as_posix() for p in pages}:
+        errors.append(f"{TEMPLATE} is missing; the desk's page renderer uses it as its template")
+    for fid in sorted(set(facts) - used_facts):
+        notes.append(f"data/facts.json: {fid} is not used on any page")
 
     # Every tracked file: personal paths, the checking model's name
     personal = [re.compile(r"[A-Za-z]:" + r"\\\\?" + "Users", re.I), re.compile("/" + "Users" + "/"),

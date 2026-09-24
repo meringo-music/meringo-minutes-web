@@ -4,13 +4,22 @@
   <meta charset="utf-8">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Page not found — Meringo Minutes</title>
-  <meta name="robots" content="noindex">
+  <title>Privacy — Meringo Minutes and this site</title>
+  <meta name="description" content="What meringominutes.app does with your visit, and what the Meringo Minutes app reads, stores and connects to.">
+  <link rel="canonical" href="https://meringominutes.app/privacy/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Meringo Minutes">
+  <meta property="og:title" content="Privacy — Meringo Minutes and this site">
+  <meta property="og:description" content="What meringominutes.app does with your visit, and what the Meringo Minutes app reads, stores and connects to.">
+  <meta property="og:url" content="https://meringominutes.app/privacy/">
+  <meta name="twitter:card" content="summary">
   <meta name="theme-color" content="#07040E" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#FAF6EE" media="(prefers-color-scheme: light)">
   <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="icon" type="image/png" href="/assets/img/app-icon-64.png" sizes="64x64">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preload" href="/assets/fonts/cormorant-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css">
   <script src="/assets/js/theme-init.js"></script>
   <script type="module" src="/assets/js/site.js"></script>
@@ -45,25 +54,44 @@
   <!-- /sync:header -->
 
   <div id="content" tabindex="-1"></div>
-  <main class="not-found">
-    <div class="wrap">
-      <p class="eyebrow">Error 404</p>
-      <h1>Nothing at this address.</h1>
-      <div class="app-window" role="group" aria-label="A question, asked of this website">
-        <div class="app-bar" aria-hidden="true">
-          <span class="app-lights"><i></i><i></i><i></i></span>
-          <span class="app-title">meringominutes.app</span>
-        </div>
-        <div class="app-body">
-          <div class="app-ask">
-            <div class="app-field"><span class="visually-hidden">Question: </span>Is there a page at this address?</div>
-            <div class="app-scope" aria-hidden="true">This site</div>
-          </div>
-          <p class="app-answer"><span class="visually-hidden">Answer: </span>I found nothing on this site at that address.</p>
-        </div>
-      </div>
-      <p class="fine back"><a href="/">Go to the home page</a></p>
-    </div>
+  <main class="page">
+    <h1>Privacy: this site, and Meringo Minutes</h1>
+
+    <h2 id="this-site">This site</h2>
+    <ul>
+      <li>It's static pages hosted on GitHub Pages. GitHub logs each visitor's IP address for security, and says so in <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages" rel="noopener">its own documentation</a>.</li>
+      <li>It sets no cookies and runs no analytics.</li>
+      <li>Everything it loads comes from this site: no outside fonts, scripts or trackers.</li>
+      <li>It stores one thing in your browser: your theme choice, in <code>localStorage</code>.</li>
+      <li>If you email me, I get your address and what you wrote, and I use them to reply.</li>
+    </ul>
+
+    <h2 id="the-app">The app</h2>
+
+    <h3 id="connects">What it connects to</h3>
+    <p>In the current build, by default, the app itself connects to model downloads, the first time each model is needed, and to the Ollama server on your own Mac. Ollama fetches its own models from its own registry.</p>
+    <p>There's no account or sync, no analytics, telemetry or crash reporting, and no licence check, remote config or update check.</p>
+    <p>If you point the summariser at Ollama on another machine, each meeting's transcript is sent there, and the privacy panel turns orange and names it.</p>
+    <p>When the app gets an update check, this page changes in the same release and says what that check sends and where. The licence you get when you buy is planned to be verified by the app itself, with no call to a server.</p>
+
+    <h3 id="storage">Where it keeps things</h3>
+    <ul>
+      <li>Everything lives in one folder: <code>~/Library/Application Support/Meringo Minutes/</code>.</li>
+      <li>The files are ordinary files, and the app adds no encryption of its own. macOS file permissions protect them, and FileVault does too if you've turned it on.</li>
+      <li>Deleting a meeting moves its recording and files to the Trash, so a mistake can be undone until you empty it.</li>
+    </ul>
+
+    <h3 id="reads">What it reads</h3>
+    <ul>
+      <li><strong>Your microphone, and the audio your Mac plays during a call.</strong> It hears the other side through a Core Audio tap, so it never asks for Screen Recording.</li>
+      <li><strong>Your calendar,</strong> to name a recording after the meeting it starts in and keep that meeting's invitee list.</li>
+      <li><strong>Reminders,</strong> when you send a commitment there.</li>
+      <li><strong>Your own Contacts card,</strong> only when you ask. The prompt says: <q data-lint="app">Meringo Minutes reads only your own Contacts card, to know your name, and only when you ask it to. Nothing it reads leaves this Mac.</q></li>
+      <li>Its signature asks for exactly three entitlements: audio input, address book and calendars.</li>
+    </ul>
+
+    <h3 id="voices">Voices</h3>
+    <p>No voiceprint is stored, and no voice is matched from one meeting to another. You name a voice in each meeting.</p>
   </main>
 
   <!-- sync:footer -->

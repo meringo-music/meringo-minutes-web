@@ -1,0 +1,258 @@
+{
+  "_about": "Every number in this site's page copy, with where it came from. A page wraps each one as <span data-fact=\"id\">value</span>, and tools/check.py fails when the span's text differs from the value here, when the id is unknown, or when a digit in visible copy sits outside a fact span, a <time>, the app's own quoted words (data-lint=\"app\") or the footer. Change a number here first, then on the page.",
+
+  "facts": [
+    {
+      "id": "app-version",
+      "value": "1.1.0 (3)",
+      "source": "Minutes capture 2026-09-23, README §1",
+      "method": "Read from the captured build's Info.plist: CFBundleShortVersionString 1.1.0, CFBundleVersion 3.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "requires-macos",
+      "value": "macOS 27",
+      "source": "claims.csv in the Meringo Minutes app repo: Requires macOS 27.0",
+      "method": "The app's minimum system version, as the claims register pairs it with the build setting.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "price-launch",
+      "value": "$79",
+      "source": "Adam's decision, desk DECISIONS 2026-09-23 (price)",
+      "method": "Owner's decision: the price for the first month after launch.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "price",
+      "value": "$99",
+      "source": "Adam's decision, desk DECISIONS 2026-09-23 (price)",
+      "method": "Owner's decision: the price after the first month, paid once.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "trial-minutes",
+      "value": "30",
+      "source": "Adam's decision, desk DECISIONS 2026-09-23 (trial)",
+      "method": "Owner's decision: the planned free version processes the first 30 minutes of each meeting. Not built.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "demo-locum-total",
+      "value": "22,000",
+      "source": "Minutes capture 2026-09-23, ASK-BANK.md Q9, and Transcript.txt",
+      "method": "The figure as the demo meeting's line says it.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "ask-unanswerable",
+      "value": "8",
+      "source": "Minutes capture 2026-09-23, ASK-BANK.md (Q9 to Q16; Q13 and Q14 are partly answered)",
+      "method": "Each of the 16 recorded Ask questions read against the transcript: 8 are not answered, or answered only in part, by the meeting.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "ask-unanswerable-refused",
+      "value": "8",
+      "source": "Minutes capture 2026-09-23, ASK-BANK.md tally",
+      "method": "Of those 8 questions, the number whose recorded answer was the app's refusal.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "demo-anchored",
+      "value": "11",
+      "source": "Minutes capture 2026-09-23, AUDIT.md (Counts and the row table)",
+      "method": "Summary sentences in the timestamped export that carry a timestamp.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "demo-anchor-miss",
+      "value": "4",
+      "source": "Minutes capture 2026-09-23, AUDIT.md rows 4, 6, 7 and 9",
+      "method": "Each timestamped sentence read against the transcript line it points at: 4 point at a line that doesn't state the claim.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "demo-anchor-partial",
+      "value": "7",
+      "source": "Minutes capture 2026-09-23, AUDIT.md rows 2, 3, 5, 8, 10, 11 and 12",
+      "method": "Same reading: 7 point at a line that states only part of the claim. The row table is the tiebreak where AUDIT.md's prose says 3.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "demo-miss-lag",
+      "value": "30",
+      "source": "Minutes capture 2026-09-23, AUDIT.md rows 4, 6, 7 and 9",
+      "method": "For the 4 misses, the gap from the timestamp to the supporting line; the largest is 33 s (row 9), stated as about 30 seconds.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "demo-inquiries",
+      "value": "31",
+      "source": "Minutes capture 2026-09-23, AUDIT.md row 8; Transcript.txt at 0:57",
+      "method": "The number of inquiries as the demo meeting states it.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "failed-recording-seconds",
+      "value": "25",
+      "source": "Desk research S2 (handoff inventory) §1m and §2 #6",
+      "method": "The length of the failed development recording that produced the invented decisions, as recorded in the app's development notes.",
+      "asOf": "2026-09-21"
+    },
+    {
+      "id": "egress-allowlist",
+      "value": "localhost:11434",
+      "source": "Desk research S2 (handoff inventory) §1c: the egress test's allow-list",
+      "method": "Read from the build-gate network test in the app repo.",
+      "asOf": "2026-09-21"
+    },
+    {
+      "id": "egress-sample-ms",
+      "value": "100",
+      "source": "Desk research S2 (handoff inventory) §1c",
+      "method": "The network test's sampling interval, read from the test in the app repo.",
+      "asOf": "2026-09-21"
+    },
+    {
+      "id": "bench-recordings",
+      "value": "66",
+      "source": "claims.csv in the Meringo Minutes app repo; Bench/README.md",
+      "method": "The English meeting recordings (AMI, ICSI, Earnings-22) in the app's word-error-rate bench.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "bench-wer",
+      "value": "18.4%",
+      "source": "claims.csv in the Meringo Minutes app repo: 18.4 % median WER on 66 bench recordings",
+      "method": "Median word error rate of the default speech model across the bench recordings.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "demo-speaker-errors",
+      "value": "5",
+      "source": "Minutes capture 2026-09-23, README §5",
+      "method": "Transcript lines assigned to the wrong voice, counted against the script.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "demo-lines",
+      "value": "56",
+      "source": "Minutes capture 2026-09-23, README §5",
+      "method": "Lines in the demo's transcript.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "demo-action-items",
+      "value": "8",
+      "source": "Minutes capture 2026-09-23, README §9 item 8",
+      "method": "Items on the demo's Action Items list after pass 2.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "demo-commitments",
+      "value": "5",
+      "source": "Minutes capture 2026-09-23, README §9 item 8",
+      "method": "Distinct commitments made in the demo meeting's script.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "mindmap-linked",
+      "value": "3",
+      "source": "Minutes capture 2026-09-23, README §4 and §9 item 6",
+      "method": "Mindmap points linked to a moment in the recording after pass 2, from the app's own banner.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "mindmap-points",
+      "value": "7",
+      "source": "Minutes capture 2026-09-23, README §4 and §9 item 6",
+      "method": "Points in the demo's mindmap, from the app's own banner.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "mindmap-linked-before",
+      "value": "7",
+      "source": "Minutes capture 2026-09-23, README §4",
+      "method": "Mindmap points linked to a moment after pass 1, before the voices were named, from the app's own banner.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "demo-duration",
+      "value": "3 minutes 53 seconds",
+      "source": "Minutes capture 2026-09-23, README §3",
+      "method": "Length of the demo recording.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "demo-processing",
+      "value": "6½ to 7 minutes",
+      "source": "Minutes capture 2026-09-23, README §4 (the honest time line)",
+      "method": "Wall-clock time of two full passes on the capture Mac, from import to notes ready: 6:48 and 6:50 by the app's banner.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "demo-summary-check-seconds",
+      "value": "236",
+      "source": "Minutes capture 2026-09-23, README §4 timing table",
+      "method": "Pass 1's summarise-and-check stage, 236.11 s, from the app's own timing log.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "test-mac-chip",
+      "value": "M4",
+      "source": "Minutes capture 2026-09-23, README §2",
+      "method": "The chip of the only Mac the app has been measured on.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "test-mac-memory",
+      "value": "24 GB",
+      "source": "Minutes capture 2026-09-23, README §2",
+      "method": "The memory of the only Mac the app has been measured on.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "size-app",
+      "value": "84 MB",
+      "source": "SITE-FACTS-2026-09-23; Minutes capture 2026-09-23, README §1",
+      "method": "du -sh on the 1.1.0 (3) app bundle.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "size-speech-models",
+      "value": "710 MB",
+      "source": "SITE-FACTS-2026-09-23",
+      "method": "The figure the app's setup picker shows (about 710 MB). Measured on disk: 603 MB + 98 MB = 701 MB.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "size-ollama",
+      "value": "600 MB",
+      "source": "SITE-FACTS-2026-09-23",
+      "method": "du -sh on Ollama.app: 596 MB, stated as about 600 MB.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "size-summary-model",
+      "value": "9.0 GB",
+      "source": "SITE-FACTS-2026-09-23",
+      "method": "The summary model's size as Ollama lists it; the app's setup says about 9 GB.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "size-check-model",
+      "value": "4.7 GB",
+      "source": "SITE-FACTS-2026-09-23",
+      "method": "The check model's size as Ollama lists it; the app's setup says about 4.7 GB.",
+      "asOf": "2026-09-23"
+    },
+    {
+      "id": "size-default-install",
+      "value": "15 GB",
+      "source": "SITE-FACTS-2026-09-23",
+      "method": "Sum of the default setup: 13.7 GB of Ollama models, 0.7 GB of speech models, 0.6 GB for Ollama.app and 84 MB for the app; about 15 GB.",
+      "asOf": "2026-09-23"
+    }
+  ]
+}

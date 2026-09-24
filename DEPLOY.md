@@ -20,11 +20,15 @@ A merge to `main` is the publish. Nothing else deploys the site.
 
 ## One-time setup, in this order
 
-### 1. Verify the domain for the org
+### 1. Verify the domain for the account
 
 Verifying first stops anyone else's Pages site from claiming the domain.
 
-1. GitHub → **meringo-music** org → **Settings → Pages** → **Add a domain** → `meringominutes.app`.
+`meringo-music` is a personal GitHub account, not an organization, so the
+verified domain lives in the account's own settings, not the repo's:
+
+1. Signed in as **meringo-music**: profile picture → **Settings** → *Code, planning, and
+   automation* → **Pages** → **Add a domain** → `meringominutes.app`.
 2. GitHub shows a **TXT** record, host `_github-pages-challenge-meringo-music`, with a one-off
    value. Add it at Porkbun (step 2). Once DNS answers, press **Verify**.
 
@@ -67,6 +71,14 @@ Repo → **Settings → Pages**:
 3. Wait for "DNS check successful", then tick **Enforce HTTPS**. `.app` domains
    only work over HTTPS, so the site isn't reachable until this is done.
 
+**Removing and re-adding the custom domain** (for example, to make Pages retry
+its certificate) needs branch protection lifted for a moment. Pages records the
+domain by committing the `CNAME` file to `main` itself ("Delete CNAME", then
+"Create CNAME"), and the protection rule in step 4 refuses a direct commit, even
+GitHub's. Turn the rule off, remove and re-add the domain, check that both
+commits landed and `CNAME` still reads `meringominutes.app`, then turn the rule
+back on with the same settings.
+
 ### 4. Protect `main`
 
 Repo → **Settings → Branches** → rule for `main`:
@@ -74,8 +86,8 @@ Repo → **Settings → Branches** → rule for `main`:
 - **Require a pull request before merging**, with **0 required approvals**.
   One approval would lock a solo owner out of his own merges.
 - **Include administrators.**
-
-Once the checks workflow exists, also require its status check.
+- **Require status checks to pass**, with the `check` job from
+  `.github/workflows/check.yml`.
 
 ### 5. Confirm it's live
 
