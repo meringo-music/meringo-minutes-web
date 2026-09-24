@@ -13,6 +13,8 @@ What it checks, and why:
   - the copy rules in tools/lint_rules.json (banned phrases, first-person
     voice, "by default" on locality claims, the full product name in titles);
   - every page is in the same launch state;
+  - shared regions match partials/ (tools/sync.py) and the colour tokens
+    meet WCAG contrast in both themes (tools/contrast.py);
   - no tracked file holds a personal path or the checking model's name.
 """
 
@@ -144,7 +146,7 @@ def main() -> int:
     errors: list[str] = []
     notes: list[str] = []
     files = tracked_files()
-    pages = sorted(p for p in files if p.suffix == ".html" and "tools" not in p.parts)
+    pages = sorted(p for p in files if p.suffix == ".html" and not {"tools", "partials"} & set(p.relative_to(ROOT).parts))
     parsed: dict[Path, Page] = {}
 
     for path in pages:
@@ -243,6 +245,14 @@ def main() -> int:
         for token in set(re.findall(r"[a-z0-9]+", text.lower())):
             if hashlib.sha256(token.encode()).hexdigest() in forbidden:
                 errors.append(f"{rel}: contains a forbidden token (the checking model's name)")
+
+    # Shared regions and colour contrast (their own scripts, run here too)
+    sys.dont_write_bytecode = True
+    sys.path.insert(0, str(ROOT / "tools"))
+    import contrast  # noqa: E402
+    import sync  # noqa: E402
+    errors += sync.check()
+    errors += contrast.check()
 
     for n in sorted(set(notes)):
         print("note:", n)

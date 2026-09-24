@@ -17,7 +17,7 @@ const EDGE = process.env.EDGE || 'C:/Program Files (x86)/Microsoft/Edge/Applicat
 const BASE = process.env.BASE || 'http://127.0.0.1:8099';
 const out = process.argv[2] || 'shots';
 const paths = process.argv.slice(3).length ? process.argv.slice(3) : ['/'];
-const WIDTHS = [390, 768, 1280];
+const WIDTHS = (process.env.WIDTHS || "390,768,1280").split(",").map(Number);
 const THEMES = ['light', 'dark'];
 const PORT = 9333;
 
