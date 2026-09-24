@@ -12,6 +12,12 @@
 // Otherwise it refuses. Nothing is fuzzy-matched; only words of five or more
 // letters may match as a prefix ("summar" finds "summary").
 
+import { normalize } from './ask-bank.js';
+
+// normalize() and the demo's bankEngine() live in ask-bank.js, so the home
+// page can use them without loading this file; both are re-exported here.
+export { bankEngine, normalize } from './ask-bank.js';
+
 // Words that carry no meaning of their own in a question about the product,
 // including its name: everyone asking here is asking about Meringo Minutes.
 // Negations and "know" are deliberately not here: "What does Ask do when it
@@ -30,19 +36,6 @@ between many enough correctly exactly actually whos
 say says said
 app apps meringo minute minutes meeting meetings hi hello hey thanks thank ok okay
 `.trim().split(/\s+/));
-
-// Lower case, accents off, apostrophes joined ("doesn't" -> "doesnt"), every
-// other mark a space. The same function prepares the index and the question.
-export function normalize(text) {
-  return String(text ?? '')
-    .normalize('NFKD')
-    .replace(/[̀-ͯ]/g, '')
-    .toLowerCase()
-    .replace(/[‘’ʼ'`´]/g, '')
-    .replace(/(\d)([a-z])/g, '$1 $2') // "16gb" -> "16 gb"
-    .replace(/[^a-z0-9]+/g, ' ')
-    .trim();
-}
 
 export function tokenize(text) {
   const n = normalize(text);
@@ -138,20 +131,6 @@ export function faqEngine(faqData, MiniSearch) {
   }
 
   return { ask, rank, gate, terms: queryTerms };
-}
-
-// The seam for the home page's demo (a later pull request). The demo answers
-// only the questions the app was actually asked, matched exactly after
-// normalising, and never searches: anything else is "unbanked".
-export function bankEngine(bank) {
-  const items = new Map();
-  for (const item of bank?.questions ?? []) items.set(normalize(item.q), item);
-  return {
-    ask(question) {
-      const item = items.get(normalize(question));
-      return item ? { kind: 'banked', item } : { kind: 'unbanked' };
-    },
-  };
 }
 
 // An answer is plain text in which a link is written [text](/path/). This

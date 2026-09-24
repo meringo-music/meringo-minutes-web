@@ -1,25 +1,22 @@
-// The FAQ assistant on /faq/. It answers from assets/data/faq.json, in the
-// browser, with ask-core.js; what you type is never stored or sent anywhere.
-// It is added by this script, so with JavaScript off it doesn't appear and the
-// static FAQ below it stands alone.
-
-import MiniSearch from '/assets/vendor/minisearch-7.1.2.js';
-import { answerParts, answerText, faqEngine } from './ask-core.js';
+// Ask in the app's layout: question, answer sentences with their citation
+// rows, footnote. Demo mode (askDemo, on /) answers only the 16 questions the
+// app was asked; FAQ mode (ask-faq.js, loaded only on /faq/) answers from the
+// FAQ. What you type is never stored or sent anywhere.
 
 const EMAIL = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/gi;
 
-function el(tag, attrs = {}, ...children) {
+export function el(tag, attrs = {}, ...children) {
   const node = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs)) {
     if (v === true) node.setAttribute(k, '');
     else if (v !== false && v != null) node.setAttribute(k, v);
   }
-  node.append(...children);
+  node.append(...children.filter((c) => c != null && c !== false));
   return node;
 }
 
 // Plain text with its email addresses as mailto links.
-function withEmail(text) {
+export function withEmail(text) {
   const out = [];
   let last = 0;
   for (const m of text.matchAll(EMAIL)) {
@@ -31,87 +28,67 @@ function withEmail(text) {
   return out;
 }
 
-// An answer as nodes: text, root-relative links and email links only.
-function answerNodes(answer) {
-  return answerParts(answer).flatMap((p) => (p.href ? [el('a', { href: p.href }, p.text)] : withEmail(p.text)));
+// Shows nodes in the result area and says them to a screen reader. The live
+// region is cleared first, so asking the same thing twice is announced twice.
+export function presenter(result, status) {
+  return (nodes, spoken) => {
+    result.replaceChildren(...nodes.filter(Boolean));
+    result.hidden = false;
+    status.textContent = '';
+    requestAnimationFrame(() => { status.textContent = typeof spoken === 'function' ? spoken() : spoken; });
+  };
 }
 
-function openEntry(id) {
-  const target = id && document.getElementById(id);
-  if (target instanceof HTMLDetailsElement) target.open = true;
-}
-
-function build(data, engine) {
+// ─── Demo mode ─────────────────────────────────────────────────────────────
+// engine: bankEngine over the 16 exchanges. chrome: the app's on-screen words.
+// typed: my message for any other question. stamp(t): a play button for a
+// citation. decorate(item): my audit note for an exchange, or null.
+export function askDemo({ engine, questions, chrome, typed, stamp, decorate }) {
   const input = el('input', {
-    id: 'ask-q', name: 'q', type: 'text', autocomplete: 'off', autocapitalize: 'sentences',
-    spellcheck: 'true', enterkeyhint: 'search', maxlength: '300', 'aria-describedby': 'ask-disclosure',
+    id: 'demo-q', type: 'text', autocomplete: 'off', maxlength: '300', placeholder: chrome.askPlaceholder,
   });
   const result = el('div', { class: 'ask-result', hidden: true });
   const status = el('p', { class: 'visually-hidden', role: 'status', 'aria-live': 'polite' });
-  const contact = data.contact || 'support@meringo.app';
+  const show = presenter(result, status);
 
-  const form = el('form', { class: 'ask-body', role: 'search', 'aria-label': 'Ask the FAQ' },
-    el('label', { for: 'ask-q', class: 'ask-label' }, 'Ask a question'),
-    el('p', { id: 'ask-disclosure', class: 'ask-disclosure' }, data.disclosure),
-    el('div', { class: 'ask-row' }, input, el('button', { type: 'submit', class: 'button button-quiet ask-submit' }, 'Ask')),
-    result,
-    status,
-  );
-
-  function show(nodes, spoken) {
-    result.replaceChildren(...nodes);
-    result.hidden = false;
-    // Clear first, so asking the same thing twice is announced twice.
-    status.textContent = '';
-    requestAnimationFrame(() => { status.textContent = spoken; });
+  function answer(question) {
+    const r = engine.ask(question);
+    if (r.kind !== 'banked') {
+      show([el('p', { class: 'site-note' }, ...withEmail(typed))], typed);
+      return;
+    }
+    const { item } = r;
+    const body = el('div', { class: 'ask-exchange', 'data-lint': 'app' });
+    for (const s of item.answer) {
+      body.append(el('p', { class: 'ask-sentence' }, s.text));
+      for (const c of s.cites) body.append(el('p', { class: 'ask-cite' }, stamp(c.t), ` ${c.speaker}: ${c.text}`));
+    }
+    if (item.footnote) body.append(el('p', { class: 'ask-foot' }, item.footnote));
+    const note = decorate(item);
+    // A note is read out only when it's on screen (flagged, or the audit is on).
+    const said = () => [...item.answer.map((s) => s.text), item.footnote, note?.offsetParent && note.textContent];
+    show([body, note], () => said().filter(Boolean).join(' '));
   }
 
+  const form = el('form', { class: 'app-ask', role: 'search', 'aria-label': 'Ask this meeting' },
+    el('label', { for: 'demo-q', class: 'visually-hidden' }, 'Question'),
+    input,
+    el('span', { class: 'app-scope' }, chrome.askScope),
+    el('button', { type: 'submit', class: 'app-button' }, chrome.askButton));
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-    const question = input.value.trim();
-    input.focus();
-    if (!question) return;
-    const r = engine.ask(question);
-    if (r.kind === 'answer') {
-      const { entry } = r;
-      const link = el('a', { href: `#${entry.id}` }, entry.q);
-      link.addEventListener('click', () => openEntry(entry.id));
-      show([
-        el('p', { class: 'ask-matched' }, 'Closest question I have: ', link),
-        el('p', { class: 'ask-answer' }, ...answerNodes(entry.answer)),
-      ], `Closest question I have: ${entry.q} ${answerText(entry.answer)}`);
-    } else {
-      const write = `Write to me at ${contact}.`;
-      show([
-        el('p', { class: 'ask-answer' }, data.refusal),
-        el('p', { class: 'ask-contact' }, ...withEmail(write)),
-      ], `${data.refusal} ${write}`);
-    }
+    const q = input.value.trim();
+    if (q) answer(q);
   });
 
-  return el('section', { class: 'ask', 'aria-label': 'FAQ assistant' },
-    el('div', { class: 'ask-bar', 'aria-hidden': 'true' },
-      el('span', { class: 'ask-lights' }, el('i'), el('i'), el('i')),
-      el('span', { class: 'ask-title' }, 'meringominutes.app')),
-    form,
-  );
+  const chips = el('ul', { class: 'chips' }, ...questions.map((q) => {
+    const b = el('button', { type: 'button', class: 'chip' }, q);
+    b.addEventListener('click', () => { input.value = q; answer(q); });
+    return el('li', {}, b);
+  }));
+
+  return { form, result, status, chips };
 }
 
-async function start(mount) {
-  let data;
-  try {
-    const res = await fetch('/assets/data/faq.json');
-    if (!res.ok) return;
-    data = await res.json();
-  } catch {
-    return; // no box; the static FAQ is still there
-  }
-  mount.replaceChildren(build(data, faqEngine(data, MiniSearch)));
-}
-
-// A link to /faq/#f12 opens that question, from this page or another.
-window.addEventListener('hashchange', () => openEntry(location.hash.slice(1)));
-openEntry(location.hash.slice(1));
-
-const mount = document.querySelector('[data-ask-faq]');
-if (mount) start(mount);
+// FAQ mode, only on the page that has its box.
+if (document.querySelector('[data-ask-faq]')) import('./ask-faq.js');
