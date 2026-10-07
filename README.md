@@ -9,6 +9,7 @@ It's a static site with no build step, deployed by GitHub Pages from `main`.
 ```
 index.html · 404.html      pages (each page is a folder with its own index.html)
 how-it-works/ privacy/ download/   content pages, <main class="page">; privacy/ is also the desk's page template
+terms/ refunds/            the terms of sale and licence, and the refund policy Paddle's domain review asks for
 faq/                       the FAQ: its questions and FAQPage JSON-LD are generated from assets/data/faq.json
 data/facts.json            every number in page copy, with its source, method and date
 partials/                  header and footer, written into every page by tools/sync.py
