@@ -385,6 +385,13 @@
       "source": "Meringo Minutes app repo, docs/DECISIONS.md@324d79a (2026-09-19 and 09-20 entries) and Bench/ask/questions.jsonl@2912f34",
       "method": "The wrong-meeting falsifier puts each question to the next meeting in the set: \"14 of 14 not-said refused\", 0 right lines cited (09-20, shipped window).",
       "asOf": "2026-09-20"
+    },
+    {
+      "id": "licence-series",
+      "value": "1.x",
+      "source": "Meringo Minutes app repo, docs/DECISIONS.md (2026-09-30, one-time licence per major version), Services/Licence.swift and Help.html",
+      "method": "Owner's decision: a licence covers every release with the same first version number; the app checks the licence's major version against its own.",
+      "asOf": "2026-10-07"
     }
   ]
 }
