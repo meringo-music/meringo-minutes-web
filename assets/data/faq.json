@@ -1005,16 +1005,15 @@
         "try before buying",
         "test"
       ],
-      "answer": "Not yet. A free version is planned, and it isn't built. It will process the first 30 minutes of each meeting, and buying processes the rest from the audio it already kept. There's no clock on it.",
-      "facts": [
-        "trial-minutes"
-      ],
+      "answer": "Yes, from launch, and it has no clock. Recording, transcribing, playback and your library are free. The notes (the summary, mindmap and commitments) are written for your first three meetings, and a recording under ten minutes doesn't count towards them. After that, each meeting keeps its recording and transcript, and buying writes the notes from them.",
+      "facts": [],
       "app": [],
       "group": "price",
       "sources": [
-        "DECISIONS 2026-09-23: trial"
+        "HQ ruling 2026-10-04: the Minutes trial is three meetings, and a recording under ten minutes doesn't count",
+        "Meringo Minutes app repo, Models/Entitlement.swift (freeMeetings, shortestCounted)"
       ],
-      "asOf": "2026-09-23"
+      "asOf": "2026-10-07"
     },
     {
       "id": "f43",

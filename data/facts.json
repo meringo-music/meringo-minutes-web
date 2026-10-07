@@ -51,13 +51,6 @@
       "asOf": "2026-09-23"
     },
     {
-      "id": "trial-minutes",
-      "value": "30",
-      "source": "Adam's decision, desk DECISIONS 2026-09-23 (trial)",
-      "method": "Owner's decision: the planned free version processes the first 30 minutes of each meeting. Not built.",
-      "asOf": "2026-09-23"
-    },
-    {
       "id": "demo-locum-total",
       "value": "22,000",
       "source": "Minutes capture 2026-09-23, ASK-BANK.md Q9, and Transcript.txt",
