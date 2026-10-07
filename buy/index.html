@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.paddle.com; frame-src https://buy.paddle.com https://sandbox-buy.paddle.com; style-src 'self' https://cdn.paddle.com https://sandbox-cdn.paddle.com 'unsafe-inline'; img-src 'self' data:; media-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Buy — Meringo Minutes</title>
+  <meta name="description" content="Buy Meringo Minutes: one licence for one Mac, paid once, with 30 days to a refund and no questions. Paddle runs the checkout.">
+  <link rel="canonical" href="https://meringominutes.app/buy/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Meringo Minutes">
+  <meta property="og:title" content="Buy — Meringo Minutes">
+  <meta property="og:description" content="Buy Meringo Minutes: one licence for one Mac, paid once, with 30 days to a refund and no questions. Paddle runs the checkout.">
+  <meta property="og:url" content="https://meringominutes.app/buy/">
+  <meta property="og:image" content="https://meringominutes.app/assets/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Meringo Minutes: meeting notes you can check against the recording. Beside the headline, the app answers a question about a day rate with: I found nothing in this meeting that says that.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#07040E" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#FAF6EE" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="icon" type="image/png" href="/assets/img/app-icon-64.png" sizes="64x64">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preload" href="/assets/fonts/cormorant-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <script src="/assets/js/theme-init.js"></script>
+  <script type="module" src="/assets/js/site.js"></script>
+  <script type="module" src="/assets/js/buy.js"></script>
+</head>
+<body data-cta-state="prelaunch">
+  <!-- sync:header -->
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/" aria-label="Meringo Minutes, home">
+        <img src="/assets/img/app-icon-64.png" width="30" height="30" alt="">
+        <span>Meringo Minutes</span>
+      </a>
+      <nav class="site-nav" aria-label="Site">
+        <ul>
+          <li><a href="/how-it-works/">How it works</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+          <li><a href="/download/">Download</a></li>
+        </ul>
+      </nav>
+      <div class="header-end">
+        <p class="header-note"><span class="hide-narrow">Not for sale yet · </span><a href="/#price">Tell me when</a></p>
+        <button class="theme-toggle" type="button" data-theme-toggle data-choice="system" aria-label="Theme: match system" title="Theme: match system" hidden>
+          <svg class="icon-system" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg>
+          <svg class="icon-light" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg class="icon-dark" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M19.5 14.6A8 8 0 0 1 9.4 4.5a8 8 0 1 0 10.1 10.1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <!-- /sync:header -->
+
+  <div id="content" tabindex="-1"></div>
+  <main class="page">
+    <h1>Buy Meringo Minutes</h1>
+    <p class="page-lede">One licence for one Mac, paid once: <span data-fact="price-launch">$79</span> in the first month after launch, then <span data-fact="price">$99</span>. <span data-fact="refund-days">30</span> days to a refund, no questions.</p>
+
+    <!-- buy.js shows the box and the button only where something is for sale
+         (buy-core.js, offer). data-terms-version is the "Last updated" date
+         of /terms/, and it goes with each checkout as the terms accepted;
+         tools/check.py holds the two dates equal. -->
+    <div class="card buy" data-buy data-terms-version="2026-10-07">
+      <p data-buy-closed>Not for sale yet. <a href="/#price">Tell me when</a></p>
+      <div data-buy-open hidden>
+        <label class="buy-terms"><input type="checkbox" data-buy-terms> <span>I accept the <a href="/terms/">terms of sale and licence</a> and the <a href="/refunds/">refund policy</a>.</span></label>
+        <div class="actions">
+          <button class="button button-primary" type="button" data-buy-button disabled>Buy</button>
+        </div>
+        <p class="fine">Buy opens Paddle’s checkout, which shows the price with any sales tax or VAT before you pay.</p>
+        <p class="fine" data-buy-error hidden>The checkout didn’t load. If a content blocker is on, allow cdn.paddle.com on this page, or write to <a href="mailto:support@meringo.app">support@meringo.app</a>.</p>
+      </div>
+      <div data-buy-done hidden>
+        <h2>Thank you</h2>
+        <p>Your licence is on its way from licence@meringo.app to the address you gave at checkout. Open that email on the Mac with Meringo Minutes and click the link in it. If it hasn’t come, look in spam, then write to <a href="mailto:support@meringo.app">support@meringo.app</a>.</p>
+      </div>
+    </div>
+
+    <h2 id="what">What you get</h2>
+    <ul>
+      <li>A licence that writes the notes for every meeting, on one Mac. To move it to another Mac, choose <span data-lint="app">Remove Licence from This Mac</span> in <span data-lint="app">Settings ▸ Licence</span>, then enter it on the other one.</li>
+      <li>Every <span data-fact="licence-series">1.x</span> update.</li>
+      <li>The free version already records and transcribes every meeting, and writes the notes for your first three. <a href="/download/">Try it first</a>.</li>
+    </ul>
+
+    <h2 id="paying">Paying</h2>
+    <ul>
+      <li>Paddle sells Meringo Minutes for Meringo Labs, as the Merchant of Record, so the charge, the receipt and any refund come from Paddle. Its <a href="https://www.paddle.com/legal/buyer-terms" rel="noopener">buyer terms</a> apply too.</li>
+      <li>Pressing Buy is the one time this site loads anything from another origin: Paddle’s checkout, from Paddle. <a href="/privacy/#this-site">Privacy</a> says the same.</li>
+    </ul>
+  </main>
+
+  <!-- sync:footer -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div>
+        <div class="footer-mark">
+          <button class="hat" type="button" aria-label="Meringo Labs"><img src="/assets/img/meringo-mark.svg" width="44" height="44" alt=""></button>
+          <p><strong>Meringo Minutes™</strong> is made by Adam Siemaszko at Meringo Labs.<br>This site sets no cookies and runs no analytics.</p>
+        </div>
+        <p class="footer-tagline">Respecting the room. <em>Showing the work.</em></p>
+        <p class="footer-legal">© 2026 Meringo Labs LLC · Erie County, NY</p>
+      </div>
+      <div class="footer-nav">
+        <ul class="footer-links">
+          <li><a href="/how-it-works/">How it works</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+          <li><a href="/terms/">Terms</a></li>
+          <li><a href="/refunds/">Refunds</a></li>
+        </ul>
+        <ul class="footer-links">
+          <li><a href="https://meringo.app" rel="noopener">Meringo Music ↗</a></li>
+          <li><a href="https://meringolisten.app" rel="noopener">Meringo Listen ↗</a></li>
+          <li><a href="https://adamsiemaszko.com/" rel="noopener">Made by Adam Siemaszko ↗</a></li>
+          <li><a href="mailto:support@meringo.app">support@meringo.app</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+  <!-- /sync:footer -->
+</body>
+</html>

@@ -8,6 +8,9 @@ Exits 0 when clean, 1 on any error. Standard library only.
 What it checks, and why:
   - every page carries the same Content-Security-Policy, so the privacy claim
     ("no third-party requests") is enforced by the browser, not just promised;
+    the one exception, /buy/, carries the wider policy lint_rules.json gives it
+    (csp_pages), and only that page loads buy.js, which loads Paddle's checkout;
+  - /buy/ sends with each checkout the terms date /terms/ shows as last updated;
   - nothing is loaded from another origin, and no inline script or style
     exists (the CSP would block it silently);
   - every internal link and fragment resolves;
@@ -51,6 +54,8 @@ RULES = json.loads((ROOT / "tools" / "lint_rules.json").read_text(encoding="utf-
 FACTS = ROOT / "data" / "facts.json"
 FACT_FIELDS = ("id", "value", "source", "method", "asOf")
 TEMPLATE = "privacy/index.html"  # the page the desk's renderer borrows its shell from
+BUY_PAGE = "buy/index.html"  # the one page that may load Paddle's checkout (lint_rules.json, csp_pages)
+TERMS_PAGE = "terms/index.html"
 FAQ_PAGE = "faq/index.html"  # generated from assets/data/faq.json by tools/sync.py
 DIGIT_EXEMPT_TAGS = {"time", "footer"}
 # Words someone else wrote, quoted: the app's own (data-lint="app") and the demo
@@ -288,6 +293,18 @@ class FaqItems(HTMLParser):
     def handle_data(self, data):
         if self._item is not None:
             self._item["q" if self._in_summary else "a"].append(data)
+
+
+def terms_version_errors() -> list[str]:
+    """The terms a buyer accepts on /buy/ are the terms /terms/ shows."""
+    buy, terms = ROOT / BUY_PAGE, ROOT / TERMS_PAGE
+    if not buy.exists():
+        return []
+    sent = re.findall(r'data-terms-version="([^"]*)"', buy.read_text(encoding="utf-8"))
+    shown = re.findall(r'Last updated <time datetime="([^"]*)"', terms.read_text(encoding="utf-8"))
+    if len(sent) != 1 or len(shown) != 1 or sent != shown:
+        return [f"{BUY_PAGE}: data-terms-version {sent} should be the date {TERMS_PAGE} was last updated {shown}"]
+    return []
 
 
 def faq_parity(text: str) -> tuple[list[str], list[str]]:
@@ -590,8 +607,11 @@ def main() -> int:
         rel = path.relative_to(ROOT).as_posix()
 
         # CSP, inline code
-        if page.csp != [RULES["csp"]]:
+        csp = RULES.get("csp_pages", {}).get(rel, {}).get("csp", RULES["csp"])
+        if page.csp != [csp]:
             errors.append(f"{rel}: CSP meta missing or different from lint_rules.json")
+        if rel != BUY_PAGE and any(attr == "src" and value.endswith("/buy.js") for _, attr, value in page.links):
+            errors.append(f"{rel}: loads buy.js, which loads Paddle's checkout; only {BUY_PAGE} may")
         if page.inline_scripts:
             errors.append(f"{rel}: {page.inline_scripts} inline <script>/<style> block(s); the CSP blocks them")
         if page.style_attrs:
@@ -688,6 +708,7 @@ def main() -> int:
 
     if FAQ_PAGE not in {p.relative_to(ROOT).as_posix() for p in pages}:
         errors.append(f"{FAQ_PAGE} is missing")
+    errors += terms_version_errors()
 
     if len(set(states.values())) > 1:
         errors.append(f"pages disagree on data-cta-state: {states}")

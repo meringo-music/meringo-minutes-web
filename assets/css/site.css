@@ -292,6 +292,8 @@ h2 em { font-style: italic; color: var(--accent-ink); font-weight: 500; }
 .button-primary:hover { background: #F4C071; }
 .button-quiet { color: var(--text); border-color: var(--border); background: transparent; }
 .button-quiet:hover { border-color: var(--text-3); }
+.button:disabled { opacity: 0.45; cursor: not-allowed; }
+.button-primary:disabled:hover { background: var(--accent); }
 
 /* Hero */
 .hero { padding: var(--space-24) 0 var(--space-16); overflow: hidden; }
@@ -641,6 +643,13 @@ main.page .faq-item > p { margin: 0 0 var(--space-4); }
 .teaser li:last-child { border-bottom: 1px solid var(--border); }
 .teaser a { font-weight: 600; }
 .needs { margin-top: var(--space-6); }
+
+/* /buy/: the terms box that unlocks Buy (buy.js) */
+.buy-terms { display: flex; align-items: flex-start; gap: 12px; min-height: 44px; cursor: pointer; }
+.buy-terms input { flex: none; width: 24px; height: 24px; margin: 0; accent-color: var(--accent); }
+main.page .buy h2 { margin-top: 0; }
+main.page .buy .actions { margin-top: var(--space-4); }
+main.page .buy .actions + .fine { margin-bottom: 0; }
 .price { margin: 0; }
 .price-big { font-family: var(--font-display); font-size: clamp(48px, 6vw, 64px); line-height: 1; color: var(--heading); margin-bottom: var(--space-3); font-variant-numeric: lining-nums; }
 .price-big [data-fact] { font-weight: 600; }

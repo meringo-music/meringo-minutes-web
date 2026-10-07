@@ -108,12 +108,34 @@ pages disagree.
 | State       | What visitors see |
 |-------------|-------------------|
 | `prelaunch` | Now. Not for sale; one mailto asks to be told at launch. There is no Buy, no Download, and no price markup beyond the stated plan. |
-| `launch`    | Buy, through Paddle's hosted checkout, linked out. Download: the notarized DMG on Cloudflare R2, where the app's update feed also lives, with its SHA-256. Not GitHub Releases: the app's repository is private, so its releases cannot be downloaded. $79 with its published end date, and $99 struck through. |
+| `launch`    | Buy, on `/buy/`: a terms box, then Paddle's overlay checkout (Paddle.js, loaded only on that page and only on the press). Download: the notarized DMG on Cloudflare R2, where the app's update feed also lives, with its SHA-256. Not GitHub Releases: the app's repository is private, so its releases cannot be downloaded. $79 with its published end date, and $99 struck through. |
 | `live`      | $99. |
 
 The `launch` markup arrives in its own pull request. Two things block it, and
 neither is on the site side: the checking model's licence, and the trial and
 licence code in the app.
+
+## The checkout
+
+`/buy/` sells through Paddle Billing. Live hosted checkout needs Paddle's
+separate approval and is meant for iOS apps, so the page uses Paddle.js
+instead, loaded only after the terms box is ticked and Buy is pressed.
+
+- **Which account.** `assets/js/buy-core.js` holds both accounts' client-side
+  tokens and price ids. Tokens are public by design. On `127.0.0.1` the page
+  uses the sandbox in any launch state. On `meringominutes.app` it uses live,
+  and only in `launch` (the $79 price) and `live` (the $99 price).
+- **Try it.** Serve the repo (above), open `http://127.0.0.1:8099/buy/`, tick the
+  box and buy with Paddle's test card (`4242 4242 4242 4242`, any future
+  expiry, CVC `100`). The sandbox Worker emails the licence. The transaction's
+  custom data shows `terms_accepted`, the date `/terms/` was last updated.
+- **For `launch`:** a live client-side token in `buy-core.js` (Paddle ▸
+  Developer tools ▸ Authentication ▸ Client-side tokens; it starts `live_`);
+  `https://meringominutes.app/buy/` as the live default payment link (Paddle
+  refuses it until the domain review passes); and the line on `/buy/` that
+  says it isn't for sale yet replaced.
+- **When `/terms/` changes,** change `data-terms-version` on `/buy/` to its new
+  "Last updated" date. `tools/check.py` fails until the two agree.
 
 When the update feed (Sparkle) ships in the app, `/privacy/` must describe it
 in the same change.
