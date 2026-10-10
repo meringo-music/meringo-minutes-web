@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self' https://licence.meringo.app">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Meringo Minutes — a meeting recorder for the Mac</title>
   <meta name="description" content="Meringo Minutes records and summarises meetings on your Mac by default, with timestamps for checking the summary against the recording. Not for sale yet.">
@@ -91,7 +91,7 @@
           <h1 id="hero-title">Meeting notes you can check against the recording.</h1>
           <p class="lead">Meringo Minutes records the meeting and writes the notes on your own Mac, by default. Each point in the summary carries the moment it was said, so you can click it and hear it.</p>
           <div class="actions">
-            <a class="button button-primary" href="mailto:support@meringo.app?subject=Tell%20me%20when%20Meringo%20Minutes%20is%20ready&amp;body=One%20email%20when%20it%27s%20ready%2C%20please.">Tell me when it's ready</a>
+            <a class="button button-primary" href="#price">Tell me when it's ready</a>
             <a class="button button-quiet" href="#demo">See one meeting</a>
           </div>
           <p class="hero-price"><span data-fact="price-launch">$79</span> in the first month after launch, then <span data-fact="price">$99</span>. Paid once, no subscription. Not for sale yet.</p>
@@ -383,10 +383,13 @@
             <p class="price-big"><span data-fact="price">$99</span> <span class="price-once">paid once</span></p>
             <p><span data-fact="price-launch">$79</span> during the first month after launch, and the date that ends will be printed here from launch day. No subscription. Once it's on sale, <span data-fact="refund-days">30</span> days to a refund, no questions.</p>
             <p>The free version records and transcribes every meeting, and writes the notes for your first three. A recording under ten minutes doesn't count towards them.</p>
-            <div class="actions">
-              <a class="button button-primary" href="mailto:support@meringo.app?subject=Tell%20me%20when%20Meringo%20Minutes%20is%20ready&amp;body=One%20email%20when%20it%27s%20ready%2C%20please.">Email me when it's ready</a>
-            </div>
-            <p class="fine">One email when it's ready, and nothing else.</p>
+            <form class="actions waitlist" method="post" action="https://licence.meringo.app/waitlist">
+              <label class="visually-hidden" for="waitlist-email">Your email address</label>
+              <input id="waitlist-email" type="email" name="email" required autocomplete="email" placeholder="you@example.com">
+              <div class="trap" aria-hidden="true"><label for="waitlist-website">Leave this empty</label> <input id="waitlist-website" type="text" name="website" tabindex="-1" autocomplete="off"></div>
+              <button class="button button-primary" type="submit">Email me when it’s on sale</button>
+            </form>
+            <p class="fine">One email when it’s on sale, then I delete your address. <a href="/privacy/#this-site">Privacy</a></p>
           </div>
           <ul class="needs">
             <li>An Apple Silicon Mac on <span data-fact="requires-macos">macOS 27</span> or later.</li>

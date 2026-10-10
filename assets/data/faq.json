@@ -981,14 +981,15 @@
         "on sale",
         "for sale"
       ],
-      "answer": "Not yet, and I don't have a date to give you. Email support@meringo.app and I'll send one note when it's ready.",
+      "answer": "Not yet, and I don't have a date to give you. Leave your address [on the price card](/#price) and I'll send one email when it's on sale, then delete your address.",
       "facts": [],
       "app": [],
       "group": "price",
       "sources": [
-        "DECISIONS 2026-09-23"
+        "DECISIONS 2026-09-23",
+        "Adam, 2026-10-09: the waitlist keeps an address until the launch email, then deletes it"
       ],
-      "asOf": "2026-09-23"
+      "asOf": "2026-10-09"
     },
     {
       "id": "f41",

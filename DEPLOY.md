@@ -107,7 +107,7 @@ pages disagree.
 
 | State       | What visitors see |
 |-------------|-------------------|
-| `prelaunch` | Now. Not for sale; one mailto asks to be told at launch. There is no Buy, no Download, and no price markup beyond the stated plan. |
+| `prelaunch` | Now. Not for sale; the waitlist form (price card, `/download/`) posts an email address to the licence Worker, which keeps it until the launch email and answers with a redirect to `/waitlist/`. There is no Buy, no Download, and no price markup beyond the stated plan. |
 | `launch`    | Buy, on `/buy/`: a terms box, then Paddle's overlay checkout (Paddle.js, loaded only on that page and only on the press). Download: the notarized DMG on Cloudflare R2, where the app's update feed also lives, with its SHA-256. Not GitHub Releases: the app's repository is private, so its releases cannot be downloaded. $79 with its published end date, and $99 struck through. |
 | `live`      | $99. |
 
