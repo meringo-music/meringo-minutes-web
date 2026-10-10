@@ -88,7 +88,7 @@
     </ul>
 
     <h2 id="network">The network, and the test that watches it</h2>
-    <p>By default, the only places the app itself connects to are model downloads, the first time each model is needed, and the Ollama server on your own Mac. Ollama fetches its own models from its own registry. The current build never contacts an update server.</p>
+    <p>By default, the only places the app itself connects to are model downloads, the first time each model is needed, the Ollama server on your own Mac, and its update feed, once a day. Ollama fetches its own models from its own registry. <a href="/privacy/#updates">The update check</a> sends nothing about your meetings, and you can turn it off.</p>
     <p>The app isn't sandboxed. Its own code keeps it local, and one test watches that code at work.</p>
     <p>That test runs a real meeting through the real pipeline, watches the Mac's network sockets while it does, and fails on any connection that isn't local. Its allow-list is one line: <code><span data-fact="egress-allowlist">localhost:11434</span></code>. It looks every <span data-fact="egress-sample-ms">100</span> ms, so a connection that opens and closes between two looks would get past it. It runs on my Mac, not on a build server, and if something it needs is missing it reports SKIPPED rather than a pass. A separate script checks that the test still fails when something does connect out.</p>
 
