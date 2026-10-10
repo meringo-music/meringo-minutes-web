@@ -139,15 +139,16 @@
         "crash logs",
         "data"
       ],
-      "answer": "By default, no. The only traffic is models coming in the first time they're needed, and there's no analytics, telemetry or crash-reporting code in the app. If you point the summariser at Ollama on another machine, each transcript goes there, and the privacy panel turns orange and names it.",
+      "answer": "By default, no. The app's own traffic is models coming in the first time they're needed, and a once-a-day check for a new version, which carries nothing about your meetings. There's no analytics, telemetry or crash-reporting code in the app. If you point the summariser at Ollama on another machine, each transcript goes there, and the privacy panel turns orange and names it.",
       "facts": [],
       "app": [],
       "group": "privacy",
       "sources": [
-        "claims.csv: The only non-localhost endpoints the app itself contacts are model downloads; No analytics, telemetry or crash-reporting SDK is present; COPY-BLOCKS: privacy panel green",
+        "claims.csv: No analytics, telemetry or crash-reporting SDK is present; COPY-BLOCKS: privacy panel green",
+        "Meringo Minutes app repo, Support/Info.plist: SUEnableAutomaticChecks true, SUScheduledCheckInterval 86400, SUFeedURL https://updates.meringominutes.app/appcast.xml, no SUEnableSystemProfiling; docs/SPARKLE.md; Settings ▸ Storage & Privacy",
         "claims.csv: The app warns, in orange and by name; COPY-BLOCKS: privacy panel orange"
       ],
-      "asOf": "2026-09-23"
+      "asOf": "2026-10-09"
     },
     {
       "id": "f06",
@@ -165,15 +166,16 @@
         "online",
         "check for updates"
       ],
-      "answer": "Not in the current build, which never contacts an update server. When I add an update check, the privacy page will say what it sends, in the same release.",
+      "answer": "Yes, once a day, unless you turn it off. The app fetches its list of releases from updates.meringominutes.app, and the request carries your IP address and the app's version, never anything about your meetings. The switch is in Settings ▸ Storage & Privacy: “Check for a new version once a day”. [The privacy page](/privacy/#updates) says exactly what it sends.",
       "facts": [],
-      "app": [],
+      "app": [
+        "Check for a new version once a day"
+      ],
       "group": "privacy",
       "sources": [
-        "claims.csv: The shipped build never contacts an update server",
-        "S4 §4.4; plan: /privacy/"
+        "Meringo Minutes app repo, Support/Info.plist: SUEnableAutomaticChecks true, SUScheduledCheckInterval 86400, SUFeedURL https://updates.meringominutes.app/appcast.xml, no SUEnableSystemProfiling; docs/SPARKLE.md; Settings ▸ Storage & Privacy"
       ],
-      "asOf": "2026-09-23"
+      "asOf": "2026-10-09"
     },
     {
       "id": "f07",

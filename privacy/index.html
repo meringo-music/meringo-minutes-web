@@ -65,6 +65,7 @@
     <h2 id="this-site">This site</h2>
     <ul>
       <li>It's static pages hosted on GitHub Pages. GitHub logs each visitor's IP address for security, and says so in <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages" rel="noopener">its own documentation</a>.</li>
+      <li>The app's download and its update feed come from <code>updates.meringominutes.app</code>, on Cloudflare R2. Cloudflare sees each request's IP address.</li>
       <li>It sets no cookies and runs no analytics.</li>
       <li>Everything it loads comes from this site: no outside fonts, scripts or trackers. The one exception is the checkout. On <a href="/buy/">the buy page</a>, pressing Buy loads Paddle’s checkout from Paddle, which takes your payment details under <a href="https://www.paddle.com/legal/privacy" rel="noopener">its own privacy policy</a>.</li>
       <li>It stores one thing in your browser: your theme choice, in <code>localStorage</code>.</li>
@@ -77,10 +78,22 @@
     <h2 id="the-app">The app</h2>
 
     <h3 id="connects">What it connects to</h3>
-    <p>In the current build, by default, the app itself connects to model downloads, the first time each model is needed, and to the Ollama server on your own Mac. Ollama fetches its own models from its own registry.</p>
-    <p>There's no account or sync, no analytics, telemetry or crash reporting, and no licence check, remote config or update check.</p>
+    <p>In the current build, by default, the app itself connects to model downloads, the first time each model is needed, to the Ollama server on your own Mac, and once a day to its update feed. Ollama fetches its own models from its own registry.</p>
+    <p>There's no account or sync, no analytics, telemetry or crash reporting, and no remote config.</p>
     <p>If you point the summariser at Ollama on another machine, each meeting's transcript is sent there, and the privacy panel turns orange and names it.</p>
-    <p>When the app gets an update check, this page changes in the same release and says what that check sends and where. The licence you get when you buy is planned to be verified by the app itself, with no call to a server.</p>
+
+    <h3 id="updates">The update check</h3>
+    <p>Once a day the app fetches its list of releases, <code>appcast.xml</code>, from <code>updates.meringominutes.app</code> on Cloudflare R2. The request carries your IP address, and the version numbers of the app and of its updater in the user agent. It sends no profile of your Mac and nothing about your meetings.</p>
+    <p>The check is on unless you turn it off. The switch is in Settings ▸ Storage &amp; Privacy: <q data-lint="app">Check for a new version once a day</q>.</p>
+    <p>The app checks your licence itself, with no call to a server.</p>
+
+    <h3 id="buying">When you buy</h3>
+    <ul>
+      <li>Paddle sells Meringo Minutes for Meringo Labs, as the Merchant of Record. At checkout it takes your name, email address, payment details and country, under <a href="https://www.paddle.com/legal/privacy" rel="noopener">its own privacy policy</a>.</li>
+      <li>Paddle then passes your name and email address to my licence service, which runs on Cloudflare. The service makes your licence and emails it to you from <code>licence@meringo.app</code>, through Cloudflare's email sending.</li>
+      <li>The service keeps one record of each order, on Cloudflare: the order ID, your email address and name, the date the licence was issued, the major version it covers, how many licences you bought, and the licence itself.</li>
+      <li>I keep these records indefinitely. They let me send a lost licence again, and they're my record of every sale.</li>
+    </ul>
 
     <h3 id="diagnostics">If you send a diagnostics file</h3>
     <p>Help ▸ Save Diagnostics… writes one plain-text file, and nothing sends it: you read it, then attach it to an email yourself.</p>

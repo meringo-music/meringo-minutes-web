@@ -55,7 +55,7 @@
         "name": "Does anything about my meetings get sent anywhere?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "By default, no. The only traffic is models coming in the first time they're needed, and there's no analytics, telemetry or crash-reporting code in the app. If you point the summariser at Ollama on another machine, each transcript goes there, and the privacy panel turns orange and names it."
+          "text": "By default, no. The app's own traffic is models coming in the first time they're needed, and a once-a-day check for a new version, which carries nothing about your meetings. There's no analytics, telemetry or crash-reporting code in the app. If you point the summariser at Ollama on another machine, each transcript goes there, and the privacy panel turns orange and names it."
         }
       },
       {
@@ -63,7 +63,7 @@
         "name": "Does it check for updates?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Not in the current build, which never contacts an update server. When I add an update check, the privacy page will say what it sends, in the same release."
+          "text": "Yes, once a day, unless you turn it off. The app fetches its list of releases from updates.meringominutes.app, and the request carries your IP address and the app's version, never anything about your meetings. The switch is in Settings ▸ Storage & Privacy: “Check for a new version once a day”. The privacy page says exactly what it sends."
         }
       },
       {
@@ -479,11 +479,11 @@
       </details>
       <details class="faq-item" id="f03">
         <summary>Does anything about my meetings get sent anywhere?</summary>
-        <p>By default, no. The only traffic is models coming in the first time they're needed, and there's no analytics, telemetry or crash-reporting code in the app. If you point the summariser at Ollama on another machine, each transcript goes there, and the privacy panel turns orange and names it.</p>
+        <p>By default, no. The app's own traffic is models coming in the first time they're needed, and a once-a-day check for a new version, which carries nothing about your meetings. There's no analytics, telemetry or crash-reporting code in the app. If you point the summariser at Ollama on another machine, each transcript goes there, and the privacy panel turns orange and names it.</p>
       </details>
       <details class="faq-item" id="f06">
         <summary>Does it check for updates?</summary>
-        <p>Not in the current build, which never contacts an update server. When I add an update check, the privacy page will say what it sends, in the same release.</p>
+        <p>Yes, once a day, unless you turn it off. The app fetches its list of releases from updates.meringominutes.app, and the request carries your IP address and the app's version, never anything about your meetings. The switch is in Settings ▸ Storage &amp; Privacy: “<span data-lint="app">Check for a new version once a day</span>”. <a href="/privacy/#updates">The privacy page</a> says exactly what it sends.</p>
       </details>
       <details class="faq-item" id="f07">
         <summary>Where are my recordings kept?</summary>

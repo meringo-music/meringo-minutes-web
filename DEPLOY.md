@@ -137,5 +137,9 @@ instead, loaded only after the terms box is ticked and Buy is pressed.
 - **When `/terms/` changes,** change `data-terms-version` on `/buy/` to its new
   "Last updated" date. `tools/check.py` fails until the two agree.
 
-When the update feed (Sparkle) ships in the app, `/privacy/` must describe it
-in the same change.
+`/privacy/#updates` describes the app's update check (Sparkle): what it
+fetches, how often, what the request carries, and the switch that stops it.
+FAQ f03 and f06 and `/how-it-works/#network` say the same in brief. If the
+check changes (its host, its interval, a system profile), all four change in
+the same release. `/privacy/#buying` describes what Paddle and the licence
+service keep; it changes with the fulfilment Worker.
