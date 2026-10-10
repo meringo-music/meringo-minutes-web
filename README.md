@@ -11,6 +11,7 @@ index.html · 404.html      pages (each page is a folder with its own index.html
 how-it-works/ privacy/ download/   content pages, <main class="page">; privacy/ is also the desk's page template
 terms/ refunds/            the terms of sale and licence, and the refund policy Paddle's domain review asks for
 buy/                       the terms box and Buy (assets/js/buy.js); the one page that loads anything from another origin
+waitlist/                  where the waitlist form's Worker sends you back (noindex, not in the sitemap)
 faq/                       the FAQ: its questions and FAQPage JSON-LD are generated from assets/data/faq.json
 data/facts.json            every number in page copy, with its source, method and date
 partials/                  header and footer, written into every page by tools/sync.py
@@ -55,6 +56,8 @@ The site loads nothing from any other origin. Every page carries a
 Content-Security-Policy that says so, and `tools/check.py` fails any page that
 doesn't. The one exception is `/buy/`: pressing Buy there loads Paddle's
 checkout from Paddle. Its wider policy is in `tools/lint_rules.json`
-(`csp_pages`), with the reason, and `/privacy/` says so.
+(`csp_pages`), with the reason, and `/privacy/` says so. The home and download
+pages load nothing from elsewhere either, but their waitlist form posts to the
+licence Worker, so their `form-action` names it; that is in `csp_pages` too.
 
 © 2026 Meringo Labs LLC

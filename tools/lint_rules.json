@@ -6,6 +6,14 @@
   "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'",
 
   "csp_pages": {
+    "index.html": {
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self' https://licence.meringo.app",
+      "why": "The waitlist form posts its one email address to the licence service (a Cloudflare Worker), which answers with a redirect to /waitlist/; 'self' is there because browsers check form-action against that redirect too. form-action names the Worker on the two pages that carry the form, and nowhere else; nothing is loaded from it. /privacy/ says what it keeps."
+    },
+    "download/index.html": {
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self' https://licence.meringo.app",
+      "why": "The waitlist form posts its one email address to the licence service (a Cloudflare Worker), which answers with a redirect to /waitlist/; 'self' is there because browsers check form-action against that redirect too. form-action names the Worker on the two pages that carry the form, and nowhere else; nothing is loaded from it. /privacy/ says what it keeps."
+    },
     "buy/index.html": {
       "csp": "default-src 'self'; script-src 'self' https://cdn.paddle.com; frame-src https://buy.paddle.com https://sandbox-buy.paddle.com; style-src 'self' https://cdn.paddle.com https://sandbox-cdn.paddle.com 'unsafe-inline'; img-src 'self' data:; media-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'",
       "why": "Paddle's checkout runs from Paddle: its script from cdn.paddle.com, its stylesheet from cdn.paddle.com, the payment form in a frame from buy.paddle.com (sandbox-cdn and sandbox-buy when trying it on this machine), and inline styles that place the overlay (seen refused under style-src 'self', 2026-10-07). buy.js loads it only after a buyer accepts the terms and presses Buy, and /privacy/ names this one exception."
