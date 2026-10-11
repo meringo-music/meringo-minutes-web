@@ -132,8 +132,10 @@ instead, loaded only after the terms box is ticked and Buy is pressed.
 - **For `launch`:** a live client-side token in `buy-core.js` (Paddle ▸
   Developer tools ▸ Authentication ▸ Client-side tokens; it starts `live_`);
   `https://meringominutes.app/buy/` as the live default payment link (Paddle
-  refuses it until the domain review passes); and the line on `/buy/` that
-  says it isn't for sale yet replaced.
+  refuses it until the domain review passes); the line on `/buy/` that says
+  it isn't for sale yet replaced; `/buy/`'s noindex removed, and its title,
+  description and h1 saying Buy again; and the "isn't for sale yet" lines on
+  `/terms/` and `/refunds/`, and the header's, removed.
 - **When `/terms/` changes,** change `data-terms-version` on `/buy/` to its new
   "Last updated" date. `tools/check.py` fails until the two agree.
 

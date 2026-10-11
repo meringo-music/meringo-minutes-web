@@ -45,9 +45,10 @@ tools/shoot.mjs            screenshots at real device widths, in light and dark
 tools/og/                  og.html renders assets/img/og.png in headless Edge; README.md there has the command
 tests/                     node --test; faq-eval.json is the assistant's evaluation set (no wrong answers, in any bucket)
 .github/workflows/         check.yml: the checks, on every pull request and push to main;
-                           indexnow.yml: after a push to main, tells the IndexNow engines (Bing and
-                           the others; not Google) the sitemap's URLs changed. The 32-hex .txt at the
-                           root is that protocol's key file and proves the ping is this site's.
+                           indexnow.yml: once Pages has deployed main, tells the IndexNow engines (Bing
+                           and the others; not Google) the sitemap's URLs changed, and logs the HTTP
+                           status they answer. The 32-hex .txt at the root is that protocol's key
+                           file and proves the ping is this site's.
 ```
 
 

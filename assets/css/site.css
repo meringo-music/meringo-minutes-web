@@ -260,7 +260,8 @@ h2 em { font-style: italic; color: var(--accent-ink); font-weight: 500; }
 }
 .header-note a { color: var(--text-2); }
 .brand span, .header-note a, .nowrap, .visit .app-link { white-space: nowrap; }
-@media (max-width: 520px) { .hide-narrow { display: none; } }
+.show-narrow { display: none; }
+@media (max-width: 520px) { .hide-narrow { display: none; } .show-narrow { display: inline; } }
 @media (max-width: 440px) { .brand span { font-size: 21px; } .brand { gap: var(--space-2); } }
 @media (max-width: 359px) { .header-note { display: none; } }
 
