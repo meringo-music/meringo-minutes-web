@@ -139,7 +139,8 @@ instead, loaded only after the terms box is ticked and Buy is pressed.
 
 `/privacy/#updates` describes the app's update check (Sparkle): what it
 fetches, how often, what the request carries, and the switch that stops it.
-FAQ f03 and f06 and `/how-it-works/#network` say the same in brief. If the
-check changes (its host, its interval, a system profile), all four change in
-the same release. `/privacy/#buying` describes what Paddle and the licence
+FAQ f01, f03 and f06 and `/how-it-works/#network` say the same in brief, and
+the home page's "Where a meeting goes" quotes the app's privacy panel word for
+word, check included. If the check changes (its host, its interval, a system
+profile), or the panel's words do, all six change in the same release. `/privacy/#buying` describes what Paddle and the licence
 service keep; it changes with the fulfilment Worker.

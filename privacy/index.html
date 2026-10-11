@@ -78,13 +78,13 @@
     <h2 id="the-app">The app</h2>
 
     <h3 id="connects">What it connects to</h3>
-    <p>In the current build, by default, the app itself connects to model downloads, the first time each model is needed, to the Ollama server on your own Mac, and once a day to its update feed. Ollama fetches its own models from its own registry.</p>
+    <p>In the current build, by default, the app itself connects to model downloads, the first time each model is needed, to the Ollama server on your own Mac, and once a day to its update feed. If you choose to install a new version, it downloads it from the same host as the feed. Ollama fetches its own models from its own registry.</p>
     <p>There's no account or sync, no analytics, telemetry or crash reporting, and no remote config.</p>
     <p>If you point the summariser at Ollama on another machine, each meeting's transcript is sent there, and the privacy panel turns orange and names it.</p>
 
     <h3 id="updates">The update check</h3>
-    <p>Once a day the app fetches its list of releases, <code>appcast.xml</code>, from <code>updates.meringominutes.app</code> on Cloudflare R2. The request carries your IP address, and the version numbers of the app and of its updater in the user agent. It sends no profile of your Mac and nothing about your meetings.</p>
-    <p>The check is on unless you turn it off. The switch is in Settings ▸ Storage &amp; Privacy: <q data-lint="app">Check for a new version once a day</q>.</p>
+    <p>Once a day the app fetches its list of releases, <code>appcast.xml</code>, from <code>updates.meringominutes.app</code> on Cloudflare R2. The request carries your IP address, and the version numbers of the app and of its updater in the user agent. It sends no profile of your Mac, and nothing about your meetings or your licence. When there's a new version, the app shows what changed and you choose whether to install it.</p>
+    <p>The check is on unless you turn it off. The switch is in Settings ▸ Storage &amp; Privacy: <q data-lint="app">Check for a new version once a day</q>. With it off, <span data-lint="app">Meringo Minutes ▸ Check for Updates…</span> still checks when you choose it.</p>
     <p>The app checks your licence itself, with no call to a server.</p>
 
     <h3 id="buying">When you buy</h3>
