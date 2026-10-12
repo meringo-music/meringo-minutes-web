@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self' https://licence.meringo.app">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Download Meringo Minutes — requirements and price</title>
   <meta name="description" content="Meringo Minutes isn't for sale yet. What it will need (Apple Silicon, macOS 27, Ollama), what it downloads and what it will cost.">
@@ -61,11 +61,14 @@
   <div id="content" tabindex="-1"></div>
   <main class="page">
     <h1>Download Meringo Minutes</h1>
-    <p class="page-lede">Not yet: Meringo Minutes isn't for sale. If you'd like one email when it's ready, write to me.</p>
-    <div class="actions">
-      <a class="button button-primary" href="mailto:support@meringo.app?subject=Tell%20me%20when%20Meringo%20Minutes%20is%20ready">Email me when it's ready</a>
-    </div>
-    <p class="fine">I'll use your address for that one email and nothing else.</p>
+    <p class="page-lede">Not yet: Meringo Minutes isn't for sale. Leave your address and I'll send one email when it is.</p>
+    <form class="actions waitlist" method="post" action="https://licence.meringo.app/waitlist">
+      <label class="visually-hidden" for="waitlist-email">Your email address</label>
+      <input id="waitlist-email" type="email" name="email" required autocomplete="email" placeholder="you@example.com">
+      <div class="trap" aria-hidden="true"><label for="waitlist-website">Leave this empty</label> <input id="waitlist-website" type="text" name="website" tabindex="-1" autocomplete="off"></div>
+      <button class="button button-primary" type="submit">Email me when it’s on sale</button>
+    </form>
+    <p class="fine">One email when it’s on sale, then I delete your address. <a href="/privacy/#this-site">Privacy</a></p>
 
     <h2 id="needs">What it needs</h2>
     <ul>
