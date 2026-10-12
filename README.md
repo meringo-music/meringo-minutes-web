@@ -1,7 +1,7 @@
 # meringo-minutes-web
 
 Source for **https://meringominutes.app**, the website for Meringo Minutes™, a
-Meringo Labs meeting recorder for the Mac.
+Meringo Labs note-taking app for meetings, on the Mac.
 
 It's a static site with no build step, deployed by GitHub Pages from `main`.
 `DEPLOY.md` covers hosting, DNS and the launch states.
