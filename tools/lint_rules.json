@@ -42,7 +42,8 @@
     "allowed": [
       { "pattern": "\\bQ3\\b", "why": "A quarter's name, quoted from the demo meeting (\"end of Q3\")." },
       { "pattern": "\\bError 404\\b", "why": "The not-found page naming its own HTTP status, not a claim." },
-      { "pattern": "\\b(m4a|mp3|mp4)\\b", "why": "Audio file formats named in the FAQ (F37), not figures." }
+      { "pattern": "\\b(m4a|mp3|mp4)\\b", "why": "Audio file formats named in the FAQ (F37), not figures." },
+      { "pattern": "\\bCloudflare R2\\b", "why": "The storage service that serves the download and the update feed, named on /privacy/; a product name, not a figure." }
     ]
   },
 
