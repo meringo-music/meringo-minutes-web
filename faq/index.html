@@ -39,7 +39,7 @@
         "name": "Does it work offline?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, once the models are downloaded. By default, recording, transcription and the summary all run on your Mac. The internet is needed only to download each model the first time."
+          "text": "Yes, once the models are downloaded. By default, recording, transcription and the summary all run on your Mac. The internet is needed only to download each model the first time. When it's online, the app also checks once a day for a new version, and you can turn that off."
         }
       },
       {
@@ -55,7 +55,7 @@
         "name": "Does anything about my meetings get sent anywhere?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "By default, no. The only traffic is models coming in the first time they're needed, and there's no analytics, telemetry or crash-reporting code in the app. If you point the summariser at Ollama on another machine, each transcript goes there, and the privacy panel turns orange and names it."
+          "text": "By default, no. The app's own traffic is models coming in the first time they're needed, a once-a-day check for a new version, which carries nothing about your meetings, and the new version itself if you choose to install it. There's no analytics, telemetry or crash-reporting code in the app. If you point the summariser at Ollama on another machine, each transcript goes there, and the privacy panel turns orange and names it."
         }
       },
       {
@@ -63,7 +63,7 @@
         "name": "Does it check for updates?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Not in the current build, which never contacts an update server. When I add an update check, the privacy page will say what it sends, in the same release."
+          "text": "Yes, once a day, unless you turn it off. The app fetches its list of releases from updates.meringominutes.app, and the request carries your IP address and the app's version, never anything about your meetings. The switch is in Settings ▸ Storage & Privacy: “Check for a new version once a day”. With it off, Meringo Minutes ▸ Check for Updates… still checks when you choose it. The privacy page says exactly what it sends."
         }
       },
       {
@@ -223,7 +223,7 @@
         "name": "What do I need to run it?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "A Mac with Apple Silicon, running macOS 27 or later, plus Ollama. Ollama is a free app, and the setup assistant finds it or installs it for you. Older versions of macOS won't run it, and I haven't settled whether they ever could."
+          "text": "A Mac with Apple Silicon, running macOS 27 or later, plus Ollama. Ollama is a free app, and the setup assistant finds it, or takes you to Ollama's download page. Older versions of macOS won't run it, and I haven't settled whether they ever could."
         }
       },
       {
@@ -471,7 +471,7 @@
       <h2 id="topic-privacy">Privacy</h2>
       <details class="faq-item" id="f01">
         <summary>Does it work offline?</summary>
-        <p>Yes, once the models are downloaded. By default, recording, transcription and the summary all run on your Mac. The internet is needed only to download each model the first time.</p>
+        <p>Yes, once the models are downloaded. By default, recording, transcription and the summary all run on your Mac. The internet is needed only to download each model the first time. When it's online, the app also checks once a day for a new version, and you can turn that off.</p>
       </details>
       <details class="faq-item" id="f02">
         <summary>Is my data encrypted?</summary>
@@ -479,11 +479,11 @@
       </details>
       <details class="faq-item" id="f03">
         <summary>Does anything about my meetings get sent anywhere?</summary>
-        <p>By default, no. The only traffic is models coming in the first time they're needed, and there's no analytics, telemetry or crash-reporting code in the app. If you point the summariser at Ollama on another machine, each transcript goes there, and the privacy panel turns orange and names it.</p>
+        <p>By default, no. The app's own traffic is models coming in the first time they're needed, a once-a-day check for a new version, which carries nothing about your meetings, and the new version itself if you choose to install it. There's no analytics, telemetry or crash-reporting code in the app. If you point the summariser at Ollama on another machine, each transcript goes there, and the privacy panel turns orange and names it.</p>
       </details>
       <details class="faq-item" id="f06">
         <summary>Does it check for updates?</summary>
-        <p>Not in the current build, which never contacts an update server. When I add an update check, the privacy page will say what it sends, in the same release.</p>
+        <p>Yes, once a day, unless you turn it off. The app fetches its list of releases from updates.meringominutes.app, and the request carries your IP address and the app's version, never anything about your meetings. The switch is in Settings ▸ Storage &amp; Privacy: “<span data-lint="app">Check for a new version once a day</span>”. With it off, <span data-lint="app">Meringo Minutes ▸ Check for Updates…</span> still checks when you choose it. <a href="/privacy/#updates">The privacy page</a> says exactly what it sends.</p>
       </details>
       <details class="faq-item" id="f07">
         <summary>Where are my recordings kept?</summary>
@@ -579,7 +579,7 @@
       <h2 id="topic-setup">Setup and requirements</h2>
       <details class="faq-item" id="f29">
         <summary>What do I need to run it?</summary>
-        <p>A Mac with Apple Silicon, running <span data-fact="requires-macos">macOS 27</span> or later, plus Ollama. Ollama is a free app, and the setup assistant finds it or installs it for you. Older versions of macOS won't run it, and I haven't settled whether they ever could.</p>
+        <p>A Mac with Apple Silicon, running <span data-fact="requires-macos">macOS 27</span> or later, plus Ollama. Ollama is a free app, and the setup assistant finds it, or takes you to Ollama's download page. Older versions of macOS won't run it, and I haven't settled whether they ever could.</p>
       </details>
       <details class="faq-item" id="f30">
         <summary>Does it run on an Intel Mac?</summary>

@@ -220,9 +220,9 @@
         <div class="prose">
           <p>Meringo Minutes keeps the recording, the transcript and the notes in one folder on your Mac, by default, and its privacy panel says so:</p>
           <blockquote class="app-quote" data-lint="app">
-            <p>Audio, transcripts, summaries and mindmaps are produced and stored on this machine. There is no account, no sync and no usage tracking. The only internet use is downloading a model the first time it is needed; talking to Ollama stays on this Mac.</p>
+            <p>Audio, transcripts, summaries and mindmaps are produced and stored on this machine. There is no account, no sync and no usage tracking. The only internet use is downloading a model the first time it is needed, and checking once a day for a new version of the app; talking to Ollama stays on this Mac.</p>
           </blockquote>
-          <p>Point the summariser at another computer on your network and the panel turns orange and names it. <a href="/how-it-works/#network">A test in the build</a> runs a real meeting, watches the network while it does, and fails on any connection that isn't local.</p>
+          <p>Point the summariser at another computer on your network and the panel turns orange and names it. <a href="/how-it-works/#network">A test in the build</a> runs a real meeting through the processing pipeline, watches the network while it does, and fails on any connection there that isn't local. The update check and model downloads happen outside that test.</p>
           <p><a href="/privacy/">What this site and the app read, in full</a></p>
         </div>
       </div>
@@ -390,7 +390,7 @@
           </div>
           <ul class="needs">
             <li>An Apple Silicon Mac on <span data-fact="requires-macos">macOS 27</span> or later.</li>
-            <li>Ollama, a free app that runs the models. The setup assistant finds it or installs it.</li>
+            <li>Ollama, a free app that runs the models. The setup assistant finds it, or takes you to Ollama's download page.</li>
             <li>About <span data-fact="size-default-install">15 GB</span> of disk for the default setup, most of it the two language models.</li>
             <li>Tested on an <span data-fact="test-mac-chip">M4</span> with <span data-fact="test-mac-memory">24 GB</span>.</li>
           </ul>
