@@ -226,6 +226,13 @@
       "asOf": "2026-09-23"
     },
     {
+      "id": "hour-processing",
+      "value": "26½ minutes",
+      "source": "Minutes room, 2026-10-07: an hour-long meeting, timed (HQ handoff 2026-10-07-minutes-hour-long-meeting-timed.md)",
+      "method": "Wall-clock time from import to finished notes for the first 60:00 of a real city council recording (stereo AAC, 48 kHz), imported with File > Import Audio on a Mac mini with an M4 and 24 GB, Meringo Minutes 1.1.0 (3) with the shipped defaults. Neither model was loaded at the start and other apps were open. The meeting's creation time to its complete status was 26 min 24 s (19:23:58 to 19:50:22 EDT), stated as about 26½ minutes. One run.",
+      "asOf": "2026-10-07"
+    },
+    {
       "id": "size-app",
       "value": "84 MB",
       "source": "SITE-FACTS-2026-09-23; Minutes capture 2026-09-23, README §1",

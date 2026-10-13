@@ -475,20 +475,22 @@
         "done",
         "ready"
       ],
-      "answer": "One meeting has been timed on the current build: 3 minutes 53 seconds of audio took about 6½ to 7 minutes, on an M4 with 24 GB, with the speech models already downloaded. The app sets no length limit, but I haven't timed a long meeting on this build, so there's no per-hour figure yet.",
+      "answer": "An hour of audio took about 26½ minutes, from import to finished notes, on an M4 with 24 GB, with the speech models already downloaded and other apps open. That was one run, from an imported file; I haven't timed an hour recorded live. A shorter meeting, 3 minutes 53 seconds of audio, took about 6½ to 7 minutes. The app sets no length limit.",
       "facts": [
-        "demo-duration",
-        "demo-processing",
+        "hour-processing",
         "test-mac-chip",
-        "test-mac-memory"
+        "test-mac-memory",
+        "demo-duration",
+        "demo-processing"
       ],
       "app": [],
       "group": "accuracy",
       "sources": [
+        "Minutes room, an hour-long meeting timed, 2026-10-07",
         "capture README §4",
         "S2 §1g"
       ],
-      "asOf": "2026-09-23"
+      "asOf": "2026-10-07"
     },
     {
       "id": "f18",
